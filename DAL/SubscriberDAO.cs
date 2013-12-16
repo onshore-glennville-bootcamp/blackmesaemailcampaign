@@ -81,7 +81,7 @@ namespace DAL
                 new SqlParameter("@Email", subscriber.Email),
                 new SqlParameter("@Active", 1)
             };
-            Write("CreateSubscribers", parameters);
+            Write("CreateSubscriber", parameters);
         }
     }
 }
