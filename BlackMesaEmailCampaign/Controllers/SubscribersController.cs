@@ -33,7 +33,7 @@ namespace BlackMesaEmailCampaign.Controllers
             }
             else
             {
-                ViewBag.ErrorMessage = "Subscriber name required";
+                ViewBag.ErrorMessage = "Subscriber email required";
             }
             return View();
         }
