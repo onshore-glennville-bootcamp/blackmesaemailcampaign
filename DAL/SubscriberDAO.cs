@@ -74,11 +74,10 @@ namespace DAL
         }
         public void CreateSubscriber(Subscribers subscriber)
         {
-            SqlParameter[] parameters = new SqlParameter[]
-            {
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@Email", subscriber.Email),
                 new SqlParameter("@FirstName", subscriber.FirstName),
                 new SqlParameter("@LastName", subscriber.LastName),
-                new SqlParameter("@Email", subscriber.Email),
                 new SqlParameter("@Active", 1)
             };
             Write("CreateSubscriber", parameters);

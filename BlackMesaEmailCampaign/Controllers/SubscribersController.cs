@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
 using BLL;
 
 namespace BlackMesaEmailCampaign.Controllers
@@ -17,14 +18,23 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpPost]
         public ActionResult Add(SubscribersFM subscriber)
         {
-            UserServices log = new UserServices();
-            if (!log.IsExistingSubscriber(subscriber.Email))
+            if (subscriber.Email != null)
             {
-                log.CreateSubscribers (subscriber);
-                ViewBag.ErrorMessage = "Subscriber Created";
-                return View();
+                UserServices log = new UserServices();
+                if (!log.IsExistingSubscriber(subscriber.Email))
+                {
+                    log.CreateSubscribers(subscriber);
+                    ViewBag.ErrorMessage = "Subscriber created";
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Subscriber email already exists.";
+                }
             }
-            ViewBag.ErrorMessage = "Subscriber email already exist.";
+            else
+            {
+                ViewBag.ErrorMessage = "Subscriber name required";
+            }
             return View();
         }
     }
