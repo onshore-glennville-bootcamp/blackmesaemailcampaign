@@ -25,11 +25,14 @@ namespace BLL
         }
         public void CreateSubscribers(SubscribersFM subscriberFM)
         {
-            SubscriberDAO dao = new SubscriberDAO();
-            Subscribers subscriber = new Subscribers();
-            subscriber.Email = subscriberFM.Email;
-            subscriber.FirstName = subscriberFM.FirstName;
-            subscriber.LastName = subscriberFM.LastName; dao.CreateSubscriber(subscriber);
+            if (!IsExistingSubscriber(subscriberFM.Email))
+            {
+                SubscriberDAO dao = new SubscriberDAO();
+                Subscribers subscriber = new Subscribers();
+                subscriber.Email = subscriberFM.Email;
+                subscriber.FirstName = subscriberFM.FirstName;
+                subscriber.LastName = subscriberFM.LastName; dao.CreateSubscriber(subscriber);
+            }
         }
         public bool ValidEmail(string email)
         {
