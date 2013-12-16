@@ -18,7 +18,7 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpPost]
         public ActionResult Add(SubscribersFM subscriber)
         {
-            if (subscriber.Email != null || subscriber.Email.Length > 100)
+            if (subscriber.Email != null && subscriber.Email.Length < 101)
             {
                 UserServices log = new UserServices();
                 if (!log.IsExistingSubscriber(subscriber.Email))
