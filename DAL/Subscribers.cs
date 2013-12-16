@@ -12,6 +12,7 @@ namespace DAL
         public int ID { get; set; }
 
         [Required]
+        [DataType(DataType.EmailAddress)]
         [Display(Name = "Email")]
         public string Email { get; set; }
 

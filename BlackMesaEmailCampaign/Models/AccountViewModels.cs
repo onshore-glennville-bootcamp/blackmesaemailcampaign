@@ -2,18 +2,6 @@
 
 namespace BlackMesaEmailCampaign.Models
 {
-    public class SubscribersViewModel
-    {
-        [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
-
-        [Display(Name = "First Name")]
-        public string FirstName { get; set; }
-
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; }
-    }
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
