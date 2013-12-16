@@ -31,5 +31,13 @@ namespace BLL
             subscriber.FirstName = subscriberFM.FirstName;
             subscriber.LastName = subscriberFM.LastName; dao.CreateSubscriber(subscriber);
         }
+
+        public SubscriberGroupsVM GetSubscriberGroups()
+        {
+            SubscriberDAO dao = new SubscriberDAO();
+            List<SubscriberGroup> subscriberGroups = dao.GetAllSubscriberGroups();
+            SubscriberGroupsVM subscriberGroupsVM = new List<SubscriberGroupVM>();
+            return subscriberGroups;
+        }
     }
 }
