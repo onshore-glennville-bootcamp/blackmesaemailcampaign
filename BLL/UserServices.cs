@@ -31,13 +31,21 @@ namespace BLL
             subscriber.FirstName = subscriberFM.FirstName;
             subscriber.LastName = subscriberFM.LastName; dao.CreateSubscriber(subscriber);
         }
-
-        public SubscriberGroupsVM GetSubscriberGroups()
+        public bool ValidEmail(string email)
         {
-            SubscriberDAO dao = new SubscriberDAO();
-            List<SubscriberGroup> subscriberGroups = dao.GetAllSubscriberGroups();
-            SubscriberGroupsVM subscriberGroupsVM = new List<SubscriberGroupVM>();
-            return subscriberGroups;
+            if (email.Length < 100)
+            {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            }
+            return false;
         }
     }
 }
