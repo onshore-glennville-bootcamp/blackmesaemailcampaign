@@ -17,14 +17,24 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpPost]
         public ActionResult Add(SubscribersFM subscriber)
         {
-            UserServices log = new UserServices();
-            if (!log.IsExistingSubscriber(subscriber.Email))
+            if (subscriber.Email != null)
             {
-                log.CreateSubscribers (subscriber);
-                ViewBag.ErrorMessage = "Subscriber Created";
-                return View();
+                UserServices log = new UserServices();
+                if (!log.IsExistingSubscriber(subscriber.Email))
+                {
+                    log.CreateSubscribers(subscriber);
+                    ViewBag.ErrorMessage = "Subscriber Created";
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Subscriber email already exist.";
+                }
             }
-            ViewBag.ErrorMessage = "Subscriber email already exist.";
+            else
+            {
+                ViewBag.ErrorMessage = "Subscriber Name Required";
+            }
+            
             return View();
         }
     }
