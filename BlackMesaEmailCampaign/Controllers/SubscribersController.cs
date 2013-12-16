@@ -18,7 +18,7 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpPost]
         public ActionResult Add(SubscribersFM subscriber)
         {
-            if (subscriber.Email != null)
+            if (subscriber.Email != null || subscriber.Email.Length > 100)
             {
                 UserServices log = new UserServices();
                 if (!log.IsExistingSubscriber(subscriber.Email))
@@ -33,7 +33,7 @@ namespace BlackMesaEmailCampaign.Controllers
             }
             else
             {
-                ViewBag.ErrorMessage = "Subscriber email required";
+                ViewBag.ErrorMessage = "Subscriber email required and must be less than 100 characters.";
             }
             return View();
         }
