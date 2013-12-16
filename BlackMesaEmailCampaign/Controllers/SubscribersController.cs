@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BLL;
 
 namespace BlackMesaEmailCampaign.Controllers
 {
@@ -14,9 +15,16 @@ namespace BlackMesaEmailCampaign.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Add(SubscribersController subscribers)
+        public ActionResult Add(SubscribersFM subscriber)
         {
-            return RedirectToRoute("Index", "Home");
+            UserServices log = new UserServices();
+            if (!log.IsExistingSubscriber(subscriber.Email))
+            {
+                log.CreateSubscribers (subscriber);
+                return RedirectToAction("Index", "Home");
+            }
+            ViewBag.ErrorMessage = "Subscriber email already exist.";
+            return View();
         }
-	}
+    }
 }
