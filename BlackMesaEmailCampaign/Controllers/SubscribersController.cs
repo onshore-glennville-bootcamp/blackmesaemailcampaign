@@ -21,7 +21,8 @@ namespace BlackMesaEmailCampaign.Controllers
             if (!log.IsExistingSubscriber(subscriber.Email))
             {
                 log.CreateSubscribers (subscriber);
-                return RedirectToAction("Index", "Home");
+                ViewBag.ErrorMessage = "Subscriber Created";
+                return View();
             }
             ViewBag.ErrorMessage = "Subscriber email already exist.";
             return View();
