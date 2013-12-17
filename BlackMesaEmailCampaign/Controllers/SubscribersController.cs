@@ -44,6 +44,7 @@ namespace BlackMesaEmailCampaign.Controllers
             subscriber.Subscribers = userS.SortByEmail(userS.GetAllSubscribers());
             return View(subscriber);
         }
+
         public ActionResult ViewSubscribersByLastName()
         {
             UserServices userS = new UserServices();

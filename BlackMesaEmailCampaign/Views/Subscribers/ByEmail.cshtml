@@ -1,0 +1,12 @@
+﻿@model BLL.SubscribersVM
+
+@using BLL;
+
+@foreach (SubscriberVM subscriber in Model.Subscribers)
+{
+    <tr>
+        <td>@subscriber.Email</td>
+        <td>@subscriber.LastName</td>
+        <td>@subscriber.FirstName</td>
+    </tr>
+}
