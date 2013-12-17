@@ -219,7 +219,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Subscribers\Add.cshtml" />
     <Content Include="Views\Subscribers\ViewSubscribers.cshtml" />
-    <Content Include="Views\Subscribers\ByEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

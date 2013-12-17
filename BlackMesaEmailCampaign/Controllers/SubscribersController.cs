@@ -44,20 +44,26 @@ namespace BlackMesaEmailCampaign.Controllers
             subscriber.Subscribers = userS.SortByEmail(userS.GetAllSubscribers());
             return View(subscriber);
         }
-
+        public ActionResult ViewSubscribersByEmail()
+        {
+            UserServices userS = new UserServices();
+            SubscribersVM subscriber = new SubscribersVM();
+            subscriber.Subscribers = userS.SortByEmail(userS.GetAllSubscribers());
+            return View("ViewSubscribers", subscriber);
+        }
         public ActionResult ViewSubscribersByLastName()
         {
             UserServices userS = new UserServices();
             SubscribersVM subscriber = new SubscribersVM();
             subscriber.Subscribers = userS.SortByLastName(userS.GetAllSubscribers());
-            return View(subscriber);
+            return View("ViewSubscribers", subscriber);
         }
         public ActionResult ViewSubscribersByFirstName()
         {
             UserServices userS = new UserServices();
             SubscribersVM subscriber = new SubscribersVM();
             subscriber.Subscribers = userS.SortByFirstName(userS.GetAllSubscribers());
-            return View(subscriber);
+            return View("ViewSubscribers", subscriber);
         }
     }
 }
