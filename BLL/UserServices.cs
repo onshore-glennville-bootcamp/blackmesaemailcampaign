@@ -9,7 +9,6 @@ namespace BLL
 {
     public class UserServices
     {
-
         public bool IsExistingSubscriber(string email)
         {
             SubscriberDAO dao = new SubscriberDAO();
@@ -56,6 +55,27 @@ namespace BLL
             }
             }
             return false;
+        }
+        public SubscribersVM GetAllSubscribers()
+        {
+            SubscribersVM subscribers = new SubscribersVM();
+            subscribers.Subscribers = GetSubcribers();
+            return subscribers;
+        }
+        public List<SubscriberVM> GetSubcribers()
+        {
+            List<SubscriberVM> subcribers = new List<SubscriberVM>();
+            SubscriberDAO dao = new SubscriberDAO();
+            List<Subscribers> subcribersList = dao.GetAllSubscribers();
+            foreach (Subscribers subscriber in subcribersList)
+            {
+                SubscriberVM subscriberVM = new SubscriberVM();
+                subscriberVM.Email = subscriber.Email;
+                subscriberVM.FirstName = subscriber.FirstName;
+                subscriberVM.LastName = subscriber.LastName;
+                subcribers.Add(subscriberVM);
+            }
+            return subcribers;
         }
     }
 }
