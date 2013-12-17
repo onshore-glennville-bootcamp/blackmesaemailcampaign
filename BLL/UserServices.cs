@@ -77,5 +77,36 @@ namespace BLL
             }
             return subcribers;
         }
+        public List<SubscriberVM> SortByEmail(List<SubscriberVM> subscribers)
+        {
+            List<SubscriberVM> sortedList = new List<SubscriberVM>();
+            subscribers.Sort((a, b) => a.Email.CompareTo(b.Email));
+            foreach (SubscriberVM subscriber in subscribers)
+            {
+                sortedList.Add(subscriber);
+            }
+            return sortedList;
+        }
+        public List<SubscriberVM> SortByLastName(List<SubscriberVM> subscribers)
+        {
+            List<SubscriberVM> sortedList = new List<SubscriberVM>();
+            subscribers.Sort((a, b) => a.LastName.CompareTo(b.LastName));
+            foreach (SubscriberVM subscriber in subscribers)
+            {
+                sortedList.Add(subscriber);
+            }
+            return sortedList;
+        }
+        public List<SubscriberVM> SortByFirstName(List<SubscriberVM> subscribers)
+        {
+            List<SubscriberVM> sortedList = new List<SubscriberVM>();
+            subscribers.Sort((a, b) => a.FirstName.CompareTo(b.FirstName));
+            foreach (SubscriberVM subscriber in subscribers)
+            {
+                sortedList.Add(subscriber);
+            }
+            return sortedList;
+        }
+
     }
 }

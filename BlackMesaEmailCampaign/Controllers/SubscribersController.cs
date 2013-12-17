@@ -13,7 +13,7 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpGet]
         public ActionResult Add()
         {
-            return View();
+            return ViewSubscribers();
         }
         [HttpPost]
         public ActionResult Add(SubscribersFM subscriber)
@@ -35,12 +35,19 @@ namespace BlackMesaEmailCampaign.Controllers
             {
                 ViewBag.ErrorMessage = "Subscriber email not valid.";
             }
-            return View();
+            return ViewSubscribers();
         }
-        public ActionResult View()
+        [HttpGet]
+        public ActionResult ViewSubscribers()
         {
             UserServices userS = new UserServices();
             SubscribersVM subscribersVM = userS.GetAllSubscribers();
+            subscribersVM.Subscribers = userS.SortByEmail(subscribersVM.Subscribers);
+            return View(subscribersVM);
+        }
+        [HttpPost]
+        public ActionResult ViewSubscribers(SubscribersVM subscribersVM)
+        {
             return View(subscribersVM);
         }
     }
