@@ -1,0 +1,31 @@
+﻿@model BLL.SubscribersVM
+
+@using BLL;
+
+@{
+    ViewBag.Title = "Subscribers";
+}
+
+<h2>Subscribers</h2>
+
+@Html.ActionLink("Create Subscriber", "Add")
+
+<table>
+    <thead>
+        <tr>
+            <th>@Html.ActionLink("Email", "ViewSubscribers")</th>
+            <th>@Html.ActionLink("Last Name", "ViewSubscribersByLastName")</th>
+            <th>@Html.ActionLink("First Name", "ViewSubscribersByFirstName")</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (SubscriberVM subscriber in Model.Subscribers)
+        {
+            <tr>
+                <td>@subscriber.Email</td>
+                <td>@subscriber.LastName</td>
+                <td>@subscriber.FirstName</td>
+            </tr>
+        }
+    </tbody>
+</table>
