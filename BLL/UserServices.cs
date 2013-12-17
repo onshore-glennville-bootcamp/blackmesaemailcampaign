@@ -34,6 +34,13 @@ namespace BLL
                 subscriber.LastName = subscriberFM.LastName; dao.CreateSubscriber(subscriber);
             }
         }
+        public void CreateSubscribers(List<SubscribersFM> subscribers)
+        {
+            foreach (SubscribersFM subscriber in subscribers)
+            {
+                CreateSubscribers(subscriber);
+            }
+        }
         public bool ValidEmail(string email)
         {
             if (email.Length < 100)
