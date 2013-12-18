@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace DAL
 {
-    class LoginDAO
+    class MarketingManagerDAO
     {
         public void Write(string statement, SqlParameter[] parameters)
         {
@@ -22,7 +22,7 @@ namespace DAL
                 }
             }
         }
-        public List<MarketingManagers> ReadMarketingManagers(string statement, SqlParameter[] parameters)
+        public List<MarketingManager> ReadMarketingManagers(string statement, SqlParameter[] parameters)
         {
             using (SqlConnection connection = new SqlConnection(@"Data Source=.\SQLEXPRESS;Initial Catalog=EmailCampaign;Integrated Security=SSPI;"))
             {
@@ -35,10 +35,10 @@ namespace DAL
                         command.Parameters.AddRange(parameters);
                     }
                     SqlDataReader data = command.ExecuteReader();
-                    List<MarketingManagers> subscribers = new List<MarketingManagers>();
+                    List<MarketingManager> subscribers = new List<MarketingManager>();
                     while (data.Read())
                     {
-                        MarketingManagers subscriber = new MarketingManagers();
+                        MarketingManager subscriber = new MarketingManager();
                         subscriber.ID = Convert.ToInt32(data["ID"]);
                         subscriber.Email = data["Email"].ToString();
                         subscriber.Password = data["Password"].ToString();
@@ -55,7 +55,25 @@ namespace DAL
                 }
             }
         }
-        public MarketingManagers GetMarketingManagerByID(int ID)
+        public void CreateUser(MarketingManager user)
+        {
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@Email", user.Email),
+                new SqlParameter("@Password", user.Password),
+                new SqlParameter("@Active", 1)
+            };
+            Write("CreateMarketingManager", parameters);
+        }
+        public MarketingManager GetMarketingManagerByEmail(string email)
+        {
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@Email", email)
+            };
+            return ReadMarketingManagers("GetMarketingManaerByEmail", parameters).SingleOrDefault();
+        }
+        public MarketingManager GetMarketingManagerByID(int ID)
         {
             try
             {
@@ -71,6 +89,18 @@ namespace DAL
                 Console.ReadKey();
                 return null;
             }
+        }
+        public List<MarketingManager> GetAllMarketingManagers()
+        {
+            return ReadMarketingManagers("GetAllMarketingManagers", null);
+        }
+        public void DeleteMarketingManager(int ID)
+        {
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@ID", ID),
+            };
+            Write("DeleteMarketingmanager", parameters);
         }
     }
 }

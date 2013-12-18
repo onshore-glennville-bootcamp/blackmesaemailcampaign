@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class MarketingManagers
+    public class MarketingManager
     {
         public int ID { get; set; }
         public string Email { get; set; }

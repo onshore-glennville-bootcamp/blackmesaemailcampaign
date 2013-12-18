@@ -40,8 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LoginDAO.cs" />
-    <Compile Include="MarketingManagers.cs" />
+    <Compile Include="MarketingManagerDAO.cs" />
+    <Compile Include="MarketingManager.cs" />
     <Compile Include="SubscriberDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Subscribers.cs" />
