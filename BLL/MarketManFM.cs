@@ -3,18 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
+using DAL;
 
 namespace BLL
 {
     public class MarketManFM
     {
-        [Required]
-        [DataType(DataType.EmailAddress)]
-        [Display(Name = "Email")]
+        public int ID { get; set; }
         public string Email { get; set; }
-
-        [Display(Name = "Password")]
         public string Password { get; set; }
+        public MarketManFM(MarketMan user)
+        {
+            this.Password = user.Password;
+            this.Email = user.Email;
+            this.ID = user.ID;
+        }
+        public MarketManFM ()
+	    {
+
+	    }
+
     }
 }

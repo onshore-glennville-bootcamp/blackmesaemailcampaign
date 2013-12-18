@@ -23,52 +23,77 @@ namespace BLL
             }
             return usersVM;
         }
-        public bool IsValidUser(string email)
+        public bool CreateUser(MarketManFM userFM)
         {
-            MarketManDAO dao = new MarketManDAO();
-            List<MarketMan> users = dao.GetAllMarketMans();
-            foreach (MarketMan user in users)
+            if (IsValidUser(userFM))
             {
-                if (user.Email == email)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        public void CreateMarketMan(MarketManFM userFM)
-        {
-            if (!IsValidUser(userFM.Email))
-            {
+                //email temp pass to user
                 MarketManDAO dao = new MarketManDAO();
                 MarketMan user = new MarketMan();
                 user.Email = userFM.Email;
                 user.Password = userFM.Password;
                 dao.CreateMarketMan(user);
-            }
-        }
-        public bool ValidEmail(string email)
-        {
-            if (email.Length < 100)
-            {
-                try
-                {
-                    var addr = new System.Net.Mail.MailAddress(email);
-                    return true;
-                }
-                catch
-                {
-                    return false;
-                }
+                return true;
             }
             return false;
         }
-        //public MarketManFM GetMarketManFM(int ID)
-        //{
-        //    MarketManDAO dao = new MarketManDAO();
-        //    MarketMan user = dao.GetMarketManByID(ID);
-        //    MarketManFM userFM = new MarketManFM(user);
-        //    return userFM;
-        //}
+        public bool IsValidUser(MarketManFM userFM)
+        {
+            MarketManDAO dao = new MarketManDAO();
+            if (userFM.Email != null && userFM.Email.Length > 5 && dao.GetMarketManByEmail(userFM.Email) == null)
+            {
+                return true;
+            }
+            return false;
+        }
+        public MarketManFM GetUserFM(int ID)
+        {
+            MarketManDAO dao = new MarketManDAO();
+            MarketMan user = dao.GetMarketManByID(ID);
+            MarketManFM userFM = new MarketManFM(user);
+            return userFM;
+        }
+        public void UpdateUser(MarketManFM userFM)
+        {
+            MarketManDAO dao = new MarketManDAO();
+            MarketMan user = dao.GetMarketManByID(userFM.ID);
+            user.Email = userFM.Email;
+            dao.UpdateMarketMan(user);
+        }
+        public MarketManPassFM GetMarketManPassFM(int ID)
+        {
+            MarketManDAO dao = new MarketManDAO();
+            MarketMan user = dao.GetMarketManByID(ID);
+            MarketManPassFM passwordFM = new MarketManPassFM(user);
+            return passwordFM;
+        }
+        public void UpdatePassword(MarketManPassFM passwordFM)
+        {
+            MarketManDAO dao = new MarketManDAO();
+            MarketMan user = dao.GetMarketManByID(passwordFM.ID);
+            user.Password = passwordFM.NewPassword;
+            dao.UpdateMarketMan(user);
+        }
+        public void UpdateMarketMan(MarketManFM userFM)
+        {
+            MarketManDAO dao = new MarketManDAO();
+            MarketMan user = dao.GetMarketManByID(userFM.ID);
+            user.Email = userFM.Email;
+            dao.UpdateMarketMan(user);
+        }
+        public void DeleteMarketMan(int ID)
+        {
+            MarketManDAO dao = new MarketManDAO();
+            dao.DeleteMarketMan(ID);
+        }
+        public bool VerifyPassword(MarketManPassFM passwordFM)
+        {
+            if (passwordFM.CurrentPassword == GetMarketManPassFM(passwordFM.ID).CurrentPassword)
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
 }

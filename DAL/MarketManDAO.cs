@@ -94,6 +94,16 @@ namespace DAL
         {
             return ReadMarketMans("GetAllMarketingManagers", null);
         }
+        public void UpdateMarketMan(MarketMan user)
+        {
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@ID", user.ID),
+                new SqlParameter("@Email", user.Email),
+                new SqlParameter("@Password", user.Password)
+            };
+            Write("UpdateMarketingManager", parameters);
+        }
         public void DeleteMarketMan(int ID)
         {
             SqlParameter[] parameters = new SqlParameter[]
