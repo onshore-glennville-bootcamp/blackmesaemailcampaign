@@ -40,10 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MarketingManagerFM.cs" />
-    <Compile Include="MarketingManagerService.cs" />
-    <Compile Include="MarketingManagersVM.cs" />
-    <Compile Include="MarketingManagerVM.cs" />
+    <Compile Include="MarketManFM.cs" />
+    <Compile Include="MarketManService.cs" />
+    <Compile Include="MarketMansVM.cs" />
+    <Compile Include="MarketManVM.cs" />
+    <Compile Include="MarketManPassFM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubscribersFM.cs" />
     <Compile Include="SubscribersVM.cs" />
