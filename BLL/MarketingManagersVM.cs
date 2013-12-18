@@ -8,6 +8,10 @@ namespace BLL
 {
     public class MarketingManagersVM
     {
-
+        public List<MarketingManagerVM> MarketingManagers { get; set; }
+        public MarketingManagersVM()
+        {
+            MarketingManagers = new List<MarketingManagerVM>();
+        }
     }
 }
