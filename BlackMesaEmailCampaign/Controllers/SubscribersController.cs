@@ -10,13 +10,13 @@ namespace BlackMesaEmailCampaign.Controllers
 {
     public class SubscribersController : Controller
     {
-            //Gets Form for Adding Subscribers
+        //Gets Form for Adding Subscribers
         [HttpGet]
         public ActionResult Add()
         {
             return View();
         }
-            //Validates Form for Adding Subscribers, then adds if validated
+        //Validates Form for Adding Subscribers, then adds if validated
         [HttpPost]
         public ActionResult Add(SubscribersFM subscriber)
         {
@@ -25,8 +25,15 @@ namespace BlackMesaEmailCampaign.Controllers
             {
                 if (!log.IsExistingSubscriber(subscriber.Email))
                 {
-                    log.CreateSubscribers(subscriber);
-                    ViewBag.ErrorMessage = "Subscriber created";
+                    if (!log.TooLong(subscriber.FirstName) && !log.TooLong(subscriber.LastName))
+                    {
+                        log.CreateSubscribers(subscriber);
+                        ViewBag.ErrorMessage = "Subscriber created";
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMessage = "First/Last Name cannot be longer than 100 characters.";
+                    }
                 }
                 else
                 {
@@ -39,7 +46,7 @@ namespace BlackMesaEmailCampaign.Controllers
             }
             return View();
         }
-            //Views a list of subscribers
+        //Views a list of subscribers
         public ActionResult ViewSubscribers()
         {
             UserServices userS = new UserServices();
@@ -48,7 +55,7 @@ namespace BlackMesaEmailCampaign.Controllers
             ViewBag.Sort = "Email";
             return View(subscriber);
         }
-            //Sort list of subscribers by email, reverse if already sorted by email
+        //Sort list of subscribers by email, reverse if already sorted by email
         public ActionResult ViewSubscribersByEmail(string sort)
         {
             UserServices userS = new UserServices();
@@ -60,10 +67,10 @@ namespace BlackMesaEmailCampaign.Controllers
                 subscriber.Subscribers.Reverse();
                 return View("ViewSubscribers", subscriber);
             }
-            ViewBag.Sort = "Email";            
+            ViewBag.Sort = "Email";
             return View("ViewSubscribers", subscriber);
         }
-            //Sort list of subscribers by last name, reverse if already sorted by last name
+        //Sort list of subscribers by last name, reverse if already sorted by last name
         public ActionResult ViewSubscribersByLastName(string sort)
         {
             UserServices userS = new UserServices();
@@ -78,7 +85,7 @@ namespace BlackMesaEmailCampaign.Controllers
             ViewBag.Sort = "LastName";
             return View("ViewSubscribers", subscriber);
         }
-            //Sort list of subscribers by first name, reverse if already sorted by first name
+        //Sort list of subscribers by first name, reverse if already sorted by first name
         public ActionResult ViewSubscribersByFirstName(string sort)
         {
             UserServices userS = new UserServices();
