@@ -10,11 +10,13 @@ namespace BlackMesaEmailCampaign.Controllers
 {
     public class SubscribersController : Controller
     {
+            //Gets Form for Adding Subscribers
         [HttpGet]
         public ActionResult Add()
         {
             return View();
         }
+            //Validates Form for Adding Subscribers, then adds if validated
         [HttpPost]
         public ActionResult Add(SubscribersFM subscriber)
         {
@@ -37,6 +39,7 @@ namespace BlackMesaEmailCampaign.Controllers
             }
             return View();
         }
+            //Views a list of subscribers
         public ActionResult ViewSubscribers()
         {
             UserServices userS = new UserServices();
@@ -45,6 +48,7 @@ namespace BlackMesaEmailCampaign.Controllers
             ViewBag.Sort = "Email";
             return View(subscriber);
         }
+            //Sort list of subscribers by email, reverse if already sorted by email
         public ActionResult ViewSubscribersByEmail(string sort)
         {
             UserServices userS = new UserServices();
@@ -59,6 +63,7 @@ namespace BlackMesaEmailCampaign.Controllers
             ViewBag.Sort = "Email";            
             return View("ViewSubscribers", subscriber);
         }
+            //Sort list of subscribers by last name, reverse if already sorted by last name
         public ActionResult ViewSubscribersByLastName(string sort)
         {
             UserServices userS = new UserServices();
@@ -73,6 +78,7 @@ namespace BlackMesaEmailCampaign.Controllers
             ViewBag.Sort = "LastName";
             return View("ViewSubscribers", subscriber);
         }
+            //Sort list of subscribers by first name, reverse if already sorted by first name
         public ActionResult ViewSubscribersByFirstName(string sort)
         {
             UserServices userS = new UserServices();

@@ -9,6 +9,7 @@ namespace DAL
 {
     public class SubscriberDAO
     {
+            //Writes to database
         public void Write(string statement, SqlParameter[] parameters)
         {
             using (SqlConnection connection = new SqlConnection(@"Data Source=.\SQLEXPRESS;Initial Catalog=EmailCampaign;Integrated Security=SSPI;"))
@@ -22,6 +23,7 @@ namespace DAL
                 }
             }
         }
+            //Read Subscribers table of database
         public List<Subscribers> ReadSubscribers(string statement, SqlParameter[] parameters)
         {
             using (SqlConnection connection = new SqlConnection(@"Data Source=.\SQLEXPRESS;Initial Catalog=EmailCampaign;Integrated Security=SSPI;"))
@@ -56,10 +58,12 @@ namespace DAL
                 }
             }
         }
+            //Returns all subscribers
         public List<Subscribers> GetAllSubscribers()
         {
             return ReadSubscribers("GetAllSubscribers", null);
         }
+            //Returns a subscriber when you input an email
         public Subscribers GetSubscriberByEmail(string email)
         {
             List<Subscribers> subscribers = GetAllSubscribers();
@@ -72,6 +76,7 @@ namespace DAL
             }
             return null;
         }
+            //Add subscriber to database
         public void CreateSubscriber(Subscribers subscriber)
         {
             SqlParameter[] parameters = new SqlParameter[]{
