@@ -42,27 +42,49 @@ namespace BlackMesaEmailCampaign.Controllers
             UserServices userS = new UserServices();
             SubscribersVM subscriber = new SubscribersVM();
             subscriber.Subscribers = userS.SortByEmail(userS.GetAllSubscribers());
+            ViewBag.Sort = "Email";
             return View(subscriber);
         }
-        public ActionResult ViewSubscribersByEmail()
+        public ActionResult ViewSubscribersByEmail(string sort)
         {
             UserServices userS = new UserServices();
             SubscribersVM subscriber = new SubscribersVM();
             subscriber.Subscribers = userS.SortByEmail(userS.GetAllSubscribers());
+            if (sort == "Email")
+            {
+                ViewBag.Sort = "";
+                subscriber.Subscribers.Reverse();
+                return View("ViewSubscribers", subscriber);
+            }
+            ViewBag.Sort = "Email";            
             return View("ViewSubscribers", subscriber);
         }
-        public ActionResult ViewSubscribersByLastName()
+        public ActionResult ViewSubscribersByLastName(string sort)
         {
             UserServices userS = new UserServices();
             SubscribersVM subscriber = new SubscribersVM();
             subscriber.Subscribers = userS.SortByLastName(userS.GetAllSubscribers());
+            if (sort == "LastName")
+            {
+                ViewBag.Sort = "";
+                subscriber.Subscribers.Reverse();
+                return View("ViewSubscribers", subscriber);
+            }
+            ViewBag.Sort = "LastName";
             return View("ViewSubscribers", subscriber);
         }
-        public ActionResult ViewSubscribersByFirstName()
+        public ActionResult ViewSubscribersByFirstName(string sort)
         {
             UserServices userS = new UserServices();
             SubscribersVM subscriber = new SubscribersVM();
             subscriber.Subscribers = userS.SortByFirstName(userS.GetAllSubscribers());
+            if (sort == "FirstName")
+            {
+                ViewBag.Sort = "";
+                subscriber.Subscribers.Reverse();
+                return View("ViewSubscribers", subscriber);
+            }
+            ViewBag.Sort = "FirstName";
             return View("ViewSubscribers", subscriber);
         }
     }

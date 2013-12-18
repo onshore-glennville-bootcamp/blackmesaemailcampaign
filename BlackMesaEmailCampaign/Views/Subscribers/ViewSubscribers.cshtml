@@ -13,9 +13,9 @@
 <table>
     <thead>
         <tr>
-            <th>@Html.ActionLink("Email", "ViewSubscribersByEmail")</th>
-            <th>@Html.ActionLink("Last Name", "ViewSubscribersByLastName")</th>
-            <th>@Html.ActionLink("First Name", "ViewSubscribersByFirstName")</th>
+            <th>@Html.ActionLink("Email", "ViewSubscribersByEmail", new { ViewBag.Sort })</th>
+            <th>@Html.ActionLink("Last Name", "ViewSubscribersByLastName", new { ViewBag.Sort })</th>
+            <th>@Html.ActionLink("First Name", "ViewSubscribersByFirstName", new { ViewBag.Sort })</th>
         </tr>
     </thead>
     <tbody>
