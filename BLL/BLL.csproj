@@ -44,6 +44,7 @@
     <Compile Include="MarketManLoginFM.cs" />
     <Compile Include="MarketManLoginService.cs" />
     <Compile Include="MarketManLoginVM.cs" />
+    <Compile Include="MarketManRegisterFM.cs" />
     <Compile Include="MarketManService.cs" />
     <Compile Include="MarketMansVM.cs" />
     <Compile Include="MarketManVM.cs" />

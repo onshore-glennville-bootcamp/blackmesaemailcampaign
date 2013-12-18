@@ -71,7 +71,7 @@ namespace DAL
             {
                 new SqlParameter("@Email", email)
             };
-            return ReadMarketMans("GetMarketingManaerByEmail", parameters).SingleOrDefault();
+            return ReadMarketMans("GetMarketingManagerByEmail", parameters).SingleOrDefault();
         }
         public MarketMan GetMarketManByID(int ID)
         {
@@ -110,7 +110,7 @@ namespace DAL
             {
                 new SqlParameter("@ID", ID),
             };
-            Write("DeleteMarketingmanager", parameters);
+            Write("DeleteMarketingManager", parameters);
         }
     }
 }

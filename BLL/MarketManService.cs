@@ -23,7 +23,7 @@ namespace BLL
             }
             return usersVM;
         }
-        public bool CreateUser(MarketManFM userFM)
+        public bool CreateUser(MarketManRegisterFM userFM)
         {
             if (IsValidUser(userFM))
             {
@@ -37,7 +37,23 @@ namespace BLL
             }
             return false;
         }
-        public bool IsValidUser(MarketManFM userFM)
+        public bool ValidEmail(string email)
+        {
+            if (email.Length < 101)
+            {
+                try
+                {
+                    var addr = new System.Net.Mail.MailAddress(email);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+        public bool IsValidUser(MarketManRegisterFM userFM)
         {
             MarketManDAO dao = new MarketManDAO();
             if (userFM.Email != null && userFM.Email.Length > 5 && dao.GetMarketManByEmail(userFM.Email) == null)
