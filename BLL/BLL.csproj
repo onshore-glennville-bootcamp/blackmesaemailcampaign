@@ -41,6 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MarketManFM.cs" />
+    <Compile Include="MarketManLoginFM.cs" />
+    <Compile Include="MarketManLoginService.cs" />
+    <Compile Include="MarketManLoginVM.cs" />
     <Compile Include="MarketManService.cs" />
     <Compile Include="MarketMansVM.cs" />
     <Compile Include="MarketManVM.cs" />

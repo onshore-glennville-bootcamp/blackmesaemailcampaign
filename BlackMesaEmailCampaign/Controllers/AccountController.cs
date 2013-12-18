@@ -11,7 +11,7 @@ namespace BlackMesaEmailCampaign.Controllers
     {
         public ActionResult Index()
         {
-            if (Session["UserID"] != null)
+            if (Session["ID"] != null)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -20,12 +20,12 @@ namespace BlackMesaEmailCampaign.Controllers
                 return View();
             }
         }
-        public ActionResult Login(MarketManPassFM credientials)
+        public ActionResult Login(MarketManLoginFM credientials)
         {
-            MarketManVM user = new MarketManService().Login(credientials);
+            MarketManLoginVM user = new MarketManLoginService().MarketManLogin(credientials);
             if (user != null)
             {
-                Session["UserID"] = user.ID;
+                Session["ID"] = user.ID;
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -36,7 +36,7 @@ namespace BlackMesaEmailCampaign.Controllers
         }
         public ActionResult Logout()
         {
-            Session["UserID"] = null;
+            Session["ID"] = null;
             return RedirectToAction("Index", "Home");
         }
     }
