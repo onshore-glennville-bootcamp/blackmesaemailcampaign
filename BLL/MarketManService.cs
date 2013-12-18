@@ -63,26 +63,12 @@ namespace BLL
             }
             return false;
         }
-        public MarketMansVM GetAllMarketMans()
-        {
-            MarketMansVM users = new MarketMansVM();
-            users.MarketingManagers = GetMarketMan();
-            return users;
-        }
-        public List<MarketManVM> GetMarketMan()
-        {
-            List<MarketManVM> users = new List<MarketManVM>();
-            MarketManDAO dao = new MarketManDAO();
-            List<MarketMan> userList = dao.GetAllMarketMans();
-            foreach (MarketMan user in userList)
-            {
-                MarketManVM userVM = new MarketManVM();
-                userVM.Email = user.Email;
-                userVM.Password = user.Password;
-                users.Add(userVM);
-            }
-            return users;
-        }
-
+        //public MarketManFM GetMarketManFM(int ID)
+        //{
+        //    MarketManDAO dao = new MarketManDAO();
+        //    MarketMan user = dao.GetMarketManByID(ID);
+        //    MarketManFM userFM = new MarketManFM(user);
+        //    return userFM;
+        //}
     }
 }
