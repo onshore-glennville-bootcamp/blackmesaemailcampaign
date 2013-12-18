@@ -9,7 +9,7 @@ namespace BLL
 {
     public class UserServices
     {
-            //Returns true if an email is already in the subscriber's table of the database
+        //Returns true if an email is already in the subscriber's table of the database
         public bool IsExistingSubscriber(string email)
         {
             SubscriberDAO dao = new SubscriberDAO();
@@ -23,7 +23,7 @@ namespace BLL
             }
             return false;
         }
-            //Add subscriber to database
+        //Add subscriber to database
         public void CreateSubscribers(SubscribersFM subscriberFM)
         {
             if (!IsExistingSubscriber(subscriberFM.Email))
@@ -35,7 +35,7 @@ namespace BLL
                 subscriber.LastName = subscriberFM.LastName; dao.CreateSubscriber(subscriber);
             }
         }
-            //Add list of subscribers to database
+        //Add list of subscribers to database
         public void CreateSubscribers(List<SubscribersFM> subscribers)
         {
             foreach (SubscribersFM subscriber in subscribers)
@@ -43,24 +43,24 @@ namespace BLL
                 CreateSubscribers(subscriber);
             }
         }
-            //Returns true if the email is in the right format
+        //Returns true if the email is in the right format
         public bool ValidEmail(string email)
         {
-            if (email.Length < 100)
+            if (!TooLong(email))
             {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+                try
+                {
+                    var addr = new System.Net.Mail.MailAddress(email);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
             }
             return false;
         }
-            //Converts from Subscribers to SubscriberVM
+        //Converts from Subscribers to SubscriberVM
         public SubscriberVM ConvertSubscriber(Subscribers subscriber)
         {
             SubscriberVM vm = new SubscriberVM();
@@ -69,7 +69,7 @@ namespace BLL
             vm.FirstName = subscriber.FirstName;
             return vm;
         }
-            //Gets a list of all subscribers in database
+        //Gets a list of all subscribers in database
         public List<SubscriberVM> GetAllSubscribers()
         {
             List<SubscriberVM> subscriberVM = new List<SubscriberVM>();
@@ -81,7 +81,7 @@ namespace BLL
             }
             return subscriberVM;
         }
-            //Sort a list of subscribers by email
+        //Sort a list of subscribers by email
         public List<SubscriberVM> SortByEmail(List<SubscriberVM> list)
         {
             List<SubscriberVM> sorted = new List<SubscriberVM>();
@@ -92,7 +92,7 @@ namespace BLL
             }
             return sorted;
         }
-            //Sort a list of subscribers by last name
+        //Sort a list of subscribers by last name
         public List<SubscriberVM> SortByLastName(List<SubscriberVM> list)
         {
             List<SubscriberVM> sorted = new List<SubscriberVM>();
@@ -103,7 +103,7 @@ namespace BLL
             }
             return sorted;
         }
-            //Sort a list of subscribers by first name
+        //Sort a list of subscribers by first name
         public List<SubscriberVM> SortByFirstName(List<SubscriberVM> list)
         {
             List<SubscriberVM> sorted = new List<SubscriberVM>();
@@ -113,6 +113,15 @@ namespace BLL
                 sorted.Add(vm);
             }
             return sorted;
+        }
+        //Checks for lengths over 100
+        public bool TooLong(string name)
+        {
+            if (name != null && name.Length > 100)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
