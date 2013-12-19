@@ -100,13 +100,5 @@ namespace BlackMesaEmailCampaign.Controllers
             ViewBag.Sort = "FirstName";
             return View("ViewSubscribers", subscriber);
         }
-        [HttpPost]
-        public ActionResult Email(SubscribersFM vms)
-        {
-            UserServices userS = new UserServices();
-            SubscribersVM vm = new SubscribersVM();
-
-            return View("ViewSubscribers", vm);
-        }
     }
 }
