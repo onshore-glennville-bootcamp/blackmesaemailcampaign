@@ -10,26 +10,27 @@
 
 @Html.ActionLink("Add Subscriber", "Add")
 
-            @*Change action to equal page you want info sent to*@
-<form name="input" action="html_form_action.asp" method="get">
-    <table>
-        <thead>
-            <tr>
-                <th>@Html.ActionLink("Email", "ViewSubscribersByEmail", new { ViewBag.Sort })</th>
-                <th>@Html.ActionLink("Last Name", "ViewSubscribersByLastName", new { ViewBag.Sort })</th>
-                <th>@Html.ActionLink("First Name", "ViewSubscribersByFirstName", new { ViewBag.Sort })</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (SubscriberVM subscriber in Model.Subscribers)
-            {
+@using (Html.BeginForm("Email", "Subscribers", FormMethod.Post))
+{
+    <form>
+        <table>
+            <thead>
                 <tr>
-                    <td><input type="checkbox" name="emailAddress" value="@subscriber.Email">@subscriber.Email<br></td>
-                    <td>@subscriber.LastName</td>
-                    <td>@subscriber.FirstName</td>
+                    <th>@Html.ActionLink("Email", "ViewSubscribersByEmail", new { ViewBag.Sort })</th>
+                    <th>@Html.ActionLink("Last Name", "ViewSubscribersByLastName", new { ViewBag.Sort })</th>
+                    <th>@Html.ActionLink("First Name", "ViewSubscribersByFirstName", new { ViewBag.Sort })</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-    <input type="submit" value="Email Checked Subscribers">
-</form>
+            </thead>
+            <tbody>
+                @foreach (SubscriberVM subscriber in Model.Subscribers)
+                {
+                    <tr>
+                        <td><input type="checkbox" name="SubscriberVM" value="Bike">@subscriber.Email</td>
+                        <td>@subscriber.LastName</td>
+                        <td>@subscriber.FirstName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+}
