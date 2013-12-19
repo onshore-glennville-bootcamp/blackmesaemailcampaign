@@ -60,7 +60,7 @@ namespace BlackMesaEmailCampaign.Controllers
                 subscriber.Subscribers.Reverse();
                 return View("ViewSubscribers", subscriber);
             }
-            ViewBag.Sort = "Email";            
+            ViewBag.Sort = "Email";
             return View("ViewSubscribers", subscriber);
         }
             //Sort list of subscribers by last name, reverse if already sorted by last name
@@ -92,6 +92,16 @@ namespace BlackMesaEmailCampaign.Controllers
             }
             ViewBag.Sort = "FirstName";
             return View("ViewSubscribers", subscriber);
+        }
+        [HttpGet]
+        public ActionResult SearchSubscribers()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SearchSubscribers(string stevesVariableForNow)
+        {
+            return View();
         }
     }
 }
