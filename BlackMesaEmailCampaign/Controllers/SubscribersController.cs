@@ -14,7 +14,14 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpGet]
         public ActionResult Add()
         {
-            return ViewSubscribers();
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
         }
         //Validates Form for Adding Subscribers, then adds if validated
         [HttpPost]
