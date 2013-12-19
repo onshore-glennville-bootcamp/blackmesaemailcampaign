@@ -38,7 +38,7 @@ namespace BlackMesaEmailCampaign.Controllers
             else
             {
                 ViewBag.ErrorMessage = "Username or Password incorrect.";
-                return View("Index");
+                return View();
             }
         }
         public ActionResult Logout()
