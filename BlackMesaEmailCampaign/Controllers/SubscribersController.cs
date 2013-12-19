@@ -51,7 +51,7 @@ namespace BlackMesaEmailCampaign.Controllers
             {
                 ViewBag.ErrorMessage = "Subscriber email not valid.";
             }
-            return ViewSubscribers();
+            return View();
         }
         //[HttpGet]
         //public ActionResult ViewSubscribers()
