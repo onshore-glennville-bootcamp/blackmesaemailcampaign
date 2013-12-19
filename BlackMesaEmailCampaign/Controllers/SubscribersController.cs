@@ -46,19 +46,19 @@ namespace BlackMesaEmailCampaign.Controllers
             }
             return ViewSubscribers();
         }
-        [HttpGet]
-        public ActionResult ViewSubscribers()
-        {
-            UserServices userS = new UserServices();
-            SubscribersVM subscribersVM = userS.GetAllSubscribers();
-            subscribersVM.Subscribers = userS.SortByEmail(subscribersVM.Subscribers);
-            return View(subscribersVM);
-        }
-        [HttpPost]
-        public ActionResult ViewSubscribers(SubscribersVM subscribersVM)
-        {
-            return View(subscribersVM);
-        }
+        //[HttpGet]
+        //public ActionResult ViewSubscribers()
+        //{
+        //    UserServices userS = new UserServices();
+        //    SubscribersVM subscribersVM = userS.GetAllSubscribers();
+        //    subscribersVM.Subscribers = userS.SortByEmail(subscribersVM.Subscribers);
+        //    return View(subscribersVM);
+        //}
+        //[HttpPost]
+        //public ActionResult ViewSubscribers(SubscribersVM subscribersVM)
+        //{
+        //    return View(subscribersVM);
+        //}
         //Views a list of subscribers
         public ActionResult ViewSubscribers()
         {
