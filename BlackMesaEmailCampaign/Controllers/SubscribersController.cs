@@ -14,7 +14,7 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpGet]
         public ActionResult Add()
         {
-            return View();
+            return ViewSubscribers();
         }
         //Validates Form for Adding Subscribers, then adds if validated
         [HttpPost]
@@ -44,7 +44,20 @@ namespace BlackMesaEmailCampaign.Controllers
             {
                 ViewBag.ErrorMessage = "Subscriber email not valid.";
             }
-            return View();
+            return ViewSubscribers();
+        }
+        [HttpGet]
+        public ActionResult ViewSubscribers()
+        {
+            UserServices userS = new UserServices();
+            SubscribersVM subscribersVM = userS.GetAllSubscribers();
+            subscribersVM.Subscribers = userS.SortByEmail(subscribersVM.Subscribers);
+            return View(subscribersVM);
+        }
+        [HttpPost]
+        public ActionResult ViewSubscribers(SubscribersVM subscribersVM)
+        {
+            return View(subscribersVM);
         }
         //Views a list of subscribers
         public ActionResult ViewSubscribers()
