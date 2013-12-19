@@ -6,9 +6,6 @@
             @Html.ActionLink("Welcome, " + Session["Name"] + ".", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
             
         </li>
-        <li>
-            @Html.ActionLink("Add subscriber", "Add", "Subscribers", routeValues: null, htmlAttributes: new { title = "Add subscriber" })
-        </li>
         <li>@Html.ActionLink("View Subscribers", "ViewSubscribers", "Subscribers")</li>
         <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
     </ul>
