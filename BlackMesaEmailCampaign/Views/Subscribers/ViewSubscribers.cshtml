@@ -10,27 +10,25 @@
 
 @Html.ActionLink("Add Subscriber", "Add")
 
-@using (Html.BeginForm("Email", "Subscribers", FormMethod.Post))
-{
-    <form>
-        <table>
-            <thead>
+<form>
+    <table>
+        <thead>
+            <tr>
+                <th>@Html.ActionLink("Email", "ViewSubscribersByEmail", new { ViewBag.Sort })</th>
+                <th>@Html.ActionLink("Last Name", "ViewSubscribersByLastName", new { ViewBag.Sort })</th>
+                <th>@Html.ActionLink("First Name", "ViewSubscribersByFirstName", new { ViewBag.Sort })</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (SubscriberVM subscriber in Model.Subscribers)
+            {
                 <tr>
-                    <th>@Html.ActionLink("Email", "ViewSubscribersByEmail", new { ViewBag.Sort })</th>
-                    <th>@Html.ActionLink("Last Name", "ViewSubscribersByLastName", new { ViewBag.Sort })</th>
-                    <th>@Html.ActionLink("First Name", "ViewSubscribersByFirstName", new { ViewBag.Sort })</th>
+                    <td><input type="checkbox" name="SubscriberVM" value=@subscriber.Email>@subscriber.Email</td>
+                    <td>@subscriber.LastName</td>
+                    <td>@subscriber.FirstName</td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (SubscriberVM subscriber in Model.Subscribers)
-                {
-                    <tr>
-                        <td><input type="checkbox" name="SubscriberVM" value="Bike">@subscriber.Email</td>
-                        <td>@subscriber.LastName</td>
-                        <td>@subscriber.FirstName</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </form>
-}
+            }
+        </tbody>
+    </table>
+    <input type="submit" value="Email Checked">
+</form>
