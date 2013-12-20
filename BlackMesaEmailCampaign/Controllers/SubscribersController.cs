@@ -123,7 +123,14 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpGet]
         public ActionResult SearchSubscribers()
         {
-            return View();
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
         }
         [HttpPost]
         public ActionResult SearchSubscribers(string searchString)

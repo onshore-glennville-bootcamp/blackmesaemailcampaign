@@ -8,35 +8,25 @@
 
 <h2>Subscribers</h2>
 
-@Html.ActionLink("Add Subscriber ", "Add")&Dagger;@Html.ActionLink(" Search For Subscriber","SearchSubscribers")
+@Html.ActionLink("Add Subscriber ", "Add")&Dagger;@Html.ActionLink(" Search For Subscriber", "SearchSubscribers")
 
 <table>
-    <thead>
+    <tbody>
         <tr>
-            <th width="200">@Html.ActionLink("Email", "ViewSubscribersByEmail", new { ViewBag.Sort })</th>
-            <th width="200">@Html.ActionLink("Last Name", "ViewSubscribersByLastName", new { ViewBag.Sort })</th>
-            <th width="200">@Html.ActionLink("First Name", "ViewSubscribersByFirstName", new { ViewBag.Sort })</th>
+            <th>@Html.ActionLink("Email", "ViewSubscribersByEmail", new { ViewBag.Sort })</th>
+            <th>@Html.ActionLink("Last Name", "ViewSubscribersByLastName", new { ViewBag.Sort })</th>
+            <th>@Html.ActionLink("First Name", "ViewSubscribersByFirstName", new { ViewBag.Sort })</th>
         </tr>
     </thead>
     <tbody>
         @foreach (SubscriberVM subscriber in Model.Subscribers)
         {
             <tr>
-                <th>@Html.ActionLink("Email", "ViewSubscribersByEmail", new { ViewBag.Sort })</th>
-                <th>@Html.ActionLink("Last Name", "ViewSubscribersByLastName", new { ViewBag.Sort })</th>
-                <th>@Html.ActionLink("First Name", "ViewSubscribersByFirstName", new { ViewBag.Sort })</th>
+                <td><input type="checkbox" name="emailAddress" value="@subscriber.Email">@subscriber.Email<br></td>
+                <td>@subscriber.LastName</td>
+                <td>@subscriber.FirstName</td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (SubscriberVM subscriber in Model.Subscribers)
-            {
-                <tr>
-                    <td><input type="checkbox" name="emailAddress" value="@subscriber.Email">@subscriber.Email<br></td>
-                    <td>@subscriber.LastName</td>
-                    <td>@subscriber.FirstName</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <input type="submit" value="Email Checked Subscribers">
-</form>
+        }
+    </tbody>
+</table>
+<input type="submit" value="Email Checked Subscribers">
