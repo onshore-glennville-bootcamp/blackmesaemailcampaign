@@ -17,8 +17,6 @@
             <th>@Html.ActionLink("Last Name", "ViewSubscribersByLastName", new { ViewBag.Sort })</th>
             <th>@Html.ActionLink("First Name", "ViewSubscribersByFirstName", new { ViewBag.Sort })</th>
         </tr>
-    </thead>
-    <tbody>
         @foreach (SubscriberVM subscriber in Model.Subscribers)
         {
             <tr>
