@@ -120,5 +120,19 @@ namespace BlackMesaEmailCampaign.Controllers
             ViewBag.Sort = "FirstName";
             return View("ViewSubscribers", subscriber);
         }
+        [HttpGet]
+        public ActionResult SearchSubscribers()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SearchSubscribers(string searchString)
+        {
+            UserServices userS = new UserServices();
+            SubscribersVM subscriber = new SubscribersVM();
+            subscriber.Subscribers = userS.Search(searchString);
+            //and then we finish jumping through hoops...
+            return View("ViewSubscribers", subscriber);
+        }
     }
 }

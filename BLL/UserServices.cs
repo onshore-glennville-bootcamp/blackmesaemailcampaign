@@ -123,5 +123,20 @@ namespace BLL
             }
             return false;
         }
+        public List<SubscriberVM> Search(string s)
+        {
+            List<SubscriberVM> subscribersVM = new List<SubscriberVM>();
+            // do some other stuff
+            s = "%" + s + "%";
+            SubscriberDAO dao = new SubscriberDAO();
+            List<Subscribers> subscribers = dao.Search(s);
+            foreach (Subscribers subscriber in subscribers)
+            {
+                subscribersVM.Add(ConvertSubscriber(subscriber));
+            }
+            
+            return subscribersVM;
+
+        }
     }
 }
