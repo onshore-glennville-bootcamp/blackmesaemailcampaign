@@ -1,0 +1,19 @@
+﻿@model BLL.SearchFM
+
+@{
+    ViewBag.Title = "Search Subscribers";
+}
+
+<h2>Search for subscriber</h2>
+
+@using (Html.BeginForm("SearchSubscribers", "Subscribers", FormMethod.Post))
+{<div class="form-group">
+        <div class="form-group">
+            <div class="col-md-2 control-label">Search String:</div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.searchString, new { @class = "form-control" })
+            </div>
+        </div>
+        <input type="submit" value="Search for subscribers" />
+    </div>}
+@*m => m.FirstName, new { @class = "form-control" }*@

@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -39,7 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MarketManFM.cs" />
+    <Compile Include="MarketManLoginFM.cs" />
+    <Compile Include="MarketManLoginService.cs" />
+    <Compile Include="MarketManLoginVM.cs" />
+    <Compile Include="MarketManRegisterFM.cs" />
+    <Compile Include="MarketManService.cs" />
+    <Compile Include="MarketMansVM.cs" />
+    <Compile Include="MarketManVM.cs" />
+    <Compile Include="MarketManPassFM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchFM.cs" />
+    <Compile Include="SubscribersFM.cs" />
+    <Compile Include="SubscribersVM.cs" />
+    <Compile Include="SubscriberVM.cs" />
+    <Compile Include="UserServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">
