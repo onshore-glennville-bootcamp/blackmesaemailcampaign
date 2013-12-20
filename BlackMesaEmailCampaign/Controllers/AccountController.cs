@@ -67,7 +67,7 @@ namespace BlackMesaEmailCampaign.Controllers
                             ViewBag.ErrorMessage = "User Created";
                             return View();
                         }
-                        ViewBag.ErrorMessage = "Passwords must be more than seven characters and match.";
+                        ViewBag.ErrorMessage = "Passwords must be more than seven characters, less than 25 characters, and match.";
                     }
                     else
                     {
