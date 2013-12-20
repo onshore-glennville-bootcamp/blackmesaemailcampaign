@@ -9,7 +9,7 @@ namespace DAL
 {
     public class SubscriberDAO
     {
-            //Writes to database
+        //Writes to database
         public void Write(string statement, SqlParameter[] parameters)
         {
             using (SqlConnection connection = new SqlConnection(@"Data Source=.\SQLEXPRESS;Initial Catalog=EmailCampaign;Integrated Security=SSPI;"))
@@ -23,7 +23,7 @@ namespace DAL
                 }
             }
         }
-            //Read Subscribers table of database
+        //Read Subscribers table of database
         public List<Subscribers> ReadSubscribers(string statement, SqlParameter[] parameters)
         {
             using (SqlConnection connection = new SqlConnection(@"Data Source=.\SQLEXPRESS;Initial Catalog=EmailCampaign;Integrated Security=SSPI;"))
@@ -58,12 +58,12 @@ namespace DAL
                 }
             }
         }
-            //Returns all subscribers
+        //Returns all subscribers
         public List<Subscribers> GetAllSubscribers()
         {
             return ReadSubscribers("GetAllSubscribers", null);
         }
-            //Returns a subscriber when you input an email
+        //Returns a subscriber when you input an email
         public Subscribers GetSubscriberByEmail(string email)
         {
             List<Subscribers> subscribers = GetAllSubscribers();
@@ -76,7 +76,7 @@ namespace DAL
             }
             return null;
         }
-            //Add subscriber to database
+        //Add subscriber to database
         public void CreateSubscriber(Subscribers subscriber)
         {
             SqlParameter[] parameters = new SqlParameter[]{
@@ -86,6 +86,17 @@ namespace DAL
                 new SqlParameter("@Active", 1)
             };
             Write("CreateSubscriber", parameters);
+        }
+
+        public List<Subscribers> Search(string s)
+        {
+            //retrieve list of users matching search parameters
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter ("@search", s)
+            };
+            return ReadSubscribers("SearchSubscribers", parameters);
+            
         }
     }
 }
