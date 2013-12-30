@@ -14,7 +14,14 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpGet]
         public ActionResult Add()
         {
-            return View();
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
         }
         //Validates Form for Adding Subscribers, then adds if validated
         [HttpPost]
@@ -46,6 +53,19 @@ namespace BlackMesaEmailCampaign.Controllers
             }
             return View();
         }
+        //[HttpGet]
+        //public ActionResult ViewSubscribers()
+        //{
+        //    UserServices userS = new UserServices();
+        //    SubscribersVM subscribersVM = userS.GetAllSubscribers();
+        //    subscribersVM.Subscribers = userS.SortByEmail(subscribersVM.Subscribers);
+        //    return View(subscribersVM);
+        //}
+        //[HttpPost]
+        //public ActionResult ViewSubscribers(SubscribersVM subscribersVM)
+        //{
+        //    return View(subscribersVM);
+        //}
         //Views a list of subscribers
         public ActionResult ViewSubscribers()
         {
@@ -98,6 +118,27 @@ namespace BlackMesaEmailCampaign.Controllers
                 return View("ViewSubscribers", subscriber);
             }
             ViewBag.Sort = "FirstName";
+            return View("ViewSubscribers", subscriber);
+        }
+        [HttpGet]
+        public ActionResult SearchSubscribers()
+        {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
+        }
+        [HttpPost]
+        public ActionResult SearchSubscribers(string searchString)
+        {
+            UserServices userS = new UserServices();
+            SubscribersVM subscriber = new SubscribersVM();
+            subscriber.Subscribers = userS.Search(searchString);
+            //and then we finish jumping through hoops...
             return View("ViewSubscribers", subscriber);
         }
     }

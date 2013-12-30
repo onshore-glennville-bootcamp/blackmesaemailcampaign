@@ -7,9 +7,8 @@ using System.Data.SqlClient;
 
 namespace DAL
 {
-    public class SubscriberDAO
+    public class MarketManDAO
     {
-        //Writes to database
         public void Write(string statement, SqlParameter[] parameters)
         {
             using (SqlConnection connection = new SqlConnection(@"Data Source=.\SQLEXPRESS;Initial Catalog=EmailCampaign;Integrated Security=SSPI;"))
@@ -23,8 +22,7 @@ namespace DAL
                 }
             }
         }
-        //Read Subscribers table of database
-        public List<Subscribers> ReadSubscribers(string statement, SqlParameter[] parameters)
+        public List<MarketMan> ReadMarketMans(string statement, SqlParameter[] parameters)
         {
             using (SqlConnection connection = new SqlConnection(@"Data Source=.\SQLEXPRESS;Initial Catalog=EmailCampaign;Integrated Security=SSPI;"))
             {
@@ -37,14 +35,13 @@ namespace DAL
                         command.Parameters.AddRange(parameters);
                     }
                     SqlDataReader data = command.ExecuteReader();
-                    List<Subscribers> subscribers = new List<Subscribers>();
+                    List<MarketMan> subscribers = new List<MarketMan>();
                     while (data.Read())
                     {
-                        Subscribers subscriber = new Subscribers();
+                        MarketMan subscriber = new MarketMan();
                         subscriber.ID = Convert.ToInt32(data["ID"]);
-                        subscriber.FirstName = data["FirstName"].ToString();
-                        subscriber.LastName = data["LastName"].ToString();
                         subscriber.Email = data["Email"].ToString();
+                        subscriber.Password = data["Password"].ToString();
                         subscribers.Add(subscriber);
                     }
                     try
@@ -58,45 +55,62 @@ namespace DAL
                 }
             }
         }
-        //Returns all subscribers
-        public List<Subscribers> GetAllSubscribers()
+        public void CreateMarketMan(MarketMan user)
         {
-            return ReadSubscribers("GetAllSubscribers", null);
-        }
-        //Returns a subscriber when you input an email
-        public Subscribers GetSubscriberByEmail(string email)
-        {
-            List<Subscribers> subscribers = GetAllSubscribers();
-            foreach (Subscribers subscriber in subscribers)
-            {
-                if (subscriber.Email == email)
-                {
-                    return subscriber;
-                }
-            }
-            return null;
-        }
-        //Add subscriber to database
-        public void CreateSubscriber(Subscribers subscriber)
-        {
-            SqlParameter[] parameters = new SqlParameter[]{
-                new SqlParameter("@Email", subscriber.Email),
-                new SqlParameter("@FirstName", subscriber.FirstName),
-                new SqlParameter("@LastName", subscriber.LastName),
-                new SqlParameter("@Active", 1)
-            };
-            Write("CreateSubscriber", parameters);
-        }
-
-        public List<Subscribers> Search(string s)
-        {
-            //retrieve list of users matching search parameters
             SqlParameter[] parameters = new SqlParameter[]
             {
-                new SqlParameter ("@search", s)
+                new SqlParameter("@Email", user.Email),
+                new SqlParameter("@Password", user.Password),
+                new SqlParameter("@Active", 1)
             };
-            return ReadSubscribers("SearchSubscribers", parameters);
-            
+            Write("CreateMarketingManager", parameters);
+        }
+        public MarketMan GetMarketManByEmail(string email)
+        {
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@Email", email)
+            };
+            return ReadMarketMans("GetMarketingManagerByEmail", parameters).SingleOrDefault();
+        }
+        public MarketMan GetMarketManByID(int ID)
+        {
+            try
+            {
+                SqlParameter[] parameters = new SqlParameter[]
+                {
+                    new SqlParameter("@ID", ID)
+                };
+                return ReadMarketMans("GetMarketingManagerByID", parameters).SingleOrDefault();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: \n" + e.Message);
+                Console.ReadKey();
+                return null;
+            }
+        }
+        public List<MarketMan> GetAllMarketMans()
+        {
+            return ReadMarketMans("GetAllMarketingManagers", null);
+        }
+        public void UpdateMarketMan(MarketMan user)
+        {
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@ID", user.ID),
+                new SqlParameter("@Email", user.Email),
+                new SqlParameter("@Password", user.Password)
+            };
+            Write("UpdateMarketingManager", parameters);
+        }
+        public void DeleteMarketMan(int ID)
+        {
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@ID", ID),
+            };
+            Write("DeleteMarketingManager", parameters);
         }
     }
 }

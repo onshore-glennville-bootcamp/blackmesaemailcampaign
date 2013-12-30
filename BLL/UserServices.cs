@@ -123,11 +123,28 @@ namespace BLL
             }
             return false;
         }
+<<<<<<< HEAD
         //Get Subscriber By Email
         public SubscriberVM SubscriberByEmail(string email)
         {
             SubscriberDAO dao = new SubscriberDAO();
             return ConvertSubscriber(dao.GetSubscriberByEmail(email));   
+=======
+        public List<SubscriberVM> Search(string s)
+        {
+            List<SubscriberVM> subscribersVM = new List<SubscriberVM>();
+            // do some other stuff
+            s = "%" + s + "%";
+            SubscriberDAO dao = new SubscriberDAO();
+            List<Subscribers> subscribers = dao.Search(s);
+            foreach (Subscribers subscriber in subscribers)
+            {
+                subscribersVM.Add(ConvertSubscriber(subscriber));
+            }
+            
+            return subscribersVM;
+
+>>>>>>> 085a8982b576922a324b3d3af2e17cb8c81735ca
         }
     }
 }
