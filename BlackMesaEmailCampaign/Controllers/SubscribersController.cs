@@ -53,6 +53,7 @@ namespace BlackMesaEmailCampaign.Controllers
             }
             return View();
         }
+<<<<<<< HEAD
         //[HttpGet]
         //public ActionResult ViewSubscribers()
         //{
@@ -67,28 +68,15 @@ namespace BlackMesaEmailCampaign.Controllers
         //    return View(subscribersVM);
         //}
         //Views a list of subscribers
+=======
+>>>>>>> fb16b79943611c4d089f1cf61aaa7b06d31a0cab
         public ActionResult ViewSubscribers()
         {
             UserServices userS = new UserServices();
             SubscribersVM subscriber = new SubscribersVM();
-            subscriber.Subscribers = userS.SortByEmail(userS.GetAllSubscribers());
-            ViewBag.Sort = "Email";
+            subscriber.Subscribers = userS.SortByLastName(userS.GetAllSubscribers());
+            ViewBag.Sort = "LastName";
             return View(subscriber);
-        }
-        //Sort list of subscribers by email, reverse if already sorted by email
-        public ActionResult ViewSubscribersByEmail(string sort)
-        {
-            UserServices userS = new UserServices();
-            SubscribersVM subscriber = new SubscribersVM();
-            subscriber.Subscribers = userS.SortByEmail(userS.GetAllSubscribers());
-            if (sort == "Email")
-            {
-                ViewBag.Sort = "";
-                subscriber.Subscribers.Reverse();
-                return View("ViewSubscribers", subscriber);
-            }
-            ViewBag.Sort = "Email";
-            return View("ViewSubscribers", subscriber);
         }
         //Sort list of subscribers by last name, reverse if already sorted by last name
         public ActionResult ViewSubscribersByLastName(string sort)
@@ -141,5 +129,15 @@ namespace BlackMesaEmailCampaign.Controllers
             //and then we finish jumping through hoops...
             return View("ViewSubscribers", subscriber);
         }
+<<<<<<< HEAD
+=======
+        [HttpPost]
+        public ActionResult Email(SubscribersVM selectedSubscribers)
+        {
+            UserServices log = new UserServices();
+            SubscribersVM test = log.Checked(selectedSubscribers);
+            return View("ViewSubscribers", log.Checked(selectedSubscribers));
+        }
+>>>>>>> fb16b79943611c4d089f1cf61aaa7b06d31a0cab
     }
 }
