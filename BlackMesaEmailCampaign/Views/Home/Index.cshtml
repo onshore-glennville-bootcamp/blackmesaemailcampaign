@@ -4,7 +4,7 @@
 
 <div class="jumbotron">
     <h1>Black Mesa Research Corporation</h1>
-    <h4><i>Working to build a better tomorrow for all mankind.</i></h4>
+    <h5><i>"Working to build a better tomorrow for all mankind."</i></h5>
     <p class="lead">This is the launch page for the Black Mesa Research Corporation's email campaign.</p>
 </div>
 
@@ -15,16 +15,25 @@
             If you have questions concerning the use of this website, or the intent of the project, please visit our information page for help.
             Remember: an informed employee is a safe employee!
         </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <p class="btn btn-default">@Html.ActionLink("Learn more", "About")</p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <h2>Adding subscribers</h2>
+        <p>Adding subscribers to Black Mesa's mailing list is simple. Each user must be logged in to add subscribers or send marketing emails.</p>
+        <p class ="btn btn-default">
+        @if (Session["ID"] == null)
+        {
+            @Html.ActionLink("Log in", "Login", "Account");
+        }
+        else
+        {
+        @Html.ActionLink("Get started", "Add", "Subscribers");
+        }
+        </p>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h2>Don't have an account?</h2>
+        <p>You can easily register by either clicking "Register" on the navigation bar, or by simply clicking the link below.</p>
+        <p class="btn btn-default">@Html.ActionLink("Sign up", "Register", "Account")</p>
     </div>
 </div>
