@@ -57,24 +57,9 @@ namespace BlackMesaEmailCampaign.Controllers
         {
             UserServices userS = new UserServices();
             SubscribersVM subscriber = new SubscribersVM();
-            subscriber.Subscribers = userS.SortByEmail(userS.GetAllSubscribers());
-            ViewBag.Sort = "Email";
+            subscriber.Subscribers = userS.SortByLastName(userS.GetAllSubscribers());
+            ViewBag.Sort = "LastName";
             return View(subscriber);
-        }
-        //Sort list of subscribers by email, reverse if already sorted by email
-        public ActionResult ViewSubscribersByEmail(string sort)
-        {
-            UserServices userS = new UserServices();
-            SubscribersVM subscriber = new SubscribersVM();
-            subscriber.Subscribers = userS.SortByEmail(userS.GetAllSubscribers());
-            if (sort == "Email")
-            {
-                ViewBag.Sort = "";
-                subscriber.Subscribers.Reverse();
-                return View("ViewSubscribers", subscriber);
-            }
-            ViewBag.Sort = "Email";
-            return View("ViewSubscribers", subscriber);
         }
         //Sort list of subscribers by last name, reverse if already sorted by last name
         public ActionResult ViewSubscribersByLastName(string sort)

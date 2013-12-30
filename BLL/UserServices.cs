@@ -81,17 +81,6 @@ namespace BLL
             }
             return subscriberVM;
         }
-        //Sort a list of subscribers by email
-        public List<SubscriberVM> SortByEmail(List<SubscriberVM> list)
-        {
-            List<SubscriberVM> sorted = new List<SubscriberVM>();
-            list.Sort((a, b) => a.Email.CompareTo(b.Email));
-            foreach (SubscriberVM vm in list)
-            {
-                sorted.Add(vm);
-            }
-            return sorted;
-        }
         //Sort a list of subscribers by last name
         public List<SubscriberVM> SortByLastName(List<SubscriberVM> list)
         {

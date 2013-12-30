@@ -15,7 +15,7 @@
     <table>
         <thead>
             <tr>
-                <th>@Html.ActionLink("Email", "ViewSubscribersByEmail", new { ViewBag.Sort })</th>
+                <th></th>
                 <th>@Html.ActionLink("Last Name", "ViewSubscribersByLastName", new { ViewBag.Sort })</th>
                 <th>@Html.ActionLink("First Name", "ViewSubscribersByFirstName", new { ViewBag.Sort })</th>
             </tr>
@@ -26,8 +26,8 @@
                 @Html.HiddenFor(m=>m.Subscribers[i].Email)
                 <tr>
                     <td>@Html.CheckBoxFor(m=>m.Subscribers[i].EmailList)</td>
-                    <td>@Model.Subscribers[i].FirstName</td>
                     <td>@Model.Subscribers[i].LastName</td>
+                    <td>@Model.Subscribers[i].FirstName</td>
                 </tr>
             }
         </tbody>
