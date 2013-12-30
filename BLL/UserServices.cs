@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL;
+using System.IO;
 
 namespace BLL
 {
@@ -131,6 +132,25 @@ namespace BLL
                 subscribersVM.Add(ConvertSubscriber(subscriber));
             }
             return subscribersVM;
+        }
+        public List<SubscribersFM> SeparateCSV()
+        {
+            string line = "";
+            List<SubscribersFM> subscribers = new List<SubscribersFM>();
+            string fileName = "testfile.csv";
+            StreamReader stream = new StreamReader(fileName);
+            while (line != null)
+            {
+                string subEmail = "", subFirstName = "", subLastName = "";
+                line = stream.ReadLine();
+                if (line == null) break;
+                subEmail = line.Substring(0, line.IndexOf(','));
+                line = line.Substring(line.IndexOf(',') + 1);
+                subFirstName = line.Substring(0, line.IndexOf(','));
+                subLastName = line.Substring(line.IndexOf(',') + 1);
+                subscribers.Add(new SubscribersFM { Email = subEmail, FirstName = subFirstName, LastName = subLastName });
+            }
+            return subscribers;
         }
         //Pulls out unchecked subscribers and sends back list of checked subscribers
         public SubscribersVM Checked(SubscribersVM selectedSubscribers)
