@@ -143,10 +143,8 @@ namespace BLL
         {
             try
             { 
-                from = "blackmesaemailcampaign@gmail.com"; //Email we are using to send templates from
-
-                to = "blackmesaemailcampaign@gmail.com"; //this is the email to whom you want to send the template
-
+                from = "blackmesaemailcampaign@gmail.com";//Email we are using to send templates from
+                to = "blackmesaemailcampaign@gmail.com";//this is the email to whom you want to send the template
                 MailMessage mail = new MailMessage();
                 mail.To.Add(to);
                 mail.From = new MailAddress(from, "Black" , System.Text.Encoding.UTF8);
@@ -158,16 +156,16 @@ namespace BLL
                 mail.Priority = MailPriority.High;
                 SmtpClient client = new SmtpClient();
                 client.Credentials = new NetworkCredential(from, "bootcamp123");//bootcamp123 is the password for the email
-                client.Port = 587; // Gmail works on this port
+                client.Port = 587;//Gmail works on this port
                 client.Host = "smtp.gmail.com";
-                client.EnableSsl = true; //Gmail works on Server Secured Layer
+                client.EnableSsl = true;//Gmail works on Server Secured Layer
                 client.Send(mail);
                 return "Done";
             }
             catch (Exception e)
             {
                 return e.Message;
-            } // end try
+            }// end try
         }
     }
 }
