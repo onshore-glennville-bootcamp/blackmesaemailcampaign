@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Mail;
 using DAL;
 
 namespace BLL
@@ -50,7 +51,7 @@ namespace BLL
             {
                 try
                 {
-                    var addr = new System.Net.Mail.MailAddress(email);
+                    var addr = new MailAddress(email);
                     return true;
                 }
                 catch
@@ -134,9 +135,38 @@ namespace BLL
             {
                 subscribersVM.Add(ConvertSubscriber(subscriber));
             }
-            
             return subscribersVM;
+        }
+        public SubscriberVM SendEmail(string email)
+        {
+            string from = blackmesaemailcampaign@gmail.com; //Email we are using to send templates from
 
+            string to = subscriber@gmail.com; //this is the email to whom you want to send the template
+
+            MailMessage mail = new MailMessage();
+            mail.To.Add(to);
+            mail.From = new MailAddress(from, "One Ghost" , System.Text.Encoding.UTF8);
+            mail.Subject = "This is a test mail";
+            mail.SubjectEncoding = System.Text.Encoding.UTF8;
+            mail.Body = "This is Email Body Text";
+            mail.BodyEncoding = System.Text.Encoding.UTF8;
+            mail.IsBodyHtml = true ;
+            mail.Priority = MailPriority.High;
+            SmtpClient client = new SmtpClient();
+            //Add the Creddentials- use your own email id and password
+
+            client.Credentials = new System.Net.NetworkCredential(from, "bootcamp123");//bootcamp123 is the password for the email
+            client.Port = 587; // Gmail works on this port
+            client.Host = "smtp.gmail.com";
+            client.EnableSsl = true; //Gmail works on Server Secured Layer
+            try
+            {
+                client.Send(mail);
+            }
+            catch (Exception e)
+            {
+                string errorMessage = ("Error.");
+            } // end try 
         }
     }
 }
