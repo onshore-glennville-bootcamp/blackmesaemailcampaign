@@ -4,11 +4,6 @@
     ViewBag.Title = "Add";
 }
 
-@if (Session["UserID"] == null)
-{
-    @Html.Action("Login", "Account")
-}
-
 <h2>Add Subscriber</h2>
 
 @using (Html.BeginForm("Add", "Subscribers", FormMethod.Post))

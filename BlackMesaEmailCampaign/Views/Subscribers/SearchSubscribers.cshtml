@@ -4,11 +4,6 @@
     ViewBag.Title = "Search Subscribers";
 }
 
-@if (Session["UserID"] == null)
-{
-    @Html.Action("Login", "Account")
-}
-
 <h2>Search for subscriber</h2>
 
 @using (Html.BeginForm("SearchSubscribers", "Subscribers", FormMethod.Post))
