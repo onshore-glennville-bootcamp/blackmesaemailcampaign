@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using System.IO;
+using System.Text;
 using BLL;
 
 namespace BlackMesaEmailCampaign.Controllers
@@ -53,42 +54,26 @@ namespace BlackMesaEmailCampaign.Controllers
             }
             return View();
         }
-        //[HttpGet]
-        //public ActionResult ViewSubscribers()
-        //{
-        //    UserServices userS = new UserServices();
-        //    SubscribersVM subscribersVM = userS.GetAllSubscribers();
-        //    subscribersVM.Subscribers = userS.SortByEmail(subscribersVM.Subscribers);
-        //    return View(subscribersVM);
-        //}
+        //List Subscribers
+        //Method to redirect from AddFromFile page if user is not logged in
+        [HttpGet]
+        public ActionResult AddFromFile()
+        {
+            return View();
+        }
+        ////Controller for adding bulk users from file
         //[HttpPost]
-        //public ActionResult ViewSubscribers(SubscribersVM subscribersVM)
+        //public ActionResult AddFromFile()
         //{
-        //    return View(subscribersVM);
+
         //}
-        //Views a list of subscribers
         public ActionResult ViewSubscribers()
         {
             UserServices userS = new UserServices();
             SubscribersVM subscriber = new SubscribersVM();
-            subscriber.Subscribers = userS.SortByEmail(userS.GetAllSubscribers());
-            ViewBag.Sort = "Email";
+            subscriber.Subscribers = userS.SortByLastName(userS.GetAllSubscribers());
+            ViewBag.Sort = "LastName";
             return View(subscriber);
-        }
-        //Sort list of subscribers by email, reverse if already sorted by email
-        public ActionResult ViewSubscribersByEmail(string sort)
-        {
-            UserServices userS = new UserServices();
-            SubscribersVM subscriber = new SubscribersVM();
-            subscriber.Subscribers = userS.SortByEmail(userS.GetAllSubscribers());
-            if (sort == "Email")
-            {
-                ViewBag.Sort = "";
-                subscriber.Subscribers.Reverse();
-                return View("ViewSubscribers", subscriber);
-            }
-            ViewBag.Sort = "Email";
-            return View("ViewSubscribers", subscriber);
         }
         //Sort list of subscribers by last name, reverse if already sorted by last name
         public ActionResult ViewSubscribersByLastName(string sort)
@@ -120,17 +105,11 @@ namespace BlackMesaEmailCampaign.Controllers
             ViewBag.Sort = "FirstName";
             return View("ViewSubscribers", subscriber);
         }
+        //Search Subscribers
         [HttpGet]
         public ActionResult SearchSubscribers()
         {
-            if (Session["ID"] == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
                 return View();
-            }
         }
         [HttpPost]
         public ActionResult SearchSubscribers(string searchString)
@@ -140,6 +119,15 @@ namespace BlackMesaEmailCampaign.Controllers
             subscriber.Subscribers = userS.Search(searchString);
             //and then we finish jumping through hoops...
             return View("ViewSubscribers", subscriber);
+        }
+
+        //Gets list of checked Subscribers.  Needs code for emailing them.
+        [HttpPost]
+        public ActionResult Email(SubscribersVM selectedSubscribers)
+        {
+            UserServices log = new UserServices();
+            SubscribersVM test = log.Checked(selectedSubscribers);
+            return View("ViewSubscribers", log.Checked(selectedSubscribers));
         }
     }
 }

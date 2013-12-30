@@ -1,5 +1,8 @@
 ﻿@model BLL.SearchFM
-
+@if (Session["ID"] == null)
+{
+    @Html.Action("Index", "Home");
+}
 @{
     ViewBag.Title = "Search Subscribers";
 }
@@ -15,5 +18,5 @@
             </div>
         </div>
         <input type="submit" value="Search for subscribers" />
-    </div>}
-@*m => m.FirstName, new { @class = "form-control" }*@
+    </div>
+}
