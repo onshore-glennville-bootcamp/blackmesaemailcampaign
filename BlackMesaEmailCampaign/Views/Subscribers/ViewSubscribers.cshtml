@@ -5,7 +5,10 @@
 @{
     ViewBag.Title = "Subscribers";
 }
-
+@if (Session["ID"] == null)
+{
+    @Html.Action("Index", "Home");
+}
 <h2>Subscribers</h2>
 
 @Html.ActionLink("Add Subscriber ", "Add")&Dagger;@Html.ActionLink(" Search For Subscriber", "SearchSubscribers")
