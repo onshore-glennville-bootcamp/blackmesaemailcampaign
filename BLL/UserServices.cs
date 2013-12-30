@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Mail;
+using System.Net;
 using DAL;
 
 namespace BLL
@@ -137,13 +138,13 @@ namespace BLL
             }
             return subscribersVM;
         }
-        public static string SendEmail(string email)
+        public static string SendEmail(string from, string to)
         {
             try
             { 
-                string from = "blackmesaemailcampaign@gmail.com"; //Email we are using to send templates from
+                from = "blackmesaemailcampaign@gmail.com"; //Email we are using to send templates from
 
-                string to = "blackmesaemailcampaign@gmail.com"; //this is the email to whom you want to send the template
+                to = "blackmesaemailcampaign@gmail.com"; //this is the email to whom you want to send the template
 
                 MailMessage mail = new MailMessage();
                 mail.To.Add(to);
@@ -155,9 +156,7 @@ namespace BLL
                 mail.IsBodyHtml = true;
                 mail.Priority = MailPriority.High;
                 SmtpClient client = new SmtpClient();
-                //Add the Creddentials- use your own email id and password
-
-                client.Credentials = new System.Net.NetworkCredential(from, "bootcamp123");//bootcamp123 is the password for the email
+                client.Credentials = new NetworkCredential(from, "bootcamp123");//bootcamp123 is the password for the email
                 client.Port = 587; // Gmail works on this port
                 client.Host = "smtp.gmail.com";
                 client.EnableSsl = true; //Gmail works on Server Secured Layer
