@@ -123,13 +123,12 @@ namespace BLL
             }
             return false;
         }
-<<<<<<< HEAD
         //Get Subscriber By Email
         public SubscriberVM SubscriberByEmail(string email)
         {
             SubscriberDAO dao = new SubscriberDAO();
-            return ConvertSubscriber(dao.GetSubscriberByEmail(email));   
-=======
+            return ConvertSubscriber(dao.GetSubscriberByEmail(email));
+        }
         public List<SubscriberVM> Search(string s)
         {
             List<SubscriberVM> subscribersVM = new List<SubscriberVM>();
@@ -141,10 +140,20 @@ namespace BLL
             {
                 subscribersVM.Add(ConvertSubscriber(subscriber));
             }
-            
-            return subscribersVM;
 
->>>>>>> 085a8982b576922a324b3d3af2e17cb8c81735ca
+            return subscribersVM;
+        }
+        public SubscribersVM Checked(SubscribersVM selectedSubscribers)
+        {
+            SubscribersVM selected = new SubscribersVM();
+            foreach (SubscriberVM vm in selectedSubscribers.Subscribers)
+            {
+                if (vm.EmailList)
+                {
+                    selected.Subscribers.Add(SubscriberByEmail(vm.Email));
+                }
+            }
+            return selected;
         }
     }
 }
