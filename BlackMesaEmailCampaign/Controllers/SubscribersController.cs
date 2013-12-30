@@ -61,12 +61,13 @@ namespace BlackMesaEmailCampaign.Controllers
         {
             return View();
         }
-        ////Controller for adding bulk users from file
-        //[HttpPost]
-        //public ActionResult AddFromFile()
-        //{
-
-        //}
+        //Controller for adding bulk users from file
+        [HttpPost]
+        public ActionResult AddFromFile(String fileName)
+        {
+            ViewBag.Error = "Subscribers were added.";
+            return View("Add");
+        }
         public ActionResult ViewSubscribers()
         {
             UserServices userS = new UserServices();
