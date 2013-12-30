@@ -6,30 +6,15 @@
     ViewBag.Title = "Subscribers";
 }
 
+@if (Session["UserID"] == null)
+{
+    @Html.Action("Login", "Account")
+}
+
 <h2>Subscribers</h2>
 
 @Html.ActionLink("Add Subscriber ", "Add")&Dagger;@Html.ActionLink(" Search For Subscriber", "SearchSubscribers")
 
-<<<<<<< HEAD
-<table>
-    <tbody>
-        <tr>
-            <th>@Html.ActionLink("Email", "ViewSubscribersByEmail", new { ViewBag.Sort })</th>
-            <th>@Html.ActionLink("Last Name", "ViewSubscribersByLastName", new { ViewBag.Sort })</th>
-            <th>@Html.ActionLink("First Name", "ViewSubscribersByFirstName", new { ViewBag.Sort })</th>
-        </tr>
-        @foreach (SubscriberVM subscriber in Model.Subscribers)
-        {
-            <tr>
-                <td><input type="checkbox" name="emailAddress" value="@subscriber.Email">@subscriber.Email<br></td>
-                <td>@subscriber.LastName</td>
-                <td>@subscriber.FirstName</td>
-            </tr>
-        }
-    </tbody>
-</table>
-<input type="submit" value="Email Checked Subscribers">
-=======
 @using (Html.BeginForm("Email", "Subscribers", FormMethod.Post))
 {
     <table>
@@ -54,4 +39,3 @@
     </table>
     <input type="submit" value="Submit">
 }
->>>>>>> fb16b79943611c4d089f1cf61aaa7b06d31a0cab

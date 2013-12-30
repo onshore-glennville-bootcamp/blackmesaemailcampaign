@@ -112,15 +112,13 @@ namespace BLL
             }
             return false;
         }
-<<<<<<< HEAD
-=======
         //Get Subscriber By Email
         public SubscriberVM SubscriberByEmail(string email)
         {
             SubscriberDAO dao = new SubscriberDAO();
             return ConvertSubscriber(dao.GetSubscriberByEmail(email));
         }
->>>>>>> fb16b79943611c4d089f1cf61aaa7b06d31a0cab
+        // Search Subscribers
         public List<SubscriberVM> Search(string s)
         {
             List<SubscriberVM> subscribersVM = new List<SubscriberVM>();
@@ -132,14 +130,9 @@ namespace BLL
             {
                 subscribersVM.Add(ConvertSubscriber(subscriber));
             }
-<<<<<<< HEAD
-            
-            return subscribersVM;
-
-=======
-
             return subscribersVM;
         }
+        //Pulls out unchecked subscribers and sends back list of checked subscribers
         public SubscribersVM Checked(SubscribersVM selectedSubscribers)
         {
             SubscribersVM selected = new SubscribersVM();
@@ -151,7 +144,6 @@ namespace BLL
                 }
             }
             return selected;
->>>>>>> fb16b79943611c4d089f1cf61aaa7b06d31a0cab
         }
     }
 }

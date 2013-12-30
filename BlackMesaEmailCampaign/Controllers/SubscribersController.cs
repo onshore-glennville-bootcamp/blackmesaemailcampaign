@@ -53,23 +53,7 @@ namespace BlackMesaEmailCampaign.Controllers
             }
             return View();
         }
-<<<<<<< HEAD
-        //[HttpGet]
-        //public ActionResult ViewSubscribers()
-        //{
-        //    UserServices userS = new UserServices();
-        //    SubscribersVM subscribersVM = userS.GetAllSubscribers();
-        //    subscribersVM.Subscribers = userS.SortByEmail(subscribersVM.Subscribers);
-        //    return View(subscribersVM);
-        //}
-        //[HttpPost]
-        //public ActionResult ViewSubscribers(SubscribersVM subscribersVM)
-        //{
-        //    return View(subscribersVM);
-        //}
-        //Views a list of subscribers
-=======
->>>>>>> fb16b79943611c4d089f1cf61aaa7b06d31a0cab
+        //List Subscribers
         public ActionResult ViewSubscribers()
         {
             UserServices userS = new UserServices();
@@ -108,6 +92,7 @@ namespace BlackMesaEmailCampaign.Controllers
             ViewBag.Sort = "FirstName";
             return View("ViewSubscribers", subscriber);
         }
+        //Search Subscribers
         [HttpGet]
         public ActionResult SearchSubscribers()
         {
@@ -129,8 +114,8 @@ namespace BlackMesaEmailCampaign.Controllers
             //and then we finish jumping through hoops...
             return View("ViewSubscribers", subscriber);
         }
-<<<<<<< HEAD
-=======
+
+        //Gets list of checked Subscribers.  Needs code for emailing them.
         [HttpPost]
         public ActionResult Email(SubscribersVM selectedSubscribers)
         {
@@ -138,6 +123,5 @@ namespace BlackMesaEmailCampaign.Controllers
             SubscribersVM test = log.Checked(selectedSubscribers);
             return View("ViewSubscribers", log.Checked(selectedSubscribers));
         }
->>>>>>> fb16b79943611c4d089f1cf61aaa7b06d31a0cab
     }
 }
