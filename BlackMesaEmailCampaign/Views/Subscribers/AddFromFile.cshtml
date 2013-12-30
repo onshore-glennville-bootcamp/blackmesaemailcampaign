@@ -9,6 +9,12 @@
 }
 
 <h2>Add From File</h2>
-<div>
 
-</div>
+@using (Html.BeginForm("Add Subscriber List", "AddFromFile", FormMethod.Post))
+{
+    <form method="post" action="file-upload-1.htm" name="submit" enctype="multipart/form-data">
+        <input type="file" name="fileName"><br />
+        <input type="text" name="title" /><br />
+        <input type="submit" name="submit" value="Upload Subscribers">
+    </form>
+}
