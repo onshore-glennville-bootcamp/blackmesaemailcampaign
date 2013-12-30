@@ -138,6 +138,7 @@ namespace BLL
             }
             return subscribersVM;
         }
+        //sends emails out to subscribers
         public static string SendEmail(string from, string to)
         {
             try
