@@ -197,5 +197,27 @@ namespace BLL
             }
             return selected;
         }
+        public bool AddFromFile(HttpPostedFileBase file)
+        {
+            bool uploaded = true;
+            // Verify that the user selected a file
+            if (file != null && file.ContentLength > 0)
+            {
+                // Extract and check file path
+                //var fileName = Path.GetFullPath(file.FileName);
+                //if (userServices.CheckCSV(fileName))
+                //{
+                //    userServices.SeparateCSV(fileName);
+                //}
+                string fileName = Path.GetFileName(file.FileName);
+                // store the file inside ~/App_Data/uploads folder
+                string path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                file.SaveAs(path);
+                if (userServices.CheckCSV(path))
+                {
+                    userServices.SeparateCSV(path);
+                }
+            }
+        }
     }
 }
