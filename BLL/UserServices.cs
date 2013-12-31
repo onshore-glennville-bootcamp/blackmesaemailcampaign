@@ -150,12 +150,23 @@ namespace BLL
                 string subEmail = "", subFirstName = "", subLastName = "";
                 line = stream.ReadLine();
                 if (line == null) break;
-                subEmail = line.Substring(0, line.IndexOf(','));
-                line = line.Substring(line.IndexOf(',') + 1);
+                int linecheck = line.IndexOf(',');
+                if (linecheck == -1)
+                {
+                    break;
+                }
+                subEmail = line.Substring(0, linecheck);
+                line = line.Substring(linecheck + 1);
+                linecheck = line.IndexOf(',');
+                if (linecheck == -1)
+                {
+                    break;
+                }
                 subFirstName = line.Substring(0, line.IndexOf(','));
                 subLastName = line.Substring(line.IndexOf(',') + 1);
                 subscribers.Add(new SubscribersFM { Email = subEmail, FirstName = subFirstName, LastName = subLastName });
             }
+            
             return subscribers;
         }
     }

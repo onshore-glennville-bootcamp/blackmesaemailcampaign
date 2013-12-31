@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 using System.Text;
+using System.Windows.Forms;
 using BLL;
 
 namespace BlackMesaEmailCampaign.Controllers
@@ -54,18 +55,18 @@ namespace BlackMesaEmailCampaign.Controllers
             }
             return View();
         }
-        //Method to redirect from AddFromFile page if user is not logged in
+        //Gets form for bulk uploads
         [HttpGet]
         public ActionResult AddFromFile()
         {
             return View();
         }
-        ////Controller for adding bulk users from file
-        //[HttpPost]
-        //public ActionResult AddFromFile()
-        //{
-
-        //}
+        //Uploads from list
+        [HttpPost]
+        public ActionResult AddFromFile(SubscribersVM subscribers)
+        {
+            return View();
+        }
         public ActionResult ViewSubscribers()
         {
             UserServices userS = new UserServices();
