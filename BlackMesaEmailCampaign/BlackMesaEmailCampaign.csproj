@@ -221,7 +221,7 @@
     <Content Include="Views\Subscribers\AddFromFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\Uploads\" />
     <Folder Include="Views\Email\" />
   </ItemGroup>
   <ItemGroup>

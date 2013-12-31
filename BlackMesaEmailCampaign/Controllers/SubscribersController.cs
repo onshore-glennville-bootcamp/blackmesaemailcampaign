@@ -55,7 +55,6 @@ namespace BlackMesaEmailCampaign.Controllers
             return View();
         }
         //List Subscribers
-        //Method to redirect from AddFromFile page if user is not logged in
         [HttpGet]
         public ActionResult AddFromFile()
         {
@@ -63,7 +62,7 @@ namespace BlackMesaEmailCampaign.Controllers
         }
         //Controller for adding bulk users from file
         [HttpPost]
-        public ActionResult AddFromFile(String fileName)
+        public ActionResult AddFromFile(string file)
         {
             ViewBag.Error = "Subscribers were added.";
             return View("Add");
