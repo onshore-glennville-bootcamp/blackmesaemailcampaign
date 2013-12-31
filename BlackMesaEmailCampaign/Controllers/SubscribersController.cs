@@ -65,25 +65,16 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpPost]
         public ActionResult AddFromFile(HttpPostedFileBase file)
         {
-            UserServices userServices = new UserServices();
+            UserServices log = new UserServices();
             bool uploaded = true;
             // Verify that the user selected a file
             if (file != null && file.ContentLength > 0)
             {
-                // Extract and check file path
-                //var fileName = Path.GetFullPath(file.FileName);
-                //if (userServices.CheckCSV(fileName))
-                //{
-                //    userServices.SeparateCSV(fileName);
-                //}
                 string fileName = Path.GetFileName(file.FileName);
                 // store the file inside ~/App_Data/uploads folder
-                string path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                string path = Path.Combine(Server.MapPath("~/App_Data/Uploads"), fileName);
                 file.SaveAs(path);
-                if (userServices.CheckCSV(path))
-                {
-                    userServices.SeparateCSV(path);
-                }
+                ViewBag.Subscribers = log.AddFromFile(fileName);
             }
             // redirect back to the index action to show the form once again
             if (uploaded == true)

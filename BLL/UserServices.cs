@@ -133,34 +133,6 @@ namespace BLL
             }
             return subscribersVM;
         }
-        public bool CheckCSV(string filePath)
-        {
-            int linecheck = 0;
-            bool valid = true;
-            string line = "";
-            //string fileName = "testfile.csv";
-            StreamReader stream = new StreamReader(filePath);
-            while (line != null)
-            {
-                line = stream.ReadLine();
-                if (line == null) break;
-                linecheck = line.IndexOf(',');
-                if (linecheck == -1)
-                {
-                    valid = false;
-                    break;
-                }
-                line = line.Substring(linecheck + 1);
-                linecheck = line.IndexOf(',');
-                if (linecheck == -1)
-                {
-                    valid = false;
-                    break;
-                }
-            }
-            
-            return valid;
-        }
         public List<SubscribersFM> SeparateCSV(string filePath)
         {
             int linecheck = 0;
@@ -181,8 +153,21 @@ namespace BLL
                 subLastName = line.Substring(line.IndexOf(',') + 1);
                 subscribers.Add(new SubscribersFM { Email = subEmail, FirstName = subFirstName, LastName = subLastName });
             }
-
             return subscribers;
+        }
+        public string AddFromFile(string fileName)
+        {
+            switch (Path.GetExtension(fileName))
+            {
+                case ".csv":
+                    CreateSubscribers(SeparateCSV("C:/Users/admin2/Desktop/BlackMesaEmailCampaign/BlackMesaEmailCampaign/App_Data/Uploads/" + fileName));
+                    //CreateSubscribers(SeparateCSV("C:\\Users\\admin2\\Desktop\\BlackMesaEmailCampaign\\BlackMesaEmailCampaign\\App_Data\\Uploads\\" + fileName));
+
+                    return "Subscribers from CSV file were uploaded.";
+                case ".xml":
+                    return "Subscribers from XML file were uploaded.";
+            }
+            return "File must be in CSV or XML format.";
         }
         //Pulls out unchecked subscribers and sends back list of checked subscribers
         public SubscribersVM Checked(SubscribersVM selectedSubscribers)
