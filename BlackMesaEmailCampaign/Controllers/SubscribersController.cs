@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 using System.Text;
+using System.Windows.Forms;
 using BLL;
 
 namespace BlackMesaEmailCampaign.Controllers
@@ -55,18 +56,27 @@ namespace BlackMesaEmailCampaign.Controllers
             return View();
         }
         //List Subscribers
-        //Method to redirect from AddFromFile page if user is not logged in
         [HttpGet]
         public ActionResult AddFromFile()
         {
             return View();
         }
-        ////Controller for adding bulk users from file
-        //[HttpPost]
-        //public ActionResult AddFromFile()
-        //{
-
-        //}
+        //Controller for adding bulk users from file
+        [HttpPost]
+        public ActionResult AddFromFile(HttpPostedFileBase file)
+        {
+            UserServices log = new UserServices();
+            // Verify that the user selected a file
+            if (file != null && file.ContentLength > 0)
+            {
+                string fileName = Path.GetFileName(file.FileName);
+                // store the file inside ~/App_Data/uploads folder
+                string path = Path.Combine(Server.MapPath("~/App_Data/Uploads"), fileName);
+                file.SaveAs(path);
+                ViewBag.Subscribers = log.AddFromFile(fileName);
+            }
+            return View();
+        }
         public ActionResult ViewSubscribers()
         {
             UserServices userS = new UserServices();
@@ -109,7 +119,7 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpGet]
         public ActionResult SearchSubscribers()
         {
-                return View();
+            return View();
         }
         [HttpPost]
         public ActionResult SearchSubscribers(string searchString)

@@ -133,24 +133,39 @@ namespace BLL
             }
             return subscribersVM;
         }
-        public List<SubscribersFM> SeparateCSV()
+        public List<SubscribersFM> SeparateCSV(string filePath)
         {
+            int linecheck = 0;
             string line = "";
             List<SubscribersFM> subscribers = new List<SubscribersFM>();
-            string fileName = "testfile.csv";
-            StreamReader stream = new StreamReader(fileName);
+            //string fileName = "testfile.csv";
+            StreamReader stream = new StreamReader(filePath);
             while (line != null)
             {
                 string subEmail = "", subFirstName = "", subLastName = "";
                 line = stream.ReadLine();
                 if (line == null) break;
-                subEmail = line.Substring(0, line.IndexOf(','));
-                line = line.Substring(line.IndexOf(',') + 1);
+                linecheck = line.IndexOf(',');
+                subEmail = line.Substring(0, linecheck);
+                line = line.Substring(linecheck + 1);
+                linecheck = line.IndexOf(',');
                 subFirstName = line.Substring(0, line.IndexOf(','));
                 subLastName = line.Substring(line.IndexOf(',') + 1);
                 subscribers.Add(new SubscribersFM { Email = subEmail, FirstName = subFirstName, LastName = subLastName });
             }
             return subscribers;
+        }
+        public string AddFromFile(string fileName)
+        {
+            switch (Path.GetExtension(fileName))
+            {
+                case ".csv":
+                    CreateSubscribers(SeparateCSV("C:/Users/admin2/Desktop/BlackMesaEmailCampaign/BlackMesaEmailCampaign/App_Data/Uploads/" + fileName));
+                    return "Subscribers from CSV file were uploaded.";
+                case ".xml":
+                    return "Subscribers from XML file were uploaded.";
+            }
+            return "File must be in CSV or XML format.";
         }
         //Pulls out unchecked subscribers and sends back list of checked subscribers
         public SubscribersVM Checked(SubscribersVM selectedSubscribers)
