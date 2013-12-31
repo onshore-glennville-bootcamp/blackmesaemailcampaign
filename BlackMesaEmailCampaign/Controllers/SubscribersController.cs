@@ -73,7 +73,7 @@ namespace BlackMesaEmailCampaign.Controllers
                 // store the file inside ~/App_Data/uploads folder
                 string path = Path.Combine(Server.MapPath("~/App_Data/Uploads"), fileName);
                 file.SaveAs(path);
-                ViewBag.Subscribers = log.AddFromFile(fileName);
+                ViewBag.Subscribers = log.AddFromFile(path);
             }
             return View();
         }

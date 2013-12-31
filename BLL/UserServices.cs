@@ -138,7 +138,6 @@ namespace BLL
             int linecheck = 0;
             string line = "";
             List<SubscribersFM> subscribers = new List<SubscribersFM>();
-            //string fileName = "testfile.csv";
             StreamReader stream = new StreamReader(filePath);
             while (line != null)
             {
@@ -160,9 +159,10 @@ namespace BLL
             switch (Path.GetExtension(fileName))
             {
                 case ".csv":
-                    CreateSubscribers(SeparateCSV("C:/Users/admin2/Desktop/BlackMesaEmailCampaign/BlackMesaEmailCampaign/App_Data/Uploads/" + fileName));
+                    CreateSubscribers(SeparateCSV(fileName));
                     return "Subscribers from CSV file were uploaded.";
                 case ".xml":
+                    CreateSubscribers(SeparateCSV(fileName));
                     return "Subscribers from XML file were uploaded.";
             }
             return "File must be in CSV or XML format.";
