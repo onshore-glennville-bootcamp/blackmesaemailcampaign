@@ -161,8 +161,6 @@ namespace BLL
             {
                 case ".csv":
                     CreateSubscribers(SeparateCSV("C:/Users/admin2/Desktop/BlackMesaEmailCampaign/BlackMesaEmailCampaign/App_Data/Uploads/" + fileName));
-                    //CreateSubscribers(SeparateCSV("C:\\Users\\admin2\\Desktop\\BlackMesaEmailCampaign\\BlackMesaEmailCampaign\\App_Data\\Uploads\\" + fileName));
-
                     return "Subscribers from CSV file were uploaded.";
                 case ".xml":
                     return "Subscribers from XML file were uploaded.";

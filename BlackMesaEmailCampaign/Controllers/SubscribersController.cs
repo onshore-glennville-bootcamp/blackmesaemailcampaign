@@ -66,7 +66,6 @@ namespace BlackMesaEmailCampaign.Controllers
         public ActionResult AddFromFile(HttpPostedFileBase file)
         {
             UserServices log = new UserServices();
-            bool uploaded = true;
             // Verify that the user selected a file
             if (file != null && file.ContentLength > 0)
             {
@@ -76,17 +75,7 @@ namespace BlackMesaEmailCampaign.Controllers
                 file.SaveAs(path);
                 ViewBag.Subscribers = log.AddFromFile(fileName);
             }
-            // redirect back to the index action to show the form once again
-            if (uploaded == true)
-            {
-                ViewBag.ErrorMessage = "Subscribers uploaded.";
-                return View();
-            }
-            else
-            {
-                ViewBag.ErrorMessage = "Upload unsuccessfull";
-                return View();
-            }
+            return View();
         }
         public ActionResult ViewSubscribers()
         {
@@ -130,7 +119,7 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpGet]
         public ActionResult SearchSubscribers()
         {
-                return View();
+            return View();
         }
         [HttpPost]
         public ActionResult SearchSubscribers(string searchString)
