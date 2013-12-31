@@ -147,11 +147,11 @@ namespace BLL
                 to = "blackmesaemailcampaign@gmail.com";//this is the email to whom you want to send the template
                 MailMessage mail = new MailMessage();
                 mail.To.Add(to);
-                mail.From = new MailAddress(from, "Black" , System.Text.Encoding.UTF8);
+                mail.From = new MailAddress(from, "Black Mesa" , Encoding.UTF8);
                 mail.Subject = "This is a test mail";
-                mail.SubjectEncoding = System.Text.Encoding.UTF8;
+                mail.SubjectEncoding = Encoding.UTF8;
                 mail.Body = "This is Email Body Text";
-                mail.BodyEncoding = System.Text.Encoding.UTF8;
+                mail.BodyEncoding = Encoding.UTF8;
                 mail.IsBodyHtml = true;
                 mail.Priority = MailPriority.High;
                 SmtpClient client = new SmtpClient();
