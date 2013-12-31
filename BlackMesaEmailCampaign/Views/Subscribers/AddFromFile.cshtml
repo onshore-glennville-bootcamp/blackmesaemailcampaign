@@ -9,10 +9,8 @@
 
 <h2>Add From File</h2>
 
-@using (Html.BeginForm("AddFromFile", "Subscribers", FormMethod.Post))
+@using (Html.BeginForm("AddFromFile", "Subscribers", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <form method="post" action="AddFromFile" name="submit" enctype="multipart/form-data">
-        <input type="file" name="file"><br />
-        <input type="submit" name="submit" value="Upload Subscribers">
-    </form>
+    <input type="file" name="file" />
+    <input type="submit" value="OK" />
 }

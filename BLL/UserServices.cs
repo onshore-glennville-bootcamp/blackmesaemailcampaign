@@ -133,34 +133,55 @@ namespace BLL
             }
             return subscribersVM;
         }
-        public List<SubscribersFM> SeparateCSV()
+        public bool CheckCSV(string filePath)
         {
+            int linecheck = 0;
+            bool valid = true;
+            string line = "";
+            //string fileName = "testfile.csv";
+            StreamReader stream = new StreamReader(filePath);
+            while (line != null)
+            {
+                line = stream.ReadLine();
+                if (line == null) break;
+                linecheck = line.IndexOf(',');
+                if (linecheck == -1)
+                {
+                    valid = false;
+                    break;
+                }
+                line = line.Substring(linecheck + 1);
+                linecheck = line.IndexOf(',');
+                if (linecheck == -1)
+                {
+                    valid = false;
+                    break;
+                }
+            }
+            
+            return valid;
+        }
+        public List<SubscribersFM> SeparateCSV(string filePath)
+        {
+            int linecheck = 0;
             string line = "";
             List<SubscribersFM> subscribers = new List<SubscribersFM>();
-            string fileName = "testfile.csv";
-            StreamReader stream = new StreamReader(fileName);
+            //string fileName = "testfile.csv";
+            StreamReader stream = new StreamReader(filePath);
             while (line != null)
             {
                 string subEmail = "", subFirstName = "", subLastName = "";
                 line = stream.ReadLine();
                 if (line == null) break;
-                int linecheck = line.IndexOf(',');
-                if (linecheck == -1)
-                {
-                    break;
-                }
+                linecheck = line.IndexOf(',');
                 subEmail = line.Substring(0, linecheck);
                 line = line.Substring(linecheck + 1);
                 linecheck = line.IndexOf(',');
-                if (linecheck == -1)
-                {
-                    break;
-                }
                 subFirstName = line.Substring(0, line.IndexOf(','));
                 subLastName = line.Substring(line.IndexOf(',') + 1);
                 subscribers.Add(new SubscribersFM { Email = subEmail, FirstName = subFirstName, LastName = subLastName });
             }
-            
+
             return subscribers;
         }
         //Pulls out unchecked subscribers and sends back list of checked subscribers

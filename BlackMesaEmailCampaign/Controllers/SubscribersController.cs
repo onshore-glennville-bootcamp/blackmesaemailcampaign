@@ -63,10 +63,24 @@ namespace BlackMesaEmailCampaign.Controllers
         }
         //Controller for adding bulk users from file
         [HttpPost]
-        public ActionResult AddFromFile(string file)
+        public ActionResult AddFromFile(HttpPostedFileBase file)
         {
-            ViewBag.Error = "Subscribers were added.";
-            return View("Add");
+            UserServices userServices = new UserServices();
+            // Verify that the user selected a file
+            if (file != null && file.ContentLength > 0)
+            {
+                // extract only the fielname
+                var fileName = Path.GetFullPath(file.FileName);
+                if (userServices.CheckCSV(fileName))
+                {
+                    userServices.SeparateCSV(fileName);
+                }
+                //// store the file inside ~/App_Data/uploads folder
+                //var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                //file.SaveAs(path);
+            }
+            // redirect back to the index action to show the form once again
+            return RedirectToAction("AddFromFile");  
         }
         public ActionResult ViewSubscribers()
         {
