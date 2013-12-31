@@ -120,14 +120,25 @@ namespace BlackMesaEmailCampaign.Controllers
             //and then we finish jumping through hoops...
             return View("ViewSubscribers", subscriber);
         }
-
+        [HttpGet]
+        public ActionResult Email()
+        {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
+        }
         //Gets list of checked Subscribers.  Needs code for emailing them.
         [HttpPost]
         public ActionResult Email(SubscribersVM selectedSubscribers)
         {
             UserServices log = new UserServices();
             SubscribersVM test = log.Checked(selectedSubscribers);
-            return View("ViewSubscribers", log.Checked(selectedSubscribers));
+            return View("EmailSubscribers", log.Checked(selectedSubscribers));
         }
     }
 }

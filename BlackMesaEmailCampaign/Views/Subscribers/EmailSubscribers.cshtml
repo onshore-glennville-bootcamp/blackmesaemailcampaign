@@ -1,0 +1,18 @@
+﻿@model BLL.SubscribersVM
+
+@{
+    ViewBag.Title = "EmailSubscribers";
+}
+@if (Session["ID"] == null)
+{
+    @Html.Action("Index", "Home");
+}
+<h2>Email Subscribers</h2>
+
+@using (Html.BeginForm("Email", "Subscribers", FormMethod.Post))
+{
+    <body>
+        <input type="text" />
+    </body>
+    <input type="submit" value="Send to Subscribers">
+}
