@@ -55,40 +55,26 @@ namespace BlackMesaEmailCampaign.Controllers
             }
             return View();
         }
-        //Gets form for bulk uploads
+        //List Subscribers
         [HttpGet]
         public ActionResult AddFromFile()
         {
             return View();
         }
-        //Uploads from list
+        //Controller for adding bulk users from file
         [HttpPost]
-        public ActionResult AddFromFile(SubscribersVM subscribers)
+        public ActionResult AddFromFile(string file)
         {
-            return View();
+            ViewBag.Error = "Subscribers were added.";
+            return View("Add");
         }
         public ActionResult ViewSubscribers()
         {
             UserServices userS = new UserServices();
             SubscribersVM subscriber = new SubscribersVM();
-            subscriber.Subscribers = userS.SortByEmail(userS.GetAllSubscribers());
-            ViewBag.Sort = "Email";
+            subscriber.Subscribers = userS.SortByLastName(userS.GetAllSubscribers());
+            ViewBag.Sort = "LastName";
             return View(subscriber);
-        }
-        //Sort list of subscribers by email, reverse if already sorted by email
-        public ActionResult ViewSubscribersByEmail(string sort)
-        {
-            UserServices userS = new UserServices();
-            SubscribersVM subscriber = new SubscribersVM();
-            subscriber.Subscribers = userS.SortByEmail(userS.GetAllSubscribers());
-            if (sort == "Email")
-            {
-                ViewBag.Sort = "";
-                subscriber.Subscribers.Reverse();
-                return View("ViewSubscribers", subscriber);
-            }
-            ViewBag.Sort = "Email";
-            return View("ViewSubscribers", subscriber);
         }
         //Sort list of subscribers by last name, reverse if already sorted by last name
         public ActionResult ViewSubscribersByLastName(string sort)
@@ -120,6 +106,7 @@ namespace BlackMesaEmailCampaign.Controllers
             ViewBag.Sort = "FirstName";
             return View("ViewSubscribers", subscriber);
         }
+        //Search Subscribers
         [HttpGet]
         public ActionResult SearchSubscribers()
         {
@@ -133,6 +120,15 @@ namespace BlackMesaEmailCampaign.Controllers
             subscriber.Subscribers = userS.Search(searchString);
             //and then we finish jumping through hoops...
             return View("ViewSubscribers", subscriber);
+        }
+
+        //Gets list of checked Subscribers.  Needs code for emailing them.
+        [HttpPost]
+        public ActionResult Email(SubscribersVM selectedSubscribers)
+        {
+            UserServices log = new UserServices();
+            SubscribersVM test = log.Checked(selectedSubscribers);
+            return View("ViewSubscribers", log.Checked(selectedSubscribers));
         }
     }
 }

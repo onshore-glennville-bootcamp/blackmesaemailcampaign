@@ -82,17 +82,6 @@ namespace BLL
             }
             return subscriberVM;
         }
-        //Sort a list of subscribers by email
-        public List<SubscriberVM> SortByEmail(List<SubscriberVM> list)
-        {
-            List<SubscriberVM> sorted = new List<SubscriberVM>();
-            list.Sort((a, b) => a.Email.CompareTo(b.Email));
-            foreach (SubscriberVM vm in list)
-            {
-                sorted.Add(vm);
-            }
-            return sorted;
-        }
         //Sort a list of subscribers by last name
         public List<SubscriberVM> SortByLastName(List<SubscriberVM> list)
         {
@@ -124,6 +113,13 @@ namespace BLL
             }
             return false;
         }
+        //Get Subscriber By Email
+        public SubscriberVM SubscriberByEmail(string email)
+        {
+            SubscriberDAO dao = new SubscriberDAO();
+            return ConvertSubscriber(dao.GetSubscriberByEmail(email));
+        }
+        // Search Subscribers
         public List<SubscriberVM> Search(string s)
         {
             List<SubscriberVM> subscribersVM = new List<SubscriberVM>();
@@ -135,9 +131,7 @@ namespace BLL
             {
                 subscribersVM.Add(ConvertSubscriber(subscriber));
             }
-
             return subscribersVM;
-
         }
         public List<SubscribersFM> SeparateCSV()
         {
@@ -168,6 +162,19 @@ namespace BLL
             }
             
             return subscribers;
+        }
+        //Pulls out unchecked subscribers and sends back list of checked subscribers
+        public SubscribersVM Checked(SubscribersVM selectedSubscribers)
+        {
+            SubscribersVM selected = new SubscribersVM();
+            foreach (SubscriberVM vm in selectedSubscribers.Subscribers)
+            {
+                if (vm.EmailList)
+                {
+                    selected.Subscribers.Add(SubscriberByEmail(vm.Email));
+                }
+            }
+            return selected;
         }
     }
 }

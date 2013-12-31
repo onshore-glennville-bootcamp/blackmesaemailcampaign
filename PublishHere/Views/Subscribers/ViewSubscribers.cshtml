@@ -5,26 +5,35 @@
 @{
     ViewBag.Title = "Subscribers";
 }
-
+@if (Session["ID"] == null)
+{
+    @Html.Action("Index", "Home");
+}
 <h2>Subscribers</h2>
 
 @Html.ActionLink("Add Subscriber ", "Add")&Dagger;@Html.ActionLink(" Search For Subscriber", "SearchSubscribers")
 
-<table>
-    <tbody>
-        <tr>
-            <th>@Html.ActionLink("Email", "ViewSubscribersByEmail", new { ViewBag.Sort })</th>
-            <th>@Html.ActionLink("Last Name", "ViewSubscribersByLastName", new { ViewBag.Sort })</th>
-            <th>@Html.ActionLink("First Name", "ViewSubscribersByFirstName", new { ViewBag.Sort })</th>
-        </tr>
-        @foreach (SubscriberVM subscriber in Model.Subscribers)
-        {
+@using (Html.BeginForm("Email", "Subscribers", FormMethod.Post))
+{
+    <table>
+        <thead>
             <tr>
-                <td><input type="checkbox" name="emailAddress" value="@subscriber.Email">@subscriber.Email<br></td>
-                <td>@subscriber.LastName</td>
-                <td>@subscriber.FirstName</td>
+                <th></th>
+                <th>@Html.ActionLink("Last Name", "ViewSubscribersByLastName", new { ViewBag.Sort })</th>
+                <th>@Html.ActionLink("First Name", "ViewSubscribersByFirstName", new { ViewBag.Sort })</th>
             </tr>
-        }
-    </tbody>
-</table>
-<input type="submit" value="Email Checked Subscribers">
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Subscribers.Count; i++)
+            {
+                @Html.HiddenFor(m=>m.Subscribers[i].Email)
+                <tr>
+                    <td>@Html.CheckBoxFor(m=>m.Subscribers[i].EmailList)</td>
+                    <td>@Model.Subscribers[i].LastName</td>
+                    <td>@Model.Subscribers[i].FirstName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <input type="submit" value="Submit">
+}
