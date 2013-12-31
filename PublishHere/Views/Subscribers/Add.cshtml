@@ -1,0 +1,33 @@
+﻿@model BLL.SubscribersFM
+
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add Subscriber</h2>
+@Html.ActionLink("Add Subscriber List", "AddFromFile")
+@using (Html.BeginForm("Add", "Subscribers", FormMethod.Post))
+{
+    <div class="error">
+        @ViewBag.ErrorMessage
+    </div>
+    <div class="form-group">
+        <div>@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })</div>
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <div>@Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })</div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div>@Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })</div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+            </div>
+        </div>
+        <input type="submit" value="Add Subscriber" />
+    </div>
+}
