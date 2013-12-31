@@ -57,19 +57,26 @@ namespace BlackMesaEmailCampaign.Controllers
             MarketManService users = new MarketManService();
             if (registerFM.Email != null && users.ValidEmail(registerFM.Email))
             {
-                if (users.IsValidUser(registerFM))
+                if (users.ConfirmEmailLength(registerFM))
                 {
-                    if (registerFM.Password != null && registerFM.Password.Length > 7 && registerFM.Password.Length < 26 && registerFM.Password == registerFM.ConfirmPassword)
+                    if (users.IsValidUser(registerFM))
                     {
-                        users.CreateUser(registerFM);
-                        ViewBag.ErrorMessage = "User Created";
-                        return View();
+                        if (registerFM.Password != null && registerFM.Password.Length > 7 && registerFM.Password.Length < 26 && registerFM.Password == registerFM.ConfirmPassword)
+                        {
+                            users.CreateUser(registerFM);
+                            ViewBag.ErrorMessage = "User Created";
+                            return View();
+                        }
+                        ViewBag.ErrorMessage = "Passwords must be more than seven characters, less than 25 characters, and match.";
                     }
-                    ViewBag.ErrorMessage = "Passwords must be more than seven characters and match.";
+                    else
+                    {
+                        ViewBag.ErrorMessage = "Email already exists.";
+                    }
                 }
                 else
                 {
-                    ViewBag.ErrorMessage = "Email already exists.";
+                    ViewBag.ErrorMessage = "Invalid email.";
                 }
             }
             else

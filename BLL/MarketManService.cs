@@ -56,7 +56,16 @@ namespace BLL
         public bool IsValidUser(MarketManRegisterFM userFM)
         {
             MarketManDAO dao = new MarketManDAO();
-            if (userFM.Email != null && userFM.Email.Length > 5 && dao.GetMarketManByEmail(userFM.Email) == null)
+            if (dao.GetMarketManByEmail(userFM.Email) == null)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool ConfirmEmailLength(MarketManRegisterFM userFM)
+        {
+            MarketManDAO dao = new MarketManDAO();
+            if (userFM.Email != null && userFM.Email.Length > 5)
             {
                 return true;
             }
