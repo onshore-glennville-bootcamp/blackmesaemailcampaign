@@ -123,14 +123,7 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpGet]
         public ActionResult Email()
         {
-            if (Session["ID"] == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                return View();
-            }
+            return View();
         }
         //Gets list of checked Subscribers.  Needs code for emailing them.
         [HttpPost]

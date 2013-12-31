@@ -3,16 +3,22 @@
 @{
     ViewBag.Title = "EmailSubscribers";
 }
-@if (Session["ID"] == null)
-{
-    @Html.Action("Index", "Home");
-}
+
 <h2>Email Subscribers</h2>
 
 @using (Html.BeginForm("Email", "Subscribers", FormMethod.Post))
 {
-    <body>
-        <input type="text" />
-    </body>
-    <input type="submit" value="Send to Subscribers">
+    <table border="1" width="1200">
+    <tr>
+        <td colspan="2" width="1200px">
+            <b>Body:</b><br />
+            <textarea rows="255" cols="255"></textarea>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" align="center">
+            <input type="submit" value="Send" />
+        </td>
+    </tr>
+</table>
 }
