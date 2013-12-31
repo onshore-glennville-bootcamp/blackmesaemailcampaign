@@ -3,12 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Black Mesa Email Campaign</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-
+    <title>@ViewBag.Title - Black Mesa Research Facilty</title>
+    <link href="~/Content/blackmesa.css" rel="stylesheet" />
 </head>
 <body>
+    <div id="container">
+        <div id="masthead">
+            <img src="~/Content/masthead1260-150.jpg" align="center" height 150px width:1260px />
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -28,17 +29,44 @@
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Black Mesa Email Campaign</p>
-        </footer>
-    </div>
+        <div id="top_nav">
+            <!-- logo, company name, top links -->
+            <ul>
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li>|</li>
+                <li>@Html.ActionLink("About", "About", "Home")</li>
+                <li>|</li>
+                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+            </ul>
+            
+        </div>
+        
+        <div id="left_nav">
+            <img src="~/Content/bmlogo.png" />
+            @Html.Partial("_LoginPartial")
+            <ul>
+                <li><a href=""> Subscriber Management </a></li>
+                <li><a href=""> Group Management </a></li>
+                <li><a href=""> Campaign Management </a></li>
+                <li><a href=""> Reports </a></li>
+                <li><a href=""> Account Home </a></li>
+                <li><a href=""> Profile Management </a></li>
+            </ul>
+        </div>
+
+     <div id="content">
+            @RenderBody()
+            
+
+        </div>
+
+        <div id="footer">
+            <p>&copy; @DateTime.Now.Year Glennville Onshore Outsourcing Bootcamp Group: Chris Barratta, Colton Cantrell, Marla Crews, Steven Fast, Mark Kalgren</p>
+        </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+        
+    </div>
 </body>
 </html>
