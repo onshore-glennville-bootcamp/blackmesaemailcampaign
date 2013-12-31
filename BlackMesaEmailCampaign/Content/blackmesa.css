@@ -16,7 +16,7 @@ body { background-color: slategray;}
 
 #top_nav a:visited {color: antiquewhite; text-decoration: line-through;}  /* visited link */
 
-#top_nav a:hover {color: ghostwhite; text-decoration: overline;}  /* mouse over link */
+#top_nav a:hover {color: ghostwhite; text-decoration: underline;}  /* mouse over link */
 
 #top_nav a:active {color: lightgray;}  /* selected link */
 
@@ -28,7 +28,7 @@ body { background-color: slategray;}
 
 #left_nav a:visited {color: antiquewhite; text-decoration: line-through;}  /* visited link */
 
-#left_nav a:hover {color: ghostwhite; text-decoration: overline;}  /* mouse over link */
+#left_nav a:hover {color: ghostwhite; text-decoration: underline;}  /* mouse over link */
 
 #left_nav a:active {color: lightgray;}  /* selected link */
 
