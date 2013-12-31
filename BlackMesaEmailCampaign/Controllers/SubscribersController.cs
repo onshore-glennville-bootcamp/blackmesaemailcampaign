@@ -71,15 +71,17 @@ namespace BlackMesaEmailCampaign.Controllers
             {
                 string fileName = Path.GetFileName(file.FileName);
                 // store the file inside ~/App_Data/uploads folder
-                string path = Path.Combine(Server.MapPath("~/App_Data/Uploads"), fileName);
+                string path = Path.Combine(Server.MapPath("~/App_Data/Uploads/" + Session["ID"] + "/"), fileName);
                 while (System.IO.File.Exists(path))
                 {
-                    path = Path.Combine(Server.MapPath("~/App_Data/Uploads"), fileName);
+                    path = Path.Combine(Server.MapPath("~/App_Data/Uploads/" + Session["ID"] + "/"), fileName);
                     fileName = ("new" + fileName);
                 }
                 file.SaveAs(path);
                 ViewBag.Subscribers = log.AddFromFile(path);
+                path = null;
             }
+            file = null;
             return View();
         }
         public ActionResult ViewSubscribers()

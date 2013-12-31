@@ -160,11 +160,14 @@ namespace BLL
             {
                 case ".csv":
                     CreateSubscribers(SeparateCSV(fileName));
+                    fileName = null;
                     return "Subscribers from CSV file were uploaded.";
                 case ".xml":
                     CreateSubscribers(SeparateCSV(fileName));
+                    fileName = null;
                     return "Subscribers from XML file were uploaded.";
             }
+            fileName = null;
             return "File must be in CSV or XML format.";
         }
         //Pulls out unchecked subscribers and sends back list of checked subscribers
