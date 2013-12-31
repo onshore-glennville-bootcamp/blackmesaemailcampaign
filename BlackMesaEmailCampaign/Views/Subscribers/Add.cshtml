@@ -1,9 +1,9 @@
 ﻿@model BLL.SubscribersFM
 
-@if (Session["ID"] == null)
+@*@if (Session["ID"] == null)
 {
     @Html.Action("Index", "Home");
-}
+}*@
 
 @{
     ViewBag.Title = "Add";
@@ -19,20 +19,20 @@
         @ViewBag.ErrorMessage
     </div>
     <div class="form-group">
-        <div>@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })</div>
+        @*<div>@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })</div>*@
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email"})
         </div>
         <div class="form-group">
-            <div>@Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })</div>
+            @*<div>@Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })</div>*@
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "First Name" })
             </div>
         </div>
         <div class="form-group">
-            <div>@Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })</div>
+            @*<div>@Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })</div>*@
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Last Name" })
             </div>
         </div>
         <input type="submit" value="Add Subscriber" />
