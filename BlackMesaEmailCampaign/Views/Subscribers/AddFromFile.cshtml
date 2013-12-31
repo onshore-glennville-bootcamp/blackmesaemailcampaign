@@ -9,6 +9,8 @@
 
 <h2>Add From File</h2>
 
+@ViewBag.ErrorMessage
+
 @using (Html.BeginForm("AddFromFile", "Subscribers", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <input type="file" name="file" />
