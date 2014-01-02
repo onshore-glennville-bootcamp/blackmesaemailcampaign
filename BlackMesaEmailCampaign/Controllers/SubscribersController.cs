@@ -149,6 +149,8 @@ namespace BlackMesaEmailCampaign.Controllers
             //and then we finish jumping through hoops...
             return View("ViewSubscribers", subscriber);
         }
+
+
         [HttpGet]
         public ActionResult Email()
         {
