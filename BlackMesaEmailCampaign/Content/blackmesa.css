@@ -1,0 +1,42 @@
+
+
+body { background-color: slategray;}
+
+#container { height:640px; width:1260px; margin: auto; border: 5px orange inset;}
+
+#masthead { background-color: black; height: 150px; width: 1260px;}
+
+#top_nav {background-color: black; width:1260; height:50px;}
+
+#top_nav ul { display: inline-block; float:right; padding-right:25px; }
+	
+#top_nav li { display: inline-block;}
+	
+#top_nav a:link {color: white; text-decoration: none;}      /* unvisited link */
+
+#top_nav a:visited {color: antiquewhite; text-decoration: line-through;}  /* visited link */
+
+#top_nav a:hover {color: ghostwhite; text-decoration: underline;}  /* mouse over link */
+
+#top_nav a:active {color: lightgray;}  /* selected link */
+
+#left_nav {background-color: black; height: 400px; width: 150px; float: left;}
+
+#left_nav img { padding-left: 25px; }
+
+#left_nav a:link {color: white; text-decoration: none;}      /* unvisited link */
+
+#left_nav a:visited {color: antiquewhite; text-decoration: line-through;}  /* visited link */
+
+#left_nav a:hover {color: ghostwhite; text-decoration: underline;}  /* mouse over link */
+
+#left_nav a:active {color: lightgray;}  /* selected link */
+
+#left_nav ul {color: white; list-style: square;}
+
+#content {background-color: white; height: 400px; width: 1110px; overflow: auto;}
+
+#footer { background-color: gray; width:1260px; height: 25px;}
+
+#footer p { font-size: 0.75em; }
+

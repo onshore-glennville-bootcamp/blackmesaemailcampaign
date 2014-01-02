@@ -156,16 +156,24 @@ namespace BLL
         }
         public string AddFromFile(string fileName)
         {
+            string uploaded = "File must be in CSV or XML format.  And fields should be in the order Email, First Name, Last Name";
             switch (Path.GetExtension(fileName))
             {
                 case ".csv":
-                    CreateSubscribers(SeparateCSV(fileName));
-                    return "Subscribers from CSV file were uploaded.";
+                    foreach (SubscribersFM fm in SeparateCSV(fileName))
+                    {
+                        if (ValidEmail(fm.Email))
+                        {
+                            CreateSubscribers(fm);
+                            uploaded = "Subscribers from CSV file were uploaded.";
+                        }
+                    }
+                    return uploaded;
                 case ".xml":
                     CreateSubscribers(SeparateCSV(fileName));
                     return "Subscribers from XML file were uploaded.";
             }
-            return "File must be in CSV or XML format.";
+            return uploaded;
         }
         //Pulls out unchecked subscribers and sends back list of checked subscribers
         public SubscribersVM Checked(SubscribersVM selectedSubscribers)
