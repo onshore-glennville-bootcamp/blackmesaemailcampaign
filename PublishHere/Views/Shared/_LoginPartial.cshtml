@@ -1,19 +1,16 @@
 ﻿@if (Session["ID"] != null)
 {
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Welcome, " + Session["Name"] + ".", "Index", "Home", routeValues: null, htmlAttributes: new { title = "Manage" })
-            
-        </li>
+    <ul>
+        <li>@Html.ActionLink("Welcome, " + Session["Name"] + ".", "Index", "Home", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
         <li>@Html.ActionLink("View Subscribers", "ViewSubscribers", "Subscribers")</li>
+        <li>@Html.ActionLink("Add Subscribers", "Add", "Subscribers")</li>
         <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
     </ul>
-
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
+    <ul>
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
