@@ -141,16 +141,14 @@ namespace BlackMesaEmailCampaign.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult SearchSubscribers(string searchString)
+        public ActionResult SearchSubscribers(SubscribersVM vm)
         {
             UserServices userS = new UserServices();
             SubscribersVM subscriber = new SubscribersVM();
-            subscriber.Subscribers = userS.Search(searchString);
+            subscriber.Subscribers = userS.Search(vm.Subscribers[0].Email);
             //and then we finish jumping through hoops...
             return View("ViewSubscribers", subscriber);
         }
-
-
         [HttpGet]
         public ActionResult Email()
         {

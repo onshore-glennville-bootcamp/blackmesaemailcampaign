@@ -6,11 +6,11 @@
     ViewBag.Title = "Subscribers";
 }
 
-@Html.Action("SearchSubscribers")
+@Html.Partial("SearchSubscribers")
 
 <h2>Subscribers</h2>
 
-@Html.ActionLink("Add Subscriber ", "Add")&Dagger;@Html.ActionLink(" Search For Subscriber", "SearchSubscribers")
+@Html.ActionLink("Add Subscriber ", "Add")
 
 @using (Html.BeginForm("Email", "Subscribers", FormMethod.Post))
 {
