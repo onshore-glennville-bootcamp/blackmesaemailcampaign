@@ -69,16 +69,13 @@ namespace BlackMesaEmailCampaign.Controllers
             // Verify that the user selected a file
             if (file != null && file.ContentLength > 0)
             {
-                string fileName = Path.GetFileName(file.FileName);
-                // store the file inside ~/App_Data/uploads folder
-                string path = Path.Combine(Server.MapPath("~/App_Data/Uploads"), fileName);
-                while (System.IO.File.Exists(path))
+                string ext = Path.GetExtension(file.FileName);
+                StreamReader reader = new StreamReader(file.InputStream);
+                while (!reader.EndOfStream)
                 {
-                    path = Path.Combine(Server.MapPath("~/App_Data/Uploads"), fileName);
-                    fileName = ("new" + fileName);
+                    ViewBag.Subscribers = log.AddFromFile(reader, ext);
                 }
-                file.SaveAs(path);
-                ViewBag.Subscribers = log.AddFromFile(path);
+                reader.Close();
             }
             return View();
         }
