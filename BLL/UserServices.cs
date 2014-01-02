@@ -156,7 +156,7 @@ namespace BLL
         }
         public string AddFromFile(string fileName)
         {
-            string uploaded = "File must be in CSV or XML format.  And fields should be in the order Email, First Name, Last Name";
+            string uploaded = "File must be in CSV or XML format.  Fields should be in the order Email, First Name, Last Name";
             switch (Path.GetExtension(fileName))
             {
                 case ".csv":
