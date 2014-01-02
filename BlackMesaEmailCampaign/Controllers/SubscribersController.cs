@@ -38,6 +38,7 @@ namespace BlackMesaEmailCampaign.Controllers
                     {
                         log.CreateSubscribers(subscriber);
                         ViewBag.ErrorMessage = "Subscriber created";
+                        return RedirectToAction("ViewSubscribers");
                     }
                     else
                     {
