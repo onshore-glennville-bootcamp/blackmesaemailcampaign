@@ -133,16 +133,16 @@ namespace BLL
             }
             return subscribersVM;
         }
-        public List<SubscribersFM> SeparateCSV(string filePath)
+        public List<SubscribersFM> SeparateCSV(StreamReader filePath)
         {
             int linecheck = 0;
             string line = "";
             List<SubscribersFM> subscribers = new List<SubscribersFM>();
-            StreamReader stream = new StreamReader(filePath);
+            //StreamReader stream = new StreamReader(filePath);
             while (line != null)
             {
                 string subEmail = "", subFirstName = "", subLastName = "";
-                line = stream.ReadLine();
+                line = filePath.ReadLine();
                 if (line == null) break;
                 linecheck = line.IndexOf(',');
                 subEmail = line.Substring(0, linecheck);
@@ -154,20 +154,17 @@ namespace BLL
             }
             return subscribers;
         }
-        public string AddFromFile(string fileName)
+        public string AddFromFile(StreamReader stream, string ext)
         {
-            switch (Path.GetExtension(fileName))
+            switch (ext)
             {
                 case ".csv":
-                    CreateSubscribers(SeparateCSV(fileName));
-                    fileName = null;
+                    CreateSubscribers(SeparateCSV(stream));
                     return "Subscribers from CSV file were uploaded.";
                 case ".xml":
-                    CreateSubscribers(SeparateCSV(fileName));
-                    fileName = null;
+                    CreateSubscribers(SeparateCSV(stream));
                     return "Subscribers from XML file were uploaded.";
             }
-            fileName = null;
             return "File must be in CSV or XML format.";
         }
         //Pulls out unchecked subscribers and sends back list of checked subscribers
