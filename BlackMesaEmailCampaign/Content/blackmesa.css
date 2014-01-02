@@ -1,12 +1,14 @@
 /* Marla Crews */
 
+html { font-family:Tahoma, sans-serif; }
+
 body { background-color: slategray;}
 
 #container { height:640px; width:1260px; margin: auto; border: 5px orange inset;}
 
 #masthead { background-color: black; height: 150px; width: 1260px;}
 
-#top_nav {background-color: black; width:1260; height:50px;}
+#top_nav {background-color: black; width:1060px; height:50px; float:right; font-size: 1em;}
 
 #top_nav ul { display: inline-block; float:right; padding-right:25px; }
 	
@@ -20,9 +22,9 @@ body { background-color: slategray;}
 
 #top_nav a:active {color: lightgray;}  /* selected link */
 
-#left_nav {background-color: black; height: 400px; width: 150px; float: left;}
+#left_nav {background-color: black; height: 450px; width: 200px; float: left; font-size: 0.75em;}
 
-#left_nav img { padding-left: 25px; }
+#left_nav img { padding: 5px; border: 0; }
 
 #left_nav a:link {color: white; text-decoration: none;}      /* unvisited link */
 
@@ -34,9 +36,8 @@ body { background-color: slategray;}
 
 #left_nav ul {color: white; list-style: square;}
 
-#content {background-color: white; height: 400px; width: 1110px; overflow: auto;}
+#content {background-color: white; height: 400px; width: 1060px; overflow: auto;}
 
-#footer { background-color: gray; width:1260px; height: 25px;}
+#footer { background-color: gray; width:1260px; height: 25px; }
 
-#footer p { font-size: 0.75em; }
-
+#footer p { font-size: 0.85em; }

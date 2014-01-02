@@ -160,6 +160,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SubscribersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -217,6 +218,11 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Subscribers\Add.cshtml" />
+    <Content Include="Views\Subscribers\AddFromFile.cshtml" />
+    <Content Include="Views\Subscribers\SearchSubscribers.cshtml" />
+    <Content Include="Views\Subscribers\ViewSubscribers.cshtml" />
+    <Content Include="Views\Subscribers\_ViewSubscribersPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
