@@ -135,12 +135,10 @@ namespace BLL
             }
             return subscribersVM;
         }
-        public List<SubscribersFM> SeparateXML(string filePath)
+        public List<SubscribersFM> SeparateXML(StreamReader stream)
         {
-            string fileName = filePath;
             List<string> AllLines = new List<string>();
-            StreamReader st = new StreamReader(fileName);
-            while (st.Peek() >= 0)
+            while (stream.Peek() >= 0)
             {
                 AllLines.Add(st.ReadLine());
             }
@@ -185,16 +183,15 @@ namespace BLL
             original = original.Substring(0, a);
             return original;
         }
-        public List<SubscribersFM> SeparateCSV(string filePath)
+        public List<SubscribersFM> SeparateCSV(StreamReader stream)
         {
             int linecheck = 0;
             string line = "";
             List<SubscribersFM> subscribers = new List<SubscribersFM>();
-            //StreamReader stream = new StreamReader(filePath);
             while (line != null)
             {
                 string subEmail = "", subFirstName = "", subLastName = "";
-                line = filePath.ReadLine();
+                line = stream.ReadLine();
                 if (line == null) break;
                 linecheck = line.IndexOf(',');
                 subEmail = line.Substring(0, linecheck);
