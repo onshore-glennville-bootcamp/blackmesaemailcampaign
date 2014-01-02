@@ -25,7 +25,9 @@
             <img src="~/Content/bmlogo.png" />
             @Html.Partial("_LoginPartial")
         </div>
-
+        <div id="right_nav">
+            @Html.Partial("_SubscribersListPartial")
+        </div>
         <div id="content">
             @RenderBody()
         </div>

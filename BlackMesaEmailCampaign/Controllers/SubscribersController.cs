@@ -157,7 +157,7 @@ namespace BlackMesaEmailCampaign.Controllers
         {
             UserServices log = new UserServices();
             SubscribersVM test = log.Checked(selectedSubscribers);
-            return View("ViewSubscribers", log.Checked(selectedSubscribers));
+            return View("_SubscribersListPartial", log.Checked(selectedSubscribers));
         }
     }
 }
