@@ -7,20 +7,26 @@
     <link href="~/Content/blackmesa.css" rel="stylesheet" />
 </head>
 <body>
+    <!-- Container is the webpage box area. Everything gies inside of it.-->
     <div id="container">
+        <!-- The Masthead is where the company letterhead-sytle logo goes -->
         <div id="masthead">
             <img src="~/Content/masthead1260-150.jpg" align="middle" />
-            <div id="top_nav">
-                <!-- logo, company name, top links -->
-                <ul>
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>|</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>|</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
+
         </div>
+        <div id="top_nav">
+            <!-- logo, company name, top links -->
+            <ul>
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li>|</li>
+                <li>@Html.ActionLink("About", "About", "Home")</li>
+                <li>|</li>
+                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+            </ul>
+
+        </div>
+
+        <!-- Left Navigation Bar where login and task links go -->
         <div id="left_nav">
             <img src="~/Content/bmlogo.png" />
             @Html.Partial("_LoginPartial")
@@ -28,14 +34,16 @@
         <div id="right_nav">
             @Html.Partial("_SubscribersListPartial")
         </div>
+        <!-- Content area, where the pages open inside of the laid-out box design area -->
         <div id="content">
             @RenderBody()
+            @Scripts.Render("~/bundles/jquery")
+            @RenderSection("scripts", required: false)
         </div>
+        <!-- Footer area, for the credits and year -->
         <div id="footer">
             <p>&copy; @DateTime.Now.Year Glennville Onshore Outsourcing Bootcamp Group: Chris Barratta, Colton Cantrell, Marla Crews, Steven Fast, Mark Kalgren</p>
         </div>
-        @Scripts.Render("~/bundles/jquery")
-        @RenderSection("scripts", required: false)
 
     </div>
 </body>

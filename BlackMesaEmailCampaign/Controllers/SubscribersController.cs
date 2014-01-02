@@ -34,7 +34,6 @@ namespace BlackMesaEmailCampaign.Controllers
                     if (!log.TooLong(subscriber.FirstName) && !log.TooLong(subscriber.LastName))
                     {
                         log.CreateSubscribers(subscriber);
-                        ViewBag.ErrorMessage = "Subscriber created";
                         return RedirectToAction("ViewSubscribers");
                     }
                     else
