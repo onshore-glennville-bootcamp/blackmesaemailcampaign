@@ -224,7 +224,6 @@
     <Content Include="Views\Subscribers\AddFromFile.cshtml" />
     <Content Include="Views\Subscribers\SearchSubscribers.cshtml" />
     <Content Include="Views\Subscribers\ViewSubscribers.cshtml" />
-    <Content Include="Views\Subscribers\_ViewSubscribersPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
