@@ -1,4 +1,6 @@
+/* Marla Crews */
 
+html { font-family:Tahoma, sans-serif; }
 
 body { background-color: slategray;}
 
@@ -6,7 +8,7 @@ body { background-color: slategray;}
 
 #masthead { background-color: black; height: 150px; width: 1260px;}
 
-#top_nav {background-color: black; width:1260; height:50px;}
+#top_nav {background-color: black; width:1060px; height:50px; float:right; font-size: 1em;}
 
 #top_nav ul { display: inline-block; float:right; padding-right:25px; }
 	
@@ -20,9 +22,9 @@ body { background-color: slategray;}
 
 #top_nav a:active {color: lightgray;}  /* selected link */
 
-#left_nav {background-color: black; height: 400px; width: 150px; float: left;}
+#left_nav {background-color: black; height: 450px; width: 200px; float: left; font-size: 0.75em;}
 
-#left_nav img { padding-left: 25px; }
+#left_nav img { padding: 5px; border: 0; }
 
 #left_nav a:link {color: white; text-decoration: none;}      /* unvisited link */
 
@@ -34,9 +36,91 @@ body { background-color: slategray;}
 
 #left_nav ul {color: white; list-style: square;}
 
-#content {background-color: white; height: 400px; width: 1110px; overflow: auto;}
+#content {background-color: white; height: 350px; width: 1010px; overflow: auto; padding: 25px; }
 
-#footer { background-color: gray; width:1260px; height: 25px;}
+#footer { background-color: gray; width:1260px; height: 25px; }
 
-#footer p { font-size: 0.75em; }
+#footer p { font-size: 0.85em; }
 
+/* Styling lifted from the bootstrap css file.*/
+
+a:focus { outline: thin dotted; }
+
+a:active, a:hover { outline: 0;}
+
+fieldset {
+  padding: 0.35em 0.625em 0.75em;
+  margin: 0 2px;
+  border: 1px solid #c0c0c0;
+}
+
+legend {
+  padding: 0;
+  border: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: 100%;
+}
+
+button,
+input {
+  line-height: normal;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input[type="search"] {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+  -webkit-appearance: textfield;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+textarea {
+  overflow: auto;
+  vertical-align: top;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
