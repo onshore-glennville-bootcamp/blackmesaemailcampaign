@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Mail;
+using System.Net;
 using DAL;
 using System.IO;
 
@@ -51,7 +53,7 @@ namespace BLL
             {
                 try
                 {
-                    var addr = new System.Net.Mail.MailAddress(email);
+                    var addr = new MailAddress(email);
                     return true;
                 }
                 catch
@@ -133,7 +135,57 @@ namespace BLL
             }
             return subscribersVM;
         }
-        public List<SubscribersFM> SeparateCSV(StreamReader filePath)
+        public List<SubscribersFM> SeparateXML(string filePath)
+        {
+            string fileName = filePath;
+            List<string> AllLines = new List<string>();
+            StreamReader st = new StreamReader(fileName);
+            while (st.Peek() >= 0)
+            {
+                AllLines.Add(st.ReadLine());
+            }
+            List<string> LostTags = new List<string>();
+            //get rid of the tags
+            for (int a = 0; a < AllLines.Count; a++)
+            {
+                if (AllLines[a].Substring(0, 1) != "<" && AllLines[a].Substring(0, 2) != "\t<")
+                {
+                    AllLines[a] = DumpTags(AllLines[a].Trim());
+                    LostTags.Add(AllLines[a]);
+                }
+            }
+            int g = 0;
+            // create a list of subscribers
+            List<SubscribersFM> Subscribers = new List<SubscribersFM>();
+            for (int subscribersCount = 0; subscribersCount < AllLines.Count; subscribersCount += 3) ;
+            {
+
+            }
+            //foreach (string item in LostTags)
+            //{
+            //    g = g + 1;
+            //    Console.Write(item + " ");
+            //    if (g % 3 == 0)
+            //    {
+            //        Console.WriteLine();
+            //    }
+            //}
+            Console.ReadLine();
+
+            //else
+            //{
+            //    Console.WriteLine("Please check your filename and try again");
+            //    Console.ReadLine();
+            //}
+        }
+        private static string DumpTags(string original)
+        {
+            int a = original.IndexOf(">") + 1; original = original.Substring(a);
+            a = original.IndexOf("<");
+            original = original.Substring(0, a);
+            return original;
+        }
+        public List<SubscribersFM> SeparateCSV(string filePath)
         {
             int linecheck = 0;
             string line = "";
@@ -187,6 +239,35 @@ namespace BLL
                 }
             }
             return selected;
+        }
+        //sends emails out to subscribers
+        public static string SendEmail(string from, string to)
+        {
+            try
+            {
+                from = "blackmesaemailcampaign@gmail.com";//Email we are using to send templates from
+                to = "blackmesaemailcampaign@gmail.com";//this is the email to whom you want to send the template
+                MailMessage mail = new MailMessage();
+                mail.To.Add(to);
+                mail.From = new MailAddress(from, "Black Mesa", Encoding.UTF8);
+                mail.Subject = "This is a test mail";
+                mail.SubjectEncoding = Encoding.UTF8;
+                mail.Body = "This is Email Body Text";
+                mail.BodyEncoding = Encoding.UTF8;
+                mail.IsBodyHtml = true;
+                mail.Priority = MailPriority.High;
+                SmtpClient client = new SmtpClient();
+                client.Credentials = new NetworkCredential(from, "bootcamp123");//bootcamp123 is the password for the email
+                client.Port = 587;//Gmail works on this port
+                client.Host = "smtp.gmail.com";
+                client.EnableSsl = true;//Gmail works on Server Secured Layer
+                client.Send(mail);
+                return "Done";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }// end try
         }
     }
 }
