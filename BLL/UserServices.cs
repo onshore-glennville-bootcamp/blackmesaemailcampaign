@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Mail;
+using System.Net;
 using DAL;
 using System.IO;
 
@@ -51,7 +53,7 @@ namespace BLL
             {
                 try
                 {
-                    var addr = new System.Net.Mail.MailAddress(email);
+                    var addr = new MailAddress(email);
                     return true;
                 }
                 catch
@@ -179,6 +181,35 @@ namespace BLL
                 }
             }
             return selected;
+        }
+        //sends emails out to subscribers
+        public static string SendEmail(string from, string to)
+        {
+            try
+            { 
+                from = "blackmesaemailcampaign@gmail.com";//Email we are using to send templates from
+                to = "blackmesaemailcampaign@gmail.com";//this is the email to whom you want to send the template
+                MailMessage mail = new MailMessage();
+                mail.To.Add(to);
+                mail.From = new MailAddress(from, "Black Mesa" , Encoding.UTF8);
+                mail.Subject = "This is a test mail";
+                mail.SubjectEncoding = Encoding.UTF8;
+                mail.Body = "This is Email Body Text";
+                mail.BodyEncoding = Encoding.UTF8;
+                mail.IsBodyHtml = true;
+                mail.Priority = MailPriority.High;
+                SmtpClient client = new SmtpClient();
+                client.Credentials = new NetworkCredential(from, "bootcamp123");//bootcamp123 is the password for the email
+                client.Port = 587;//Gmail works on this port
+                client.Host = "smtp.gmail.com";
+                client.EnableSsl = true;//Gmail works on Server Secured Layer
+                client.Send(mail);
+                return "Done";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }// end try
         }
     }
 }
