@@ -135,6 +135,56 @@ namespace BLL
             }
             return subscribersVM;
         }
+        public List<SubscribersFM> SeparateXML(string filePath)
+        {
+            string fileName = filePath;
+            List<string> AllLines = new List<string>();
+            StreamReader st = new StreamReader(fileName);
+            while (st.Peek() >= 0)
+            {
+                AllLines.Add(st.ReadLine());
+            }
+            List<string> LostTags = new List<string>();
+            //get rid of the tags
+            for (int a = 0; a < AllLines.Count; a++)
+            {
+                if (AllLines[a].Substring(0, 1) != "<" && AllLines[a].Substring(0, 2) != "\t<")
+                {
+                    AllLines[a] = DumpTags(AllLines[a].Trim());
+                    LostTags.Add(AllLines[a]);
+                }
+            }
+            int g = 0;
+            // create a list of subscribers
+            List<SubscribersFM> Subscribers = new List<SubscribersFM>();
+            for (int subscribersCount = 0; subscribersCount < AllLines.Count; subscribersCount += 3) ;
+            {
+
+            }
+            //foreach (string item in LostTags)
+            //{
+            //    g = g + 1;
+            //    Console.Write(item + " ");
+            //    if (g % 3 == 0)
+            //    {
+            //        Console.WriteLine();
+            //    }
+            //}
+            Console.ReadLine();
+
+            //else
+            //{
+            //    Console.WriteLine("Please check your filename and try again");
+            //    Console.ReadLine();
+            //}
+        }
+        private static string DumpTags(string original)
+        {
+            int a = original.IndexOf(">") + 1; original = original.Substring(a);
+            a = original.IndexOf("<");
+            original = original.Substring(0, a);
+            return original;
+        }
         public List<SubscribersFM> SeparateCSV(string filePath)
         {
             int linecheck = 0;
@@ -186,12 +236,12 @@ namespace BLL
         public static string SendEmail(string from, string to)
         {
             try
-            { 
+            {
                 from = "blackmesaemailcampaign@gmail.com";//Email we are using to send templates from
                 to = "blackmesaemailcampaign@gmail.com";//this is the email to whom you want to send the template
                 MailMessage mail = new MailMessage();
                 mail.To.Add(to);
-                mail.From = new MailAddress(from, "Black Mesa" , Encoding.UTF8);
+                mail.From = new MailAddress(from, "Black Mesa", Encoding.UTF8);
                 mail.Subject = "This is a test mail";
                 mail.SubjectEncoding = Encoding.UTF8;
                 mail.Body = "This is Email Body Text";
