@@ -140,7 +140,7 @@ namespace BLL
             List<string> AllLines = new List<string>();
             while (stream.Peek() >= 0)
             {
-                AllLines.Add(st.ReadLine());
+                AllLines.Add(stream.ReadLine());
             }
             List<string> LostTags = new List<string>();
             //get rid of the tags
@@ -154,9 +154,9 @@ namespace BLL
             }
             // create a list of subscribers
             List<SubscribersFM> Subscribers = new List<SubscribersFM>();
-            for (int subscribersCount = 0; subscribersCount < AllLines.Count; subscribersCount += 3)
+            for (int subscribersCount = 0; subscribersCount < LostTags.Count; subscribersCount += 3)
             {
-                Subscribers.Add(new SubscribersFM { Email = AllLines[subscribersCount], FirstName = AllLines[subscribersCount + 1], LastName = AllLines[subscribersCount + 2] });
+                Subscribers.Add(new SubscribersFM { Email = LostTags[subscribersCount], FirstName = LostTags[subscribersCount + 1], LastName = LostTags[subscribersCount + 2] });
             }
             return Subscribers;
         }
@@ -203,7 +203,15 @@ namespace BLL
                     }
                     return uploaded;
                 case ".xml":
-                    CreateSubscribers(SeparateCSV(stream));
+                    foreach (SubscribersFM fm in SeparateXML(stream))
+                    {
+                        if (ValidEmail(fm.Email))
+                        {
+                            CreateSubscribers(fm);
+                            uploaded = "Subscribers from XML file were uploaded.";
+                        }
+                    }
+                    
                     return "Subscribers from XML file were uploaded.";
             }
             return uploaded;
