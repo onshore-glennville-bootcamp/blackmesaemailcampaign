@@ -29,12 +29,11 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpPost]
         public ActionResult Login(MarketManLoginFM credientials)
         {
-            MarketManLoginVM user = new MarketManLoginService().MarketManLogin(credientials);
+            MarketManLoginVM user = new MarketManService().MarketManLogin(credientials);
             if (user != null)
             {
                 Session["ID"] = user.ID;
                 Session["Name"] = user.Email;
-                Directory.CreateDirectory(Path.Combine(Server.MapPath("~/App_Data/Uploads/" + user.ID + "/")));
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -45,7 +44,6 @@ namespace BlackMesaEmailCampaign.Controllers
         }
         public ActionResult Logout()
         {
-            Directory.Delete(Path.Combine(Server.MapPath("~/App_Data/Uploads/" + Session["ID"] + "/")), true);
             Session["ID"] = null;
             return RedirectToAction("Index", "Home");
         }
@@ -58,6 +56,7 @@ namespace BlackMesaEmailCampaign.Controllers
         public ActionResult Register(MarketManRegisterFM registerFM)
         {
             MarketManService users = new MarketManService();
+            MarketManLoginFM login = new MarketManLoginFM();
             if (registerFM.Email != null && users.ValidEmail(registerFM.Email))
             {
                 if (users.ConfirmEmailLength(registerFM))
@@ -67,8 +66,12 @@ namespace BlackMesaEmailCampaign.Controllers
                         if (registerFM.Password != null && registerFM.Password.Length > 7 && registerFM.Password.Length < 26 && registerFM.Password == registerFM.ConfirmPassword)
                         {
                             users.CreateUser(registerFM);
-                            ViewBag.ErrorMessage = "User Created";
-                            return View();
+                            login.Email = registerFM.Email;
+                            login.Password = registerFM.Password;
+                            MarketManLoginVM user = new MarketManService().MarketManLogin(login);
+                            Session["ID"] = user.ID;
+                            Session["Name"] = user.Email;
+                            return RedirectToAction("Index", "Home");
                         }
                         ViewBag.ErrorMessage = "Passwords must be more than seven characters, less than 25 characters, and match.";
                     }
