@@ -4,7 +4,7 @@ html { font-family:Tahoma, sans-serif; }
 
 body { background-color: slategray;}
 
-#container { height:640px; width:1260px; margin: auto; border: 5px orange inset;}
+#container { background-color: black; height:640px; width:1260px; margin: auto; border: 5px orange inset;}
 
 #masthead { background-color: black; height: 150px; width: 1260px;}
 
