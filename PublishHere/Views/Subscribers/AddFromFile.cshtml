@@ -1,14 +1,20 @@
-﻿@model BLL.SubscribersFM
-@if (Session["ID"] == null)
+﻿@if (Session["ID"] == null)
 {
     @Html.Action("Index", "Home");
 }
 
 @{
-    ViewBag.Title = "Add From File";
+    ViewBag.Title = "Bulk Upload Subscribers";
 }
 
 <h2>Add From File</h2>
-<div>
 
-</div>
+@ViewBag.Subscribers
+
+@ViewBag.ErrorMessage
+
+@using (Html.BeginForm("AddFromFile", "Subscribers", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="file" />
+    <input type="submit" value="Upload Subscribers" />
+}
