@@ -12,6 +12,7 @@
         <!-- The Masthead is where the company letterhead-sytle logo goes -->
         <div id="masthead">
             <img src="~/Content/masthead1260-150.jpg" align="middle" />
+
         </div>
         <div id="top_nav">
             <!-- logo, company name, top links -->
@@ -30,7 +31,9 @@
             <img src="~/Content/bmlogo.png" />
             @Html.Partial("_LoginPartial")
         </div>
-
+        <div id="right_nav">
+            @Html.Partial("_SubscribersListPartial")
+        </div>
         <!-- Content area, where the pages open inside of the laid-out box design area -->
         <div id="content">
             @RenderBody()
