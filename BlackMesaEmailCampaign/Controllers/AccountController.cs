@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using BLL;
@@ -33,6 +34,7 @@ namespace BlackMesaEmailCampaign.Controllers
             {
                 Session["ID"] = user.ID;
                 Session["Name"] = user.Email;
+                Directory.CreateDirectory(Path.Combine(Server.MapPath("~/App_Data/Uploads/" + user.ID + "/")));
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -43,6 +45,7 @@ namespace BlackMesaEmailCampaign.Controllers
         }
         public ActionResult Logout()
         {
+            Directory.Delete(Path.Combine(Server.MapPath("~/App_Data/Uploads/" + Session["ID"] + "/")), true);
             Session["ID"] = null;
             return RedirectToAction("Index", "Home");
         }
