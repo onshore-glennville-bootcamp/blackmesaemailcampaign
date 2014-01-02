@@ -35,7 +35,8 @@ namespace BLL
                 Subscribers subscriber = new Subscribers();
                 subscriber.Email = subscriberFM.Email;
                 subscriber.FirstName = subscriberFM.FirstName;
-                subscriber.LastName = subscriberFM.LastName; dao.CreateSubscriber(subscriber);
+                subscriber.LastName = subscriberFM.LastName; 
+                dao.CreateSubscriber(subscriber);
             }
         }
         //Add list of subscribers to database

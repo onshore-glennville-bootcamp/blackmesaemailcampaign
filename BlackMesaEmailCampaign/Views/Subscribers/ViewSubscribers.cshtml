@@ -12,25 +12,27 @@
 
 @using (Html.BeginForm("Email", "Subscribers", FormMethod.Post))
 {
-    <table>
-        <thead>
-            <tr>
-                <th></th>
-                <th>@Html.ActionLink("Last Name", "ViewSubscribersByLastName", new { ViewBag.Sort })</th>
-                <th>@Html.ActionLink("First Name", "ViewSubscribersByFirstName", new { ViewBag.Sort })</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (int i = 0; i < Model.Subscribers.Count; i++)
-            {
-                @Html.HiddenFor(m=>m.Subscribers[i].Email)
+ <div style="height:200px;width:50%;border:1px solid #ccc;overflow:auto;">
+        <table>
+            <thead>
                 <tr>
-                    <td>@Html.CheckBoxFor(m=>m.Subscribers[i].EmailList)</td>
-                    <td>@Model.Subscribers[i].LastName</td>
-                    <td>@Model.Subscribers[i].FirstName</td>
+                    <th></th>
+                    <th>@Html.ActionLink("Last Name", "ViewSubscribersByLastName", new { ViewBag.Sort })</th>
+                    <th>@Html.ActionLink("First Name", "ViewSubscribersByFirstName", new { ViewBag.Sort })</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Subscribers.Count; i++)
+                {
+                    @Html.HiddenFor(m => m.Subscribers[i].Email)
+                    <tr>
+                        <td>@Html.CheckBoxFor(m => m.Subscribers[i].EmailList)</td>
+                        <td>@Model.Subscribers[i].LastName</td>
+                        <td>@Model.Subscribers[i].FirstName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+     </div>
     <input type="submit" value="Send Email">
 }
