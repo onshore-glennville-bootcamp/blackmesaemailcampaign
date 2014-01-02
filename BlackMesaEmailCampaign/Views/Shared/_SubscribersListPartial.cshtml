@@ -1,4 +1,4 @@
-﻿@model BLL.SubscribersVM
+﻿@*@model BLL.SubscribersVM
 @using BLL
 @if (Model.Subscribers != null)
 { 
@@ -7,4 +7,4 @@ foreach(SubscriberVM subscriber in Model.Subscribers)
     @Html.HiddenFor(m => subscriber.Email)
         <p>@subscriber.Email</p>
 }
-}
+}*@
