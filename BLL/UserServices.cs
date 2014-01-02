@@ -154,29 +154,13 @@ namespace BLL
                     LostTags.Add(AllLines[a]);
                 }
             }
-            int g = 0;
             // create a list of subscribers
             List<SubscribersFM> Subscribers = new List<SubscribersFM>();
-            for (int subscribersCount = 0; subscribersCount < AllLines.Count; subscribersCount += 3) ;
+            for (int subscribersCount = 0; subscribersCount < AllLines.Count; subscribersCount += 3)
             {
-
+                Subscribers.Add(new SubscribersFM { Email = AllLines[subscribersCount], FirstName = AllLines[subscribersCount + 1], LastName = AllLines[subscribersCount + 2] });
             }
-            //foreach (string item in LostTags)
-            //{
-            //    g = g + 1;
-            //    Console.Write(item + " ");
-            //    if (g % 3 == 0)
-            //    {
-            //        Console.WriteLine();
-            //    }
-            //}
-            Console.ReadLine();
-
-            //else
-            //{
-            //    Console.WriteLine("Please check your filename and try again");
-            //    Console.ReadLine();
-            //}
+            return Subscribers;
         }
         private static string DumpTags(string original)
         {
