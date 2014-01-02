@@ -219,9 +219,16 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\_ViewSubscribersPartial.cshtml" />
+    <Content Include="Views\Subscribers\Add.cshtml" />
+    <Content Include="Views\Subscribers\AddFromFile.cshtml" />
+    <Content Include="Views\Subscribers\SearchSubscribers.cshtml" />
+    <Content Include="Views\Subscribers\ViewSubscribers.cshtml" />
+    <Content Include="Views\Subscribers\_ViewSubscribersPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Uploads\" />
+    <Folder Include="Views\Email\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
