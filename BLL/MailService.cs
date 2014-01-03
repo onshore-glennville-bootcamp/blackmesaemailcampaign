@@ -13,21 +13,13 @@ namespace BLL
             MailFM mailFM = new MailFM();
             foreach (SubscriberVM sub in subVM.Subscribers)
             {
-                if (sub.Email != null)
+                if (sub.EmailList)
                 {
-                    if (sub.EmailList)
-                    {
-                        mailFM.To = mailFM.To + sub.Email + ", ";
-                    }
-                    mailFM.To = mailFM.To.Substring(0, mailFM.To.Length - 2);
-                    return mailFM;
-                }
-                else
-                {
-                    return null;
+                    mailFM.To = mailFM.To + sub.Email + ", ";
                 }
             }
-            return null;
+            mailFM.To = mailFM.To.Substring(0, mailFM.To.Length - 2);
+            return mailFM;
         }
     }
 }
