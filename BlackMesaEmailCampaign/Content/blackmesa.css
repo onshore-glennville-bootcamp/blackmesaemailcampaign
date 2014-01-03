@@ -38,7 +38,7 @@ body { background-color: slategray;}
 
 #content {background-color: white; height: 350px; width: 1010px; overflow: auto; padding: 25px; }
 
-#footer { background-color: gray; width:1260px; height: 25px; }
+#footer { background-color: gray; width:1260px; height: 25px; border-top: 5px black inset;}
 
 #footer p { font-size: 0.85em; }
 
