@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    public class MailVM
+    public class MailFM
     {
         public string From { get; set; }
         public string To { get; set; }
