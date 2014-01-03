@@ -1,11 +1,4 @@
-﻿@model BLL.SearchFM
-@if (Session["ID"] == null)
-{
-    @Html.Action("Index", "Home");
-}
-@{
-    ViewBag.Title = "Search Subscribers";
-}
+﻿@model BLL.SubscribersVM
 
 <h2>Search for subscriber</h2>
 
@@ -14,7 +7,7 @@
         <div class="form-group">
             <div class="col-md-2 control-label">Search String:</div>
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.searchString, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Subscribers[0].Email, new { @class = "form-control", placeholder = "Example@example.com" })
             </div>
         </div>
         <input type="submit" value="Search for subscribers" />

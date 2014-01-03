@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 using System.Text;
+using System.Windows.Forms;
 using BLL;
 
 namespace BlackMesaEmailCampaign.Controllers
@@ -19,10 +20,7 @@ namespace BlackMesaEmailCampaign.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            else
-            {
-                return View();
-            }
+            return View();
         }
         //Validates Form for Adding Subscribers, then adds if validated
         [HttpPost]
@@ -36,7 +34,7 @@ namespace BlackMesaEmailCampaign.Controllers
                     if (!log.TooLong(subscriber.FirstName) && !log.TooLong(subscriber.LastName))
                     {
                         log.CreateSubscribers(subscriber);
-                        ViewBag.ErrorMessage = "Subscriber created";
+                        return RedirectToAction("ViewSubscribers");
                     }
                     else
                     {
@@ -55,20 +53,39 @@ namespace BlackMesaEmailCampaign.Controllers
             return View();
         }
         //List Subscribers
-        //Method to redirect from AddFromFile page if user is not logged in
         [HttpGet]
         public ActionResult AddFromFile()
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
-        ////Controller for adding bulk users from file
-        //[HttpPost]
-        //public ActionResult AddFromFile()
-        //{
-
-        //}
+        //Controller for adding bulk users from file
+        [HttpPost]
+        public ActionResult AddFromFile(HttpPostedFileBase file)
+        {
+            UserServices log = new UserServices();
+            // Verify that the user selected a file
+            if (file != null && file.ContentLength > 0)
+            {
+                string ext = Path.GetExtension(file.FileName);
+                StreamReader reader = new StreamReader(file.InputStream);
+                while (!reader.EndOfStream)
+                {
+                    ViewBag.Subscribers = log.AddFromFile(reader, ext);
+                }
+                reader.Close();
+            }
+            return View();
+        }
         public ActionResult ViewSubscribers()
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             UserServices userS = new UserServices();
             SubscribersVM subscriber = new SubscribersVM();
             subscriber.Subscribers = userS.SortByLastName(userS.GetAllSubscribers());
@@ -78,6 +95,10 @@ namespace BlackMesaEmailCampaign.Controllers
         //Sort list of subscribers by last name, reverse if already sorted by last name
         public ActionResult ViewSubscribersByLastName(string sort)
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             UserServices userS = new UserServices();
             SubscribersVM subscriber = new SubscribersVM();
             subscriber.Subscribers = userS.SortByLastName(userS.GetAllSubscribers());
@@ -93,6 +114,10 @@ namespace BlackMesaEmailCampaign.Controllers
         //Sort list of subscribers by first name, reverse if already sorted by first name
         public ActionResult ViewSubscribersByFirstName(string sort)
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             UserServices userS = new UserServices();
             SubscribersVM subscriber = new SubscribersVM();
             subscriber.Subscribers = userS.SortByFirstName(userS.GetAllSubscribers());
@@ -109,14 +134,18 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpGet]
         public ActionResult SearchSubscribers()
         {
-                return View();
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
         }
         [HttpPost]
-        public ActionResult SearchSubscribers(string searchString)
+        public ActionResult SearchSubscribers(SubscribersVM vm)
         {
             UserServices userS = new UserServices();
             SubscribersVM subscriber = new SubscribersVM();
-            subscriber.Subscribers = userS.Search(searchString);
+            subscriber.Subscribers = userS.Search(vm.Subscribers[0].Email);
             //and then we finish jumping through hoops...
             return View("ViewSubscribers", subscriber);
         }
@@ -130,7 +159,6 @@ namespace BlackMesaEmailCampaign.Controllers
         public ActionResult Email(SubscribersVM selectedSubscribers)
         {
             UserServices log = new UserServices();
-            SubscribersVM test = log.Checked(selectedSubscribers);
             return View("EmailSubscribers", log.Checked(selectedSubscribers));
         }
     }

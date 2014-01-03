@@ -35,7 +35,8 @@ namespace BLL
                 Subscribers subscriber = new Subscribers();
                 subscriber.Email = subscriberFM.Email;
                 subscriber.FirstName = subscriberFM.FirstName;
-                subscriber.LastName = subscriberFM.LastName; dao.CreateSubscriber(subscriber);
+                subscriber.LastName = subscriberFM.LastName; 
+                dao.CreateSubscriber(subscriber);
             }
         }
         //Add list of subscribers to database
@@ -135,24 +136,86 @@ namespace BLL
             }
             return subscribersVM;
         }
-        public List<SubscribersFM> SeparateCSV()
+        public List<SubscribersFM> SeparateXML(StreamReader stream)
         {
+            List<string> AllLines = new List<string>();
+            while (stream.Peek() >= 0)
+            {
+                AllLines.Add(stream.ReadLine());
+            }
+            List<string> LostTags = new List<string>();
+            //get rid of the tags
+            for (int a = 0; a < AllLines.Count; a++)
+            {
+                if (AllLines[a].Substring(0, 1) != "<" && AllLines[a].Substring(0, 2) != "\t<")
+                {
+                    AllLines[a] = DumpTags(AllLines[a].Trim());
+                    LostTags.Add(AllLines[a]);
+                }
+            }
+            // create a list of subscribers
+            List<SubscribersFM> Subscribers = new List<SubscribersFM>();
+            for (int subscribersCount = 0; subscribersCount < LostTags.Count; subscribersCount += 3)
+            {
+                Subscribers.Add(new SubscribersFM { Email = LostTags[subscribersCount], FirstName = LostTags[subscribersCount + 1], LastName = LostTags[subscribersCount + 2] });
+            }
+            return Subscribers;
+        }
+        private static string DumpTags(string original)
+        {
+            int a = original.IndexOf(">") + 1; original = original.Substring(a);
+            a = original.IndexOf("<");
+            original = original.Substring(0, a);
+            return original;
+        }
+        public List<SubscribersFM> SeparateCSV(StreamReader stream)
+        {
+            int linecheck = 0;
             string line = "";
             List<SubscribersFM> subscribers = new List<SubscribersFM>();
-            string fileName = "testfile.csv";
-            StreamReader stream = new StreamReader(fileName);
             while (line != null)
             {
                 string subEmail = "", subFirstName = "", subLastName = "";
                 line = stream.ReadLine();
                 if (line == null) break;
-                subEmail = line.Substring(0, line.IndexOf(','));
-                line = line.Substring(line.IndexOf(',') + 1);
+                linecheck = line.IndexOf(',');
+                subEmail = line.Substring(0, linecheck);
+                line = line.Substring(linecheck + 1);
+                linecheck = line.IndexOf(',');
                 subFirstName = line.Substring(0, line.IndexOf(','));
                 subLastName = line.Substring(line.IndexOf(',') + 1);
                 subscribers.Add(new SubscribersFM { Email = subEmail, FirstName = subFirstName, LastName = subLastName });
             }
             return subscribers;
+        }
+        public string AddFromFile(StreamReader stream, string ext)
+        {
+            string uploaded = "File must be in CSV or XML format.  Fields should be in the order Email, First Name, Last Name";
+            switch (ext)
+            {
+                case ".csv":
+                    foreach (SubscribersFM fm in SeparateCSV(stream))
+                    {
+                        if (ValidEmail(fm.Email))
+                        {
+                            CreateSubscribers(fm);
+                            uploaded = "Subscribers from CSV file were uploaded.";
+                        }
+                    }
+                    return uploaded;
+                case ".xml":
+                    foreach (SubscribersFM fm in SeparateXML(stream))
+                    {
+                        if (ValidEmail(fm.Email))
+                        {
+                            CreateSubscribers(fm);
+                            uploaded = "Subscribers from XML file were uploaded.";
+                        }
+                    }
+                    
+                    return "Subscribers from XML file were uploaded.";
+            }
+            return uploaded;
         }
         //Pulls out unchecked subscribers and sends back list of checked subscribers
         public SubscribersVM Checked(SubscribersVM selectedSubscribers)
@@ -171,12 +234,12 @@ namespace BLL
         public static string SendEmail(string from, string to)
         {
             try
-            { 
+            {
                 from = "blackmesaemailcampaign@gmail.com";//Email we are using to send templates from
                 to = "blackmesaemailcampaign@gmail.com";//this is the email to whom you want to send the template
                 MailMessage mail = new MailMessage();
                 mail.To.Add(to);
-                mail.From = new MailAddress(from, "Black Mesa" , Encoding.UTF8);
+                mail.From = new MailAddress(from, "Black Mesa", Encoding.UTF8);
                 mail.Subject = "This is a test mail";
                 mail.SubjectEncoding = Encoding.UTF8;
                 mail.Body = "This is Email Body Text";
