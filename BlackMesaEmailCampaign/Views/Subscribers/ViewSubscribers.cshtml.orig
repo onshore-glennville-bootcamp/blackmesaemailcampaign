@@ -6,6 +6,11 @@
     ViewBag.Title = "Subscribers";
 }
 
+@if (Session["ID"] == null)
+{
+    @Html.Action("Index", "Home");
+}
+
 <h2>Subscribers</h2>
 
 @Html.ActionLink("Add Subscriber ", "Add")&Dagger;@Html.ActionLink(" Search For Subscriber", "SearchSubscribers")
@@ -32,5 +37,15 @@
             }
         </tbody>
     </table>
-    <input type="submit" value="Send Email">
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <input type="submit" value="Email Checked">
 }
+=======
+    <input type="submit" value="Email Subscribers">
+}
+>>>>>>> ba278939c583b22c6d8c53aac55441021da7c7f0
+=======
+    <input type="submit" value="Email Subscribers">
+}
+>>>>>>> ba278939c583b22c6d8c53aac55441021da7c7f0

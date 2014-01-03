@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Mail;
+using System.Net;
 using DAL;
 using System.IO;
 
@@ -33,7 +35,8 @@ namespace BLL
                 Subscribers subscriber = new Subscribers();
                 subscriber.Email = subscriberFM.Email;
                 subscriber.FirstName = subscriberFM.FirstName;
-                subscriber.LastName = subscriberFM.LastName; dao.CreateSubscriber(subscriber);
+                subscriber.LastName = subscriberFM.LastName; 
+                dao.CreateSubscriber(subscriber);
             }
         }
         //Add list of subscribers to database
@@ -51,7 +54,7 @@ namespace BLL
             {
                 try
                 {
-                    var addr = new System.Net.Mail.MailAddress(email);
+                    var addr = new MailAddress(email);
                     return true;
                 }
                 catch
@@ -133,41 +136,43 @@ namespace BLL
             }
             return subscribersVM;
         }
-        public bool CheckCSV(string filePath)
+        public List<SubscribersFM> SeparateXML(StreamReader stream)
         {
-            int linecheck = 0;
-            bool valid = true;
-            string line = "";
-            //string fileName = "testfile.csv";
-            StreamReader stream = new StreamReader(filePath);
-            while (line != null)
+            List<string> AllLines = new List<string>();
+            while (stream.Peek() >= 0)
             {
-                line = stream.ReadLine();
-                if (line == null) break;
-                linecheck = line.IndexOf(',');
-                if (linecheck == -1)
+                AllLines.Add(stream.ReadLine());
+            }
+            List<string> LostTags = new List<string>();
+            //get rid of the tags
+            for (int a = 0; a < AllLines.Count; a++)
+            {
+                if (AllLines[a].Substring(0, 1) != "<" && AllLines[a].Substring(0, 2) != "\t<")
                 {
-                    valid = false;
-                    break;
-                }
-                line = line.Substring(linecheck + 1);
-                linecheck = line.IndexOf(',');
-                if (linecheck == -1)
-                {
-                    valid = false;
-                    break;
+                    AllLines[a] = DumpTags(AllLines[a].Trim());
+                    LostTags.Add(AllLines[a]);
                 }
             }
-            
-            return valid;
+            // create a list of subscribers
+            List<SubscribersFM> Subscribers = new List<SubscribersFM>();
+            for (int subscribersCount = 0; subscribersCount < LostTags.Count; subscribersCount += 3)
+            {
+                Subscribers.Add(new SubscribersFM { Email = LostTags[subscribersCount], FirstName = LostTags[subscribersCount + 1], LastName = LostTags[subscribersCount + 2] });
+            }
+            return Subscribers;
         }
-        public List<SubscribersFM> SeparateCSV(string filePath)
+        private static string DumpTags(string original)
+        {
+            int a = original.IndexOf(">") + 1; original = original.Substring(a);
+            a = original.IndexOf("<");
+            original = original.Substring(0, a);
+            return original;
+        }
+        public List<SubscribersFM> SeparateCSV(StreamReader stream)
         {
             int linecheck = 0;
             string line = "";
             List<SubscribersFM> subscribers = new List<SubscribersFM>();
-            //string fileName = "testfile.csv";
-            StreamReader stream = new StreamReader(filePath);
             while (line != null)
             {
                 string subEmail = "", subFirstName = "", subLastName = "";
@@ -181,8 +186,36 @@ namespace BLL
                 subLastName = line.Substring(line.IndexOf(',') + 1);
                 subscribers.Add(new SubscribersFM { Email = subEmail, FirstName = subFirstName, LastName = subLastName });
             }
-
             return subscribers;
+        }
+        public string AddFromFile(StreamReader stream, string ext)
+        {
+            string uploaded = "File must be in CSV or XML format.  Fields should be in the order Email, First Name, Last Name";
+            switch (ext)
+            {
+                case ".csv":
+                    foreach (SubscribersFM fm in SeparateCSV(stream))
+                    {
+                        if (ValidEmail(fm.Email))
+                        {
+                            CreateSubscribers(fm);
+                            uploaded = "Subscribers from CSV file were uploaded.";
+                        }
+                    }
+                    return uploaded;
+                case ".xml":
+                    foreach (SubscribersFM fm in SeparateXML(stream))
+                    {
+                        if (ValidEmail(fm.Email))
+                        {
+                            CreateSubscribers(fm);
+                            uploaded = "Subscribers from XML file were uploaded.";
+                        }
+                    }
+                    
+                    return "Subscribers from XML file were uploaded.";
+            }
+            return uploaded;
         }
         //Pulls out unchecked subscribers and sends back list of checked subscribers
         public SubscribersVM Checked(SubscribersVM selectedSubscribers)
@@ -197,27 +230,34 @@ namespace BLL
             }
             return selected;
         }
-        public bool AddFromFile(HttpPostedFileBase file)
+        //sends emails out to subscribers
+        public static string SendEmail(string from, string to)
         {
-            bool uploaded = true;
-            // Verify that the user selected a file
-            if (file != null && file.ContentLength > 0)
+            try
             {
-                // Extract and check file path
-                //var fileName = Path.GetFullPath(file.FileName);
-                //if (userServices.CheckCSV(fileName))
-                //{
-                //    userServices.SeparateCSV(fileName);
-                //}
-                string fileName = Path.GetFileName(file.FileName);
-                // store the file inside ~/App_Data/uploads folder
-                string path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
-                file.SaveAs(path);
-                if (userServices.CheckCSV(path))
-                {
-                    userServices.SeparateCSV(path);
-                }
+                from = "blackmesaemailcampaign@gmail.com";//Email we are using to send templates from
+                to = "blackmesaemailcampaign@gmail.com";//this is the email to whom you want to send the template
+                MailMessage mail = new MailMessage();
+                mail.To.Add(to);
+                mail.From = new MailAddress(from, "Black Mesa", Encoding.UTF8);
+                mail.Subject = "This is a test mail";
+                mail.SubjectEncoding = Encoding.UTF8;
+                mail.Body = "This is Email Body Text";
+                mail.BodyEncoding = Encoding.UTF8;
+                mail.IsBodyHtml = true;
+                mail.Priority = MailPriority.High;
+                SmtpClient client = new SmtpClient();
+                client.Credentials = new NetworkCredential(from, "bootcamp123");//bootcamp123 is the password for the email
+                client.Port = 587;//Gmail works on this port
+                client.Host = "smtp.gmail.com";
+                client.EnableSsl = true;//Gmail works on Server Secured Layer
+                client.Send(mail);
+                return "Done";
             }
+            catch (Exception e)
+            {
+                return e.Message;
+            }// end try
         }
     }
 }

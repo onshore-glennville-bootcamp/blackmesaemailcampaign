@@ -1,0 +1,200 @@
+/* Marla Crews */
+
+html { font-family:Tahoma, sans-serif; }
+
+body { background-color: slategray;}
+
+#container { background-color: black; height:640px; width:1260px; margin: auto; border: 5px orange inset;}
+
+#masthead { background-color: black; height: 150px; width: 1260px;}
+
+#top_nav {background-color: black; width:1060px; height:50px; float:right; font-size: 1em;}
+
+#top_nav ul { display: inline-block; float:right; padding-right:25px; }
+	
+#top_nav li { display: inline-block;}
+	
+#top_nav a:link {color: white; text-decoration: none;}      /* unvisited link */
+
+#top_nav a:visited {color: antiquewhite; text-decoration: line-through;}  /* visited link */
+
+#top_nav a:hover {color: ghostwhite; text-decoration: underline;}  /* mouse over link */
+
+#top_nav a:active {color: lightgray;}  /* selected link */
+
+#left_nav {background-color: black; height: 450px; width: 200px; float: left; font-size: 0.75em;}
+
+#left_nav img { padding: 5px; border: 0; }
+
+#left_nav a:link {color: white; text-decoration: none;}      /* unvisited link */
+
+#left_nav a:visited {color: antiquewhite; text-decoration: line-through;}  /* visited link */
+
+#left_nav a:hover {color: ghostwhite; text-decoration: underline;}  /* mouse over link */
+
+#left_nav a:active {color: lightgray;}  /* selected link */
+
+#left_nav ul {color: white; list-style: square;}
+
+#content {background-color: white; height: 350px; width: 1010px; overflow: auto; padding: 25px; }
+
+#footer { background-color: gray; width:1260px; height: 25px; }
+
+#footer p { font-size: 0.85em; }
+
+#col-md-4 {display:inline-block; position: relative;}
+
+/* Styling lifted from the bootstrap css file.*/
+
+a:focus { outline: thin dotted; }
+
+a:active, a:hover { outline: 0;}
+
+fieldset {
+  padding: 0.35em 0.625em 0.75em;
+  margin: 0 2px;
+  border: 1px solid #c0c0c0;
+}
+
+legend {
+  padding: 0;
+  border: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: 100%;
+}
+
+button,
+input {
+  line-height: normal;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input[type="search"] {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+  -webkit-appearance: textfield;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+textarea {
+  overflow: auto;
+  vertical-align: top;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.btn {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.428571429;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+       -o-user-select: none;
+          user-select: none;
+}
+
+.btn:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.btn:hover,
+.btn:focus {
+  color: #333333;
+  text-decoration: none;
+}
+
+.btn:active,
+.btn.active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+          box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+.btn.disabled,
+.btn[disabled],
+fieldset[disabled] .btn {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.btn-default {
+  color: #000000;
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active,
+.open .dropdown-toggle.btn-default {
+  color: #000000;
+  background-color: #ebebeb;
+  border-color: #adadad;
+}
+
+.btn-default:active,
+.btn-default.active,
+.open .dropdown-toggle.btn-default {
+  background-image: none;
+}
