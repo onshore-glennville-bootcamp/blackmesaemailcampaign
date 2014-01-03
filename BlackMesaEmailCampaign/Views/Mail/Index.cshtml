@@ -1,0 +1,19 @@
+﻿@model BLL.MailFM
+
+@{
+    ViewBag.Title = "EmailSubscribers";
+}
+
+<h2>Email Subscribers</h2>
+
+@using (Html.BeginForm("Send", "Mail", FormMethod.Post))
+{
+    @Html.ValidationSummary()
+    <p>To: </p>
+    @Html.TextBoxFor(m => m.To)<br/>
+    <p>Subject: </p>
+    @Html.TextBoxFor(m => m.Subject)<br/>
+    <p>Body: </p>
+    @Html.TextAreaFor(m => m.Body)<br/>
+    <input type="submit" value="Send" />
+}
