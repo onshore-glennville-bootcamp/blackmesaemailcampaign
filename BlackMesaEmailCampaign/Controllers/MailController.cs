@@ -25,6 +25,10 @@ namespace BlackMesaEmailCampaign.Controllers
             if (ModelState.IsValid)
             {
                 MailMessage mail = new MailMessage();
+                if (mailFM.To == null)
+                {
+                    goto VIEW;
+                }
                 mail.To.Add(mailFM.To);
                 mail.From = new MailAddress("blackmesaemailcampaign@gmail.com");
                 mail.Subject = mailFM.Subject;
@@ -45,6 +49,9 @@ namespace BlackMesaEmailCampaign.Controllers
             {
                 return View("ViewSubscribers");
             }
+        VIEW:
+            ViewBag.ErrorMessage = "You can not send an email to nobody!";
+        return RedirectToAction("ViewSubscribers", "Subscribers");
         }
-	}
+    }
 }
