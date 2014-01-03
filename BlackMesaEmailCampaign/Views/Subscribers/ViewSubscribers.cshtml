@@ -6,15 +6,11 @@
     ViewBag.Title = "Subscribers";
 }
 
-@Html.Partial("SearchSubscribers")
-
 <h2>Subscribers</h2>
 
-@Html.ActionLink("Add Subscriber ", "Add")
-
-@using (Html.BeginForm("Email", "Subscribers", FormMethod.Post))
-{
- <div style="height:230px;width:50%;border:1px solid #ccc;overflow:auto;">
+<div style="height:225px;width:40%;border:1px solid #ccc;overflow:auto; float: left; padding: 25px;">
+    @using (Html.BeginForm("Email", "Subscribers", FormMethod.Post))
+    {
         <table>
             <thead>
                 <tr>
@@ -35,6 +31,10 @@
                 }
             </tbody>
         </table>
-     </div>
-    <input type="submit" value="Send Email">
-}
+        <input type="submit" value="Send Email">
+    }
+</div>
+
+<div style="height: 225px; border: 1px solid #ccc; overflow: auto; float: left; padding: 25px; margin-left: 10px;">
+    @Html.Partial("SearchSubscribers")
+</div>
