@@ -10,7 +10,7 @@
 {
     @Html.ValidationSummary()
     <p>To: </p>
-    @Html.TextBoxFor(m => m.To)<br/>
+    @Html.TextBoxFor(m => m.To, new { @readonly = "readonly" })<br/>
     <p>Subject: </p>
     @Html.TextBoxFor(m => m.Subject)<br/>
     <p>Body: </p>
