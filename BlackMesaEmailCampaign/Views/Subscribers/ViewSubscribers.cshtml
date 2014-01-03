@@ -8,18 +8,18 @@
 
 <h2>Subscribers</h2>
 
-<div style="height:225px;width:40%;border:1px solid #ccc;overflow:auto; float: left; padding: 25px;">
+<div style="height: 225px; width: 35%; border: 1px solid #ccc; float: left; padding: 25px;">
     @using (Html.BeginForm("Email", "Subscribers", FormMethod.Post))
     {
         <table>
-            <thead>
+            <thead style="display: block;">
                 <tr>
                     <th></th>
                     <th>@Html.ActionLink("Last Name", "ViewSubscribersByLastName", new { ViewBag.Sort })</th>
                     <th>@Html.ActionLink("First Name", "ViewSubscribersByFirstName", new { ViewBag.Sort })</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody style="height: 175px; overflow-y: scroll; display: block; ">
                 @for (int i = 0; i < Model.Subscribers.Count; i++)
                 {
                     @Html.HiddenFor(m => m.Subscribers[i].Email)
@@ -30,8 +30,16 @@
                     </tr>
                 }
             </tbody>
+            <tfoot style="display: block;">
+                <tr>
+                    <th></th>
+                    <th>
+                        <input type="submit" value="Add to List">
+                    </th>
+                </tr>
+            </tfoot>
         </table>
-        <input type="submit" value="Send Email">
+        
     }
 </div>
 
