@@ -40,7 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileFM.cs" />
+    <Compile Include="MailFM.cs" />
+    <Compile Include="MailService.cs" />
     <Compile Include="MarketManFM.cs" />
     <Compile Include="MarketManLoginFM.cs" />
     <Compile Include="MarketManLoginVM.cs" />
