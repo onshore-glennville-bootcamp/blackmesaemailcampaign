@@ -6,24 +6,23 @@
     ViewBag.Title = "Subscribers";
 }
 
-<h2>Subscribers</h2>
-
-<div style="height: 225px; width: 35%; border: 1px solid #ccc; float: left; padding: 25px;">
+<div style="height: 225px; width: 35%; float: left; padding: 5px;">
+    <h2>Subscribers</h2>
     @using (Html.BeginForm("Email", "Subscribers", FormMethod.Post))
     {
         <table>
-            <thead style="display: block;">
+            <thead style="display: block; ">
                 <tr>
                     <th></th>
                     <th>@Html.ActionLink("Last Name", "ViewSubscribersByLastName", new { ViewBag.Sort })</th>
                     <th>@Html.ActionLink("First Name", "ViewSubscribersByFirstName", new { ViewBag.Sort })</th>
                 </tr>
             </thead>
-            <tbody style="height: 175px; overflow-y: scroll; display: block; ">
+            <tbody style="height: 175px; overflow-y: scroll; display: block; border: 1px solid #ccc; ">
                 @for (int i = 0; i < Model.Subscribers.Count; i++)
                 {
                     @Html.HiddenFor(m => m.Subscribers[i].Email)
-                    <tr>
+                    <tr style="border: 1px solid #ccc; ">
                         <td>@Html.CheckBoxFor(m => m.Subscribers[i].EmailList)</td>
                         <td>@Model.Subscribers[i].LastName</td>
                         <td>@Model.Subscribers[i].FirstName</td>
@@ -39,10 +38,9 @@
                 </tr>
             </tfoot>
         </table>
-        
     }
 </div>
 
-<div style="height: 225px; border: 1px solid #ccc; overflow: auto; float: left; padding: 25px; margin-left: 10px;">
+<div style="height: 225px; overflow: auto; padding: 5px; margin-left: 10px; display: inline-block;">
     @Html.Partial("SearchSubscribers")
 </div>
