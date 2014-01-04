@@ -5,7 +5,11 @@
 }
 
 <h2>Email Subscribers</h2>
-
+@ViewBag.ErrorMessage
+@if (ViewBag.ErrorMessage != null)
+    {
+@Html.ActionLink("Click here to redirect", "ViewSubscribers", "Subscribers");
+          }
 @using (Html.BeginForm("Send", "Mail", FormMethod.Post))
 {
     @Html.ValidationSummary()
@@ -15,5 +19,7 @@
     @Html.TextBoxFor(m => m.Subject)<br/>
     <p>Body: </p>
     @Html.TextAreaFor(m => m.Body)<br/>
+    
     <input type="submit" value="Send" />
+   
 }
