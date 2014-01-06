@@ -4,13 +4,10 @@
 
 @{
     ViewBag.Title = "Subscribers";
-    
 }
-
 
 <div style="height: 225px; width: 35%; float: left; padding: 5px;">
     <h2>Subscribers</h2>
-    @ViewBag.ErrorMessage
     @using (Html.BeginForm("Index", "Mail", FormMethod.Post))
     {
         <table>
