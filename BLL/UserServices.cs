@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Mail;
+using System.Net;
 using DAL;
 using System.IO;
 
@@ -33,7 +35,8 @@ namespace BLL
                 Subscribers subscriber = new Subscribers();
                 subscriber.Email = subscriberFM.Email;
                 subscriber.FirstName = subscriberFM.FirstName;
-                subscriber.LastName = subscriberFM.LastName; dao.CreateSubscriber(subscriber);
+                subscriber.LastName = subscriberFM.LastName; 
+                dao.CreateSubscriber(subscriber);
             }
         }
         //Add list of subscribers to database
@@ -51,7 +54,7 @@ namespace BLL
             {
                 try
                 {
-                    var addr = new System.Net.Mail.MailAddress(email);
+                    var addr = new MailAddress(email);
                     return true;
                 }
                 catch
@@ -133,16 +136,47 @@ namespace BLL
             }
             return subscribersVM;
         }
-        public List<SubscribersFM> SeparateCSV(StreamReader filePath)
+        public List<SubscribersFM> SeparateXML(StreamReader stream)
+        {
+            List<string> AllLines = new List<string>();
+            while (stream.Peek() >= 0)
+            {
+                AllLines.Add(stream.ReadLine());
+            }
+            List<string> LostTags = new List<string>();
+            //get rid of the tags
+            for (int a = 0; a < AllLines.Count; a++)
+            {
+                if (AllLines[a].Substring(0, 1) != "<" && AllLines[a].Substring(0, 2) != "\t<")
+                {
+                    AllLines[a] = DumpTags(AllLines[a].Trim());
+                    LostTags.Add(AllLines[a]);
+                }
+            }
+            // create a list of subscribers
+            List<SubscribersFM> Subscribers = new List<SubscribersFM>();
+            for (int subscribersCount = 0; subscribersCount < LostTags.Count; subscribersCount += 3)
+            {
+                Subscribers.Add(new SubscribersFM { Email = LostTags[subscribersCount], FirstName = LostTags[subscribersCount + 1], LastName = LostTags[subscribersCount + 2] });
+            }
+            return Subscribers;
+        }
+        private static string DumpTags(string original)
+        {
+            int a = original.IndexOf(">") + 1; original = original.Substring(a);
+            a = original.IndexOf("<");
+            original = original.Substring(0, a);
+            return original;
+        }
+        public List<SubscribersFM> SeparateCSV(StreamReader stream)
         {
             int linecheck = 0;
             string line = "";
             List<SubscribersFM> subscribers = new List<SubscribersFM>();
-            //StreamReader stream = new StreamReader(filePath);
             while (line != null)
             {
                 string subEmail = "", subFirstName = "", subLastName = "";
-                line = filePath.ReadLine();
+                line = stream.ReadLine();
                 if (line == null) break;
                 linecheck = line.IndexOf(',');
                 subEmail = line.Substring(0, linecheck);
@@ -170,7 +204,15 @@ namespace BLL
                     }
                     return uploaded;
                 case ".xml":
-                    CreateSubscribers(SeparateCSV(stream));
+                    foreach (SubscribersFM fm in SeparateXML(stream))
+                    {
+                        if (ValidEmail(fm.Email))
+                        {
+                            CreateSubscribers(fm);
+                            uploaded = "Subscribers from XML file were uploaded.";
+                        }
+                    }
+                    
                     return "Subscribers from XML file were uploaded.";
             }
             return uploaded;

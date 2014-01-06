@@ -149,13 +149,17 @@ namespace BlackMesaEmailCampaign.Controllers
             //and then we finish jumping through hoops...
             return View("ViewSubscribers", subscriber);
         }
-
+        [HttpGet]
+        public ActionResult Email()
+        {
+            return View();
+        }
         //Gets list of checked Subscribers.  Needs code for emailing them.
         [HttpPost]
         public ActionResult Email(SubscribersVM selectedSubscribers)
         {
             UserServices log = new UserServices();
-            return View("ViewSubscribers", log.Checked(selectedSubscribers));
+            return View("EmailSubscribers", log.Checked(selectedSubscribers));
         }
     }
 }
