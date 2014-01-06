@@ -87,7 +87,6 @@ namespace DAL
             };
             Write("CreateSubscriber", parameters);
         }
-
         public List<Subscribers> Search(string s)
         {
             //retrieve list of users matching search parameters

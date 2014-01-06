@@ -18,7 +18,7 @@ namespace BLL
                     mailFM.To = mailFM.To + sub.Email + ", ";
                 }
             }
-            if (mailFM.To!= "")
+            if (mailFM.To!= null)
             {
                 mailFM.To = mailFM.To.Substring(0, mailFM.To.Length - 2);
                 return mailFM;
