@@ -15,6 +15,6 @@
 
 @using (Html.BeginForm("AddFromFile", "Subscribers", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <input type="file" name="file" />
+    <input type="file" accept=".csv,.xml" name="file" />
     <input type="submit" value="Upload Subscribers" />
 }
