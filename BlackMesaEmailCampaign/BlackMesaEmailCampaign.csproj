@@ -220,11 +220,14 @@
     <Content Include="Views\Subscribers\ViewSubscribers.cshtml" />
     <Content Include="Views\Mail\Index.cshtml" />
     <Content Include="Views\Subscribers\SearchSubscribers.cshtml" />
+    <Content Include="Views\SubscriberGroups\Index.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\SubscriberGroups\EditGroups.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Email\" />
-    <Folder Include="Views\SubscriberGroups\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
