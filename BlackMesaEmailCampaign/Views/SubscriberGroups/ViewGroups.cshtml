@@ -6,18 +6,17 @@
     ViewBag.Title = "View Groups";
 }
 
-<h2>ViewGroups</h2>
+<h2>Groups</h2>
 
-<div style="height: 225px; float: left; padding: 5px;">
-    <div style="font-weight:bold;">
-        Group Name
-    </div>
-    <div class="list">
-        @foreach (GroupVM vm in Model.Groups)
+<table>
+    <tbody class="list" style="height: 225px">
+        @for (int i = 0; i < Model.Groups.Count; i++)
         {
-            <div>
-                @vm.GroupName
-            </div>
+            <tr style="border: 1px solid #ccc;">
+                <td>@Html.ActionLink(Model.Groups[i].GroupName, "ViewGroupSubscribers", Model.Groups[i])</td>
+                <td>@Html.ActionLink("Edit", "Delete", Model.Groups[i])</td>
+                <td>@Html.ActionLink("X", "Delete", Model.Groups[i], new { @class = "delete" })</td>
+            </tr>
         }
-    </div>
-</div>
+    </tbody>
+</table>
