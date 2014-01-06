@@ -9,9 +9,6 @@ namespace BLL
 {
     public class GroupFM
     {
-        [Display(Name = "ID")]
-        public int ID { get; set; }
-
         [Display(Name = "Group Name")]
         public string GroupName { get; set; }
     }

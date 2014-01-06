@@ -198,3 +198,10 @@ fieldset[disabled] .btn {
 .open .dropdown-toggle.btn-default {
   background-image: none;
 }
+
+.list{
+    height: 175px; 
+    overflow-y: scroll; 
+    display: block; 
+    border: 1px solid #ccc; 
+}
