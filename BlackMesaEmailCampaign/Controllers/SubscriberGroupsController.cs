@@ -14,5 +14,10 @@ namespace BlackMesaEmailCampaign.Controllers
         {
             return View();
         }
+        // Edit subscriber groups
+        public ActionResult EditGroups()
+        {
+            return View();
+        }
 	}
 }
