@@ -50,7 +50,7 @@ namespace BlackMesaEmailCampaign.Controllers
                 }
                 else
                 {
-                    ViewBag.ErrorMessage = "You can not send an email to a ghost! Add some subscribers!";
+                    ViewBag.ErrorMessage = "You need to add some subscribers in order to send an email.";
                    // return RedirectToAction("ViewSubscribers", "Subscribers");
                     return View("Index");
                 }

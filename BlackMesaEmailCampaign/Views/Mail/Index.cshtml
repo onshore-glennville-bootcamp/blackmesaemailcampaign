@@ -8,7 +8,7 @@
 @ViewBag.ErrorMessage
 @if (ViewBag.ErrorMessage != null)
     {
-@Html.ActionLink("Click here to redirect", "ViewSubscribers", "Subscribers");
+@Html.ActionLink("Click here to go back", "ViewSubscribers", "Subscribers");
           }
 @using (Html.BeginForm("Send", "Mail", FormMethod.Post))
 {
