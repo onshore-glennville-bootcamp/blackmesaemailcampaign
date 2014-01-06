@@ -1,0 +1,55 @@
+﻿@model BLL.SubscribersVM
+
+@using BLL;
+
+@{
+    ViewBag.Title = "Subscribers";
+    
+}
+
+<<<<<<< HEAD
+
+<div style="height: 225px; width: 35%; float: left; padding: 5px;">
+    <h2>Subscribers</h2>
+    @ViewBag.ErrorMessage
+=======
+<div style="height: 225px; width: 35%; float: left; padding: 5px;">
+    <h2>Subscribers</h2>
+>>>>>>> e76d9d56212b2352ff0aa0bde996a477d76583cf
+    @using (Html.BeginForm("Index", "Mail", FormMethod.Post))
+    {
+        <table>
+            <thead style="display: block; ">
+                <tr>
+                    <th></th>
+                    <th>@Html.ActionLink("Last Name", "ViewSubscribersByLastName", new { ViewBag.Sort })</th>
+                    <th>@Html.ActionLink("First Name", "ViewSubscribersByFirstName", new { ViewBag.Sort })</th>
+                </tr>
+            </thead>
+            <tbody style="height: 175px; overflow-y: scroll; display: block; border: 1px solid #ccc; ">
+                @for (int i = 0; i < Model.Subscribers.Count; i++)
+                {
+                    @Html.HiddenFor(m => m.Subscribers[i].Email)
+                    <tr style="border: 1px solid #ccc; ">
+                        <td>@Html.CheckBoxFor(m => m.Subscribers[i].EmailList)</td>
+                        <td>@Model.Subscribers[i].LastName</td>
+                        <td>@Model.Subscribers[i].FirstName</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot style="display: block;">
+                <tr>
+                    <th></th>
+                    <th>
+                        <input type="submit" value="Add to List">
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    }
+</div>
+
+
+<div style="height: 225px; overflow: auto; padding: 5px; margin-left: 10px; display: inline-block;">
+    @Html.Partial("SearchSubscribers", Model.Search)
+</div>
