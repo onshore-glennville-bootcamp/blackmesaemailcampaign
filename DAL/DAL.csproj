@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Groups.cs" />
+    <Compile Include="SubscriberGroupsDAO.cs" />
     <Compile Include="MarketManDAO.cs" />
     <Compile Include="MarketMan.cs" />
     <Compile Include="SubscriberDAO.cs" />
