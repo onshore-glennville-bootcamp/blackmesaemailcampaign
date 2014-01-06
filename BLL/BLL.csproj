@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GroupFM.cs" />
+    <Compile Include="GroupServices.cs" />
     <Compile Include="GroupsVM.cs" />
     <Compile Include="GroupVM.cs" />
     <Compile Include="MailFM.cs" />

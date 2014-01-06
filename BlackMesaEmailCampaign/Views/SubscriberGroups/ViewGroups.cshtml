@@ -1,0 +1,23 @@
+﻿@model BLL.GroupsVM
+
+@using BLL
+
+@{
+    ViewBag.Title = "View Groups";
+}
+
+<h2>ViewGroups</h2>
+
+<div style="height: 225px; float: left; padding: 5px;">
+    <div style="font-weight:bold;">
+        Group Name
+    </div>
+    <div class="list">
+        @foreach (GroupVM vm in Model.Groups)
+        {
+            <div>
+                @vm.GroupName
+            </div>
+        }
+    </div>
+</div>

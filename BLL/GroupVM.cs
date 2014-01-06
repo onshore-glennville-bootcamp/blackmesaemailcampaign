@@ -14,5 +14,7 @@ namespace BLL
 
         [Display(Name = "Group Name")]
         public string GroupName { get; set; }
+
+        public SubscribersVM Subscribers { get; set; }
     }
 }
