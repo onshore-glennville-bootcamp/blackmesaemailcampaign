@@ -1,0 +1,15 @@
+﻿@model BLL.GroupsVM
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit Group's Subscribers</h2>
+
+<div style="float: left; display: inline-block; height: 225px; width: 30%;">
+    @Html.Action("_ViewGroupSubscribers", new { Model })
+</div>
+
+<div style="float: left; display: inline-block; height: 225px; width: 30%; margin-right: 3%; ">
+    @Html.Action("_ViewAllSubscribers")
+</div>
