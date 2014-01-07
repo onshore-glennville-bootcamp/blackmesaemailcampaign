@@ -50,11 +50,12 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpGet]
         public ActionResult Edit(GroupVM vm)
         {
-            GroupFM group = new GroupFM();
-            group.ID = vm.ID;
-            group.GroupName = vm.GroupName;
-            group.Subscribers = vm.Subscribers;
-            return View(group);
+            GroupServices log = new GroupServices();
+            GroupFM fm = new GroupFM();
+            fm.ID = vm.ID;
+            fm.GroupName = vm.GroupName;
+            fm.Subscribers = log.GetSubscribersByGroupID(vm.ID);
+            return View(fm);
         }
         [HttpPost]
         public ActionResult Edit(GroupFM group)

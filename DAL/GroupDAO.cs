@@ -63,7 +63,12 @@ namespace DAL
             return dao.ReadSubscribers("GetGroupSubscribers", parameters);
         }
 
-        public void EditGroupSubscribers(Groups groups)
+        public void EditGroupSubscribers(int groupID, int oldID, int newID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteGroupSubcribers(int groupID, int subscriberID)
         {
             throw new NotImplementedException();
         }

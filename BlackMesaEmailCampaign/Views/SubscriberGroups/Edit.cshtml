@@ -4,10 +4,31 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
-
 <div style="height: 225px; width: 35%; float: left; padding: 5px;">
-    @Html.Action("ViewGroupSubscribers", Model)
+
+    <h2>@Model.GroupName</h2>
+
+    @if (Model.Subscribers == null)
+    {
+        <p>@Model.GroupName has no subscribers</p>
+    }
+    else
+    {
+
+        <p>@Model.GroupName has @Model.Subscribers.Count subscribers in it.</p>
+
+        <table>
+            <thead style="display: block; ">
+                <tr>
+                    <th></th>
+                    <th>Last</th>
+                    <th>First</th>
+                </tr>
+            </thead>
+            @Html.Action("ViewGroupSubscribers", Model)
+        </table>
+
+    }
 </div>
 
 <div style="height: 225px; overflow: auto; padding: 5px; margin-left: 10px; display: inline-block;">
