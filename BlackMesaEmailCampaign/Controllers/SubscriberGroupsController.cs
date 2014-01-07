@@ -42,8 +42,22 @@ namespace BlackMesaEmailCampaign.Controllers
             return View(group);
         }
 
+        //View Needs work
+        //Partial View for Viewing Group's Subscirbers
+        public ActionResult _ViewGroupSubscribers(GroupVM group)
+        {
+            return PartialView(group);
+        }
+
+        //Needs Code
+        //Partial View for Viewing All Subscribers with Action to add to group
+        public ActionResult _AllSubscribers()
+        {
+            return PartialView();
+        }
+
         //Need Code to Delete Group
-        //View Group's Subscribers
+        //Deletes Group and Redirects to View Groups
         public ActionResult Delete(GroupVM group)
         {
             return RedirectToAction("ViewGroups");
