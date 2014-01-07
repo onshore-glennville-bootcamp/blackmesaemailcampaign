@@ -31,13 +31,13 @@ namespace BLL
             return vm;
         }
         //Converts List of Subscribers to VM for GroupVM
-        public SubscribersVM ConvertSubscribers(List<Subscribers> list)
+        public List<SubscriberVM> ConvertSubscribers(List<Subscribers> list)
         {
-            SubscribersVM vm = new SubscribersVM();
+            List<SubscriberVM> vm = new List<SubscriberVM>();
             UserServices log = new UserServices();
             foreach (Subscribers subscriber in list)
             {
-                vm.Subscribers.Add(log.ConvertSubscriber(subscriber));
+                vm.Add(log.ConvertSubscriber(subscriber));
             }
             return vm;
         }

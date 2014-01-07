@@ -14,7 +14,7 @@
         {
             <tr style="border: 1px solid #ccc;">
                 <td>@Html.ActionLink(Model.Groups[i].GroupName, "ViewGroupSubscribers", Model.Groups[i])</td>
-                <td>@Html.ActionLink("Edit", "Delete", Model.Groups[i])</td>
+                <td>@Html.ActionLink("Edit", "Edit", Model.Groups[i])</td>
                 <td>@Html.ActionLink("X", "Delete", Model.Groups[i], new { @class = "delete" })</td>
             </tr>
         }

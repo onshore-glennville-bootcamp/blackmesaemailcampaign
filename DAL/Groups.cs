@@ -11,5 +11,7 @@ namespace DAL
     {
         public int ID { get; set; }
         public string GroupName { get; set; }
+        public List<Subscribers> Subscribers { get; set; }
+
     }
 }

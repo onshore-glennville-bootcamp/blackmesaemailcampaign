@@ -32,6 +32,7 @@ namespace BlackMesaEmailCampaign.Controllers
         //View Group's Subscribers
         public ActionResult ViewGroupSubscribers(GroupVM group)
         {
+            //Needs code for Viewing Subscribers in group
             return View(group);
         }
 
@@ -39,6 +40,7 @@ namespace BlackMesaEmailCampaign.Controllers
         //Edit Group's Subscribers
         public ActionResult Edit(GroupVM group)
         {
+            //Need code for editing group
             return View(group);
         }
 
