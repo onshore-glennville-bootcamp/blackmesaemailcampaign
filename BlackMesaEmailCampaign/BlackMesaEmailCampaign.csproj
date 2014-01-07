@@ -224,6 +224,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\SubscriberGroups\EditGroups.cshtml" />
+    <Content Include="Views\SubscriberGroups\CreateGroups.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
