@@ -27,5 +27,9 @@ namespace BlackMesaEmailCampaign.Controllers
             groups.Groups = log.GetAllGroups();
             return View(groups);
         }
+        public ActionResult ViewGroupSubscribers(GroupVM group)
+        {
+            return View(group);
+        }
     }
 }
