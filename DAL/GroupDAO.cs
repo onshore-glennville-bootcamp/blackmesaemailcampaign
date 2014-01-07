@@ -63,9 +63,9 @@ namespace DAL
             return dao.ReadSubscribers("GetGroupSubscribers", parameters);
         }
 
-        public void CreateGroup(string p)
+        public void CreateGroup(string GroupName)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
