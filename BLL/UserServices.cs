@@ -73,6 +73,15 @@ namespace BLL
             vm.FirstName = subscriber.FirstName;
             return vm;
         }
+        //Converts from VM to Subscribers
+        public Subscribers ConvertSubscriber(SubscriberVM vm)
+        {
+            Subscribers subscriber = new Subscribers();
+            subscriber.Email = vm.Email;
+            subscriber.LastName = vm.LastName;
+            subscriber.FirstName = vm.FirstName;
+            return subscriber;
+        }
         //Gets a list of all subscribers in database
         public List<SubscriberVM> GetAllSubscribers()
         {
