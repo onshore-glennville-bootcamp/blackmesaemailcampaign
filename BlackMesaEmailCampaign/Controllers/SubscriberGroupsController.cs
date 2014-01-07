@@ -19,6 +19,7 @@ namespace BlackMesaEmailCampaign.Controllers
         public ActionResult EditGroups()
         {
             return View();
+        }
         //View Groups
         public ActionResult ViewGroups()
         {
@@ -67,8 +68,8 @@ namespace BlackMesaEmailCampaign.Controllers
             return RedirectToAction("ViewGroups");
         }
 
-    }
-        }
+
+
         // Create subscriber groups
         [HttpGet]
         public ActionResult CreateGroups()
@@ -81,5 +82,5 @@ namespace BlackMesaEmailCampaign.Controllers
 
             return View();
         }
-	}
+    }
 }

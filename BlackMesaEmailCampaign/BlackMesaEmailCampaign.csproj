@@ -223,6 +223,7 @@
     <Content Include="Views\SubscriberGroups\ViewGroups.cshtml" />
     <Content Include="Views\SubscriberGroups\Edit.cshtml" />
     <Content Include="Views\SubscriberGroups\_ViewGroupSubscribers.cshtml" />
+    <Content Include="Views\SubscriberGroups\CreateGroups.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
