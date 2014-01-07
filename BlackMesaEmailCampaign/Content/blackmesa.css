@@ -205,3 +205,8 @@ fieldset[disabled] .btn {
     display: block; 
     border: 1px solid #ccc; 
 }
+
+.delete{
+    color: red;
+    font-weight: bold;
+}

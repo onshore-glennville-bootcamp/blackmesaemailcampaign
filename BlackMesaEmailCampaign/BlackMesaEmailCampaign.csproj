@@ -221,6 +221,8 @@
     <Content Include="Views\Mail\Index.cshtml" />
     <Content Include="Views\Subscribers\SearchSubscribers.cshtml" />
     <Content Include="Views\SubscriberGroups\ViewGroups.cshtml" />
+    <Content Include="Views\SubscriberGroups\Edit.cshtml" />
+    <Content Include="Views\SubscriberGroups\_ViewGroupSubscribers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
