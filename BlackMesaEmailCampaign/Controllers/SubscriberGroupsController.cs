@@ -27,8 +27,15 @@ namespace BlackMesaEmailCampaign.Controllers
             groups.Groups = log.GetAllGroups();
             return View(groups);
         }
-
-        //Need View
+        //Partial View All Subscribers
+        public ActionResult AllSubscribers()
+        {
+            //Needs code for Viewing Subscribers in group
+            UserServices log = new UserServices();
+            SubscribersVM vm = new SubscribersVM();
+            vm.Subscribers = log.GetAllSubscribers();
+            return PartialView("_ViewSubscribers", vm);
+        }
         //Partial View Group's Subscribers
         public ActionResult ViewGroupSubscribers(GroupVM group)
         {
@@ -58,21 +65,20 @@ namespace BlackMesaEmailCampaign.Controllers
             return View(fm);
         }
         [HttpPost]
-        public ActionResult Edit(GroupFM group)
+        public ActionResult Add(GroupFM group)
         {
             GroupServices log = new GroupServices();
+            log.DeleteGroupSubscribers(group);
             //Need code for editing group
-            log.EditGroupSubscribers(group);
             return View("Edit");
         }
-
         //Need Code to Delete Group
         //Deletes Group and Redirects to Edit Groups
+        [HttpPost]
         public ActionResult Delete(GroupVM group)
         {
             //Needs code for deleting groups
             return RedirectToAction("Edit");
         }
-
     }
 }

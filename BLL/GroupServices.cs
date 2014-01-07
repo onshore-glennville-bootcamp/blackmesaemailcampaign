@@ -63,20 +63,26 @@ namespace BLL
             }
             return subscribers;
         }
-        //Edit Subscribers in Group
-        public void EditGroupSubscribers(GroupFM group)
+        //Add Subscribers to a Group
+        public void AddGroupSubscribers(GroupFM group)
         {
             GroupDAO dao = new GroupDAO();
             UserServices log = new UserServices();
             group.Subscribers = log.Checked(group.Subscribers).Subscribers;
-            List<Subscribers> oldList = dao.GetSubscribersByGroupID(group.ID);  //Old list of Subscribers in Group
-            while (oldList.Count > group.Subscribers.Count)  //Old list is longer
-            {
-                dao.DeleteGroupSubcribers(group.ID, oldList[(oldList.Count - 1)].ID);
-            }
             for (int i = 0; i < group.Subscribers.Count; i++)
             { 
-                dao.EditGroupSubscribers(ConvertGroup(group).ID, oldList[i].ID, group.Subscribers[i].ID);
+                dao.AddGroupSubscribers(group.ID, group.Subscribers[i].ID);
+            }
+        }
+        //Add Subscribers to a Group
+        public void DeleteGroupSubscribers(GroupFM group)
+        {
+            GroupDAO dao = new GroupDAO();
+            UserServices log = new UserServices();
+            group.Subscribers = log.Checked(group.Subscribers).Subscribers;
+            for (int i = 0; i < group.Subscribers.Count; i++)
+            {
+                dao.DeleteGroupSubscribers(group.ID, group.Subscribers[i].ID);
             }
         }
         //Returns list of subscriberVM for a group

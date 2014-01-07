@@ -62,15 +62,22 @@ namespace DAL
             };
             return dao.ReadSubscribers("GetGroupSubscribers", parameters);
         }
-
-        public void EditGroupSubscribers(int groupID, int oldID, int newID)
+        public void AddGroupSubscribers(int groupID, int subscriberID)
         {
-            throw new NotImplementedException();
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@G_ID", groupID),
+                new SqlParameter("@S_ID", subscriberID)
+            };
+            Write("AddSubscriberToGroup", parameters);
         }
-
-        public void DeleteGroupSubcribers(int groupID, int subscriberID)
+        //Deactivates Subscribers in a Group
+        public void DeleteGroupSubscribers(int groupID, int subscriberID)
         {
-            throw new NotImplementedException();
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@G_ID", groupID),
+                new SqlParameter("@S_ID", subscriberID)
+            };
+            Write("DeleteSubscriberFromGroup", parameters);
         }
     }
 }

@@ -5,7 +5,6 @@
 }
 
 <div style="height: 225px; width: 35%; float: left; padding: 5px;">
-
     <h2>@Model.GroupName</h2>
 
     @if (Model.Subscribers == null)
@@ -17,20 +16,46 @@
 
         <p>@Model.GroupName has @Model.Subscribers.Count subscribers in it.</p>
 
-        <table>
-            <thead style="display: block; ">
-                <tr>
-                    <th></th>
-                    <th>Last</th>
-                    <th>First</th>
-                </tr>
-            </thead>
-            @Html.Action("ViewGroupSubscribers", Model)
-        </table>
-
+        using (Html.BeginForm("Add", "SubscriberGroups", FormMethod.Post))
+        {
+            <table>
+                <thead style="display: block; ">
+                    <tr>
+                        <th>Subscribers</th>
+                    </tr>
+                </thead>
+                @Html.Action("ViewGroupSubscribers", Model)
+                <tfoot style="display: block;">
+                    <tr>
+                        <th></th>
+                        <th>
+                            <input type="submit" value="Delete Subscribers">
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        }
     }
 </div>
 
 <div style="height: 225px; overflow: auto; padding: 5px; margin-left: 10px; display: inline-block;">
-    @*Code for viewing all subscribers with option to add to group*@
+    @using (Html.BeginForm("Add", "SubscriberGroups", FormMethod.Post))
+    {
+        <table>
+            <thead style="display: block; ">
+                <tr>
+                    <th>Subscribers</th>
+                </tr>
+            </thead>
+            @Html.Action("AllSubscribers")
+            <tfoot style="display: block;">
+                <tr>
+                    <th></th>
+                    <th>
+                        <input type="submit" value="Add Subscribers">
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    }
 </div>
