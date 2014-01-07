@@ -79,7 +79,8 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpPost]
         public ActionResult CreateGroups(GroupFM groups)
         {
-
+            GroupServices create = new GroupServices();
+            create.CreateGroup(groups);
             return View();
         }
     }
