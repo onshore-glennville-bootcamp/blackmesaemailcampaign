@@ -56,7 +56,20 @@ namespace BlackMesaEmailCampaign.Controllers
         {
             GroupServices log = new GroupServices();
             log.UpdateGroupSubscribers(group);
+            group.GroupName = log.GetGroupNameByID(group.ID);
             return RedirectToAction("Edit", group);
+        }
+        //Search Subscribers
+        [HttpPost]
+        public ActionResult _Search(int groupID, string search)
+        {
+            GroupServices log = new GroupServices();
+            GroupFM fm = new GroupFM();
+            fm.ID = groupID;
+            fm.GroupName = log.GetGroupNameByID(fm.ID);
+            fm.Subscribers = log.GetSubscribersByGroupID(fm.ID);
+            fm.Search = log.Search(fm.ID, search);
+            return View("Edit", fm);
         }
 
         //Need Code to Delete Group

@@ -15,5 +15,7 @@ namespace BLL
         public string GroupName { get; set; }
 
         public List<SubscriberVM> Subscribers { get; set; }
+
+        public List<SubscriberVM> Search { get; set; }
     }
 }

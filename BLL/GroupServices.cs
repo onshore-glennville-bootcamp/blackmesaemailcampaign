@@ -63,9 +63,13 @@ namespace BLL
             }
             return subscribers;
         }
-        //Add Subscribers to a Group
+        //Update Subscribers to a Group
         public void UpdateGroupSubscribers(GroupFM group)
         {
+            if (group.Subscribers == null)
+            {
+                group.Subscribers = group.Search;
+            }
             GroupDAO dao = new GroupDAO();
             UserServices log = new UserServices();
             List<SubscriberVM> oldSubscribers = GetSubscribersByGroupID(group.ID);
@@ -88,17 +92,6 @@ namespace BLL
                 }    
             }
         }
-        //Add Subscribers to a Group
-        public void DeleteGroupSubscribers(GroupFM group)
-        {
-            GroupDAO dao = new GroupDAO();
-            UserServices log = new UserServices();
-            group.Subscribers = log.Checked(group.Subscribers).Subscribers;
-            for (int i = 0; i < group.Subscribers.Count; i++)
-            {
-                dao.DeleteGroupSubscribers(group.ID, group.Subscribers[i].ID);
-            }
-        }
         //Returns list subscriberVM (subscribers in group, if value of emailList = true)
         public List<SubscriberVM> GetSubscribersByGroupID(int groupID)
         {
@@ -116,6 +109,38 @@ namespace BLL
                 }
             }
             return list;
+        }
+        //Returns GroupName by ID
+        public string GetGroupNameByID(int groupID)
+        {
+            foreach (GroupVM vm in GetAllGroups())
+            {
+                if (vm.ID == groupID)
+                {
+                    return vm.GroupName;
+                }
+            }
+            return null;
+        }
+        //Searchs Database for Subscribers and checks the ones currently in list
+        public List<SubscriberVM> Search(int groupID, string search)
+        {
+            UserServices log = new UserServices();
+            List<SubscriberVM> results = log.Search(search);
+            for (int i = 0; i < GetSubscribersByGroupID(groupID).Count; i++)
+            {
+                if (GetSubscribersByGroupID(groupID)[i].EmailList)
+                {
+                    for (int j = 0; j < results.Count; j++)
+                    {
+                        if (GetSubscribersByGroupID(groupID)[i].ID == results[j].ID)
+                        {
+                            results[j].EmailList = true;
+                        }
+                    }
+                }
+            }
+            return results;
         }
     }
 }
