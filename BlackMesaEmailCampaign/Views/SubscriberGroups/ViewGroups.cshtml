@@ -2,6 +2,11 @@
 
 @using BLL
 
+@if (Session["ID"] == null)
+{
+    @Html.Action("Index", "Home");
+}
+
 @{
     ViewBag.Title = "View Groups";
 }

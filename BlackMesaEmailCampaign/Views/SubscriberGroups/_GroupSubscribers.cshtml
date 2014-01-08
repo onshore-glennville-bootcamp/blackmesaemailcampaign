@@ -1,5 +1,10 @@
 ﻿@model BLL.SubscribersVM
 
+@if (Session["ID"] == null)
+{
+    @Html.Action("Index", "Home");
+}
+
 <table>
     <thead style="display: block; ">
         <tr>
