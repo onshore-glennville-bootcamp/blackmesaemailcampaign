@@ -68,10 +68,21 @@ namespace BLL
         public SubscriberVM ConvertSubscriber(Subscribers subscriber)
         {
             SubscriberVM vm = new SubscriberVM();
+            vm.ID = subscriber.ID;
             vm.Email = subscriber.Email;
             vm.LastName = subscriber.LastName;
             vm.FirstName = subscriber.FirstName;
             return vm;
+        }
+        //Converts from VM to Subscribers
+        public Subscribers ConvertSubscriber(SubscriberVM vm)
+        {
+            Subscribers subscriber = new Subscribers();
+            subscriber.ID = vm.ID;
+            subscriber.Email = vm.Email;
+            subscriber.LastName = vm.LastName;
+            subscriber.FirstName = vm.FirstName;
+            return subscriber;
         }
         //Gets a list of all subscribers in database
         public List<SubscriberVM> GetAllSubscribers()
@@ -218,10 +229,10 @@ namespace BLL
             return uploaded;
         }
         //Pulls out unchecked subscribers and sends back list of checked subscribers
-        public SubscribersVM Checked(SubscribersVM selectedSubscribers)
+        public SubscribersVM Checked(List<SubscriberVM> selectedSubscribers)
         {
             SubscribersVM selected = new SubscribersVM();
-            foreach (SubscriberVM vm in selectedSubscribers.Subscribers)
+            foreach (SubscriberVM vm in selectedSubscribers)
             {
                 if (vm.EmailList)
                 {

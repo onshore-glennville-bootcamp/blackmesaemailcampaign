@@ -95,7 +95,6 @@ namespace DAL
                 new SqlParameter ("@search", s)
             };
             return ReadSubscribers("SearchSubscribers", parameters);
-            
         }
     }
 }

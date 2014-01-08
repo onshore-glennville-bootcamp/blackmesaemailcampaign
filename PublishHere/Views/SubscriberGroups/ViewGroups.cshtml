@@ -13,15 +13,10 @@
         @for (int i = 0; i < Model.Groups.Count; i++)
         {
             <tr style="border: 1px solid #ccc;">
-                <td>@Model.Groups[i].GroupName</td>
-                <td>@Html.ActionLink("Edit", "Edit", Model.Groups[i])</td>
+                <td>@Html.ActionLink(Model.Groups[i].GroupName, "ViewGroupSubscribers", Model.Groups[i])</td>
+                <td>@Html.ActionLink("Edit", "Delete", Model.Groups[i])</td>
                 <td>@Html.ActionLink("X", "Delete", Model.Groups[i], new { @class = "delete" })</td>
             </tr>
-
         }
-        
-
     </tbody>
-    
 </table>
-@Html.ActionLink("Create groups", "CreateGroups", "SubscriberGroups")

@@ -9,7 +9,13 @@ namespace BLL
 {
     public class GroupFM
     {
+        public int ID { get; set; }
+
         [Display(Name = "Group Name")]
         public string GroupName { get; set; }
+
+        public List<SubscriberVM> Subscribers { get; set; }
+
+        public List<SubscriberVM> Search { get; set; }
     }
 }

@@ -67,5 +67,22 @@ namespace DAL
         {
             
         }
+        public void AddGroupSubscribers(int groupID, int subscriberID)
+        {
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@G_ID", groupID),
+                new SqlParameter("@S_ID", subscriberID)
+            };
+            Write("AddSubscriberToGroup", parameters);
+        }
+        //Deactivates Subscribers in a Group
+        public void DeleteGroupSubscribers(int groupID, int subscriberID)
+        {
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@G_ID", groupID),
+                new SqlParameter("@S_ID", subscriberID)
+            };
+            Write("DeleteSubscriberFromGroup", parameters);
+        }
     }
 }

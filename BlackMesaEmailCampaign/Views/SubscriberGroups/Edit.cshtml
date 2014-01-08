@@ -1,15 +1,103 @@
-﻿@model BLL.GroupsVM
+﻿@model BLL.GroupFM
+
+@using BLL;
 
 @{
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit Group's Subscribers</h2>
+<h2>@Model.GroupName</h2>
 
-<div style="float: left; display: inline-block; height: 225px; width: 30%;">
-    @Html.Action("_ViewGroupSubscribers", new { Model })
+<div style="height: 225px; width: 30%; float: left;">
+
+    @if (Model.Subscribers == null)
+    {
+        <p>@Model.GroupName has no subscribers</p>
+    }
+    else
+    {
+        @Html.Action("GroupSubscribers", new { Model.Subscribers })
+    }
 </div>
 
-<div style="float: left; display: inline-block; height: 225px; width: 30%; margin-right: 3%; ">
-    @Html.Action("_ViewAllSubscribers")
+<div style="height: 225px; width: 30%; margin-left: 3%; display: inline-block;">
+    @using (Html.BeginForm("UpdateSubscribers", "SubscriberGroups", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.ID)
+        <table>
+            <thead style="display: block; ">
+                <tr>
+                    <th>All Subscribers</th>
+                </tr>
+            </thead>
+            <tbody class="list">
+                @for (int i = 0; i < Model.Subscribers.Count; i++)
+                {
+                    <tr style="border: 1px solid #ccc; ">
+                        @Html.HiddenFor(m => m.Subscribers[i].ID)
+                        <td>@Html.CheckBoxFor(m => m.Subscribers[i].EmailList)</td>
+                        <td>@Model.Subscribers[i].LastName</td>
+                        <td>@Model.Subscribers[i].FirstName</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot style="display: block;">
+                <tr>
+                    <th></th>
+                    <th>
+                        <input type="submit" value="Update Group">
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    }
+</div>
+
+<div style="height: 225px; width: 30%; margin-left: 3%; display: inline-block;">
+    <div>
+        @using (Html.BeginForm("_Search", "SubscriberGroups", FormMethod.Post))
+        
+        {
+            @Html.Hidden("groupID", Model.ID)
+            <div>
+                @Html.TextBox("search")
+                <input type="submit" value="Search for Subscribers" />
+            </div>
+        }
+    </div>
+    <div>
+        @if (Model.Search != null)
+        {
+            using (Html.BeginForm("UpdateSubscribers", "SubscriberGroups", FormMethod.Post))
+            {
+                @Html.HiddenFor(m => m.ID)
+                <table>
+                    <thead style="display: block; ">
+                        <tr>
+                            <th>Searched Subscribers</th>
+                        </tr>
+                    </thead>
+                    <tbody class="list">
+                        @for (int i = 0; i < Model.Search.Count; i++)
+                        {
+                            <tr style="border: 1px solid #ccc; ">
+                                @Html.HiddenFor(m => m.Search[i].ID)
+                                <td>@Html.CheckBoxFor(m => m.Search[i].EmailList)</td>
+                                <td>@Model.Search[i].LastName</td>
+                                <td>@Model.Search[i].FirstName</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot style="display: block;">
+                        <tr>
+                            <th></th>
+                            <th>
+                                <input type="submit" value="Update Group">
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            }
+        }
+    </div>
 </div>
