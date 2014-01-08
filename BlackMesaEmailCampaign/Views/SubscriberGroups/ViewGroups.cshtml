@@ -17,6 +17,11 @@
                 <td>@Html.ActionLink("Edit", "Edit", Model.Groups[i])</td>
                 <td>@Html.ActionLink("X", "Delete", Model.Groups[i], new { @class = "delete" })</td>
             </tr>
+
         }
+        
+
     </tbody>
+    
 </table>
+@Html.ActionLink("Create groups", "CreateGroups", "SubscriberGroups")

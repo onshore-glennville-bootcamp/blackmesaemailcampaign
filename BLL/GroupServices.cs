@@ -52,6 +52,12 @@ namespace BLL
             }
             return vm;
         }
+        public void CreateGroup(GroupFM groups)
+        {
+        //Create a new Subscriber group
+            GroupDAO newGroup = new GroupDAO();
+            newGroup.CreateGroup(groups.GroupName);
+        }
         //Converts List of SubscriberVM to Subscribers for Groups
         public List<Subscribers> ConvertSubscriberList(List<SubscriberVM> list)
         {
