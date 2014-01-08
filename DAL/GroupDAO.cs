@@ -84,5 +84,13 @@ namespace DAL
             };
             Write("DeleteSubscriberFromGroup", parameters);
         }
+        //Deactivates a Group by it's ID
+        public void DeleteGroup(int groupID)
+        {
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter("@ID", groupID)
+            };
+            Write("DeactiveGroup", parameters);
+        }
     }
 }
