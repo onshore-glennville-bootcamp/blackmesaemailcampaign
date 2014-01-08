@@ -103,7 +103,6 @@ namespace BlackMesaEmailCampaign.Controllers
 
         //Need Code to Delete Group
         //Deletes Group and Redirects to Edit Groups
-        [HttpPost]
         public ActionResult Delete(GroupVM group)
         {
             if (Session["ID"] == null)
