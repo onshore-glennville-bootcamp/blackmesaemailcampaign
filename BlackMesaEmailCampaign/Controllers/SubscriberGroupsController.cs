@@ -13,11 +13,19 @@ namespace BlackMesaEmailCampaign.Controllers
         // GET: /SubscriberGroups/
         public ActionResult Index()
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
         // Edit subscriber groups
         public ActionResult EditGroups()
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
         //View Groups
@@ -35,6 +43,10 @@ namespace BlackMesaEmailCampaign.Controllers
         //Edit Group's Subscribers
         public ActionResult Edit(GroupVM vm)
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             GroupServices log = new GroupServices();
             GroupFM fm = new GroupFM();
             fm.ID = vm.ID;
@@ -45,6 +57,10 @@ namespace BlackMesaEmailCampaign.Controllers
         //Partial View for all subscribers in group
         public ActionResult GroupSubscribers(List<SubscriberVM> subscribers)
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             SubscribersVM members = new SubscribersVM();
             foreach (SubscriberVM vm in subscribers)
             {
@@ -59,6 +75,10 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpPost]
         public ActionResult UpdateSubscribers(GroupFM group)
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             GroupServices log = new GroupServices();
             log.UpdateGroupSubscribers(group);
             group.GroupName = log.GetGroupNameByID(group.ID);
@@ -68,6 +88,10 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpPost]
         public ActionResult _Search(int groupID, string search)
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             GroupServices log = new GroupServices();
             GroupFM fm = new GroupFM();
             fm.ID = groupID;
@@ -82,6 +106,10 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpPost]
         public ActionResult Delete(GroupVM group)
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             //Needs code for deleting groups
             return RedirectToAction("Edit");
         }
@@ -91,11 +119,19 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpGet]
         public ActionResult CreateGroups()
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
         [HttpPost]
         public ActionResult CreateGroups(GroupFM groups)
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             GroupServices create = new GroupServices();
             create.CreateGroup(groups);
             return View();

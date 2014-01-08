@@ -1,4 +1,10 @@
 ﻿@model BLL.GroupFM
+
+@if (Session["ID"] == null)
+{
+    @Html.Action("Index", "Home");
+}
+
 @{
     ViewBag.Title = "Create Groups";
 }
