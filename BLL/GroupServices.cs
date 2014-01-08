@@ -41,5 +41,11 @@ namespace BLL
             }
             return vm;
         }
+        public void CreateGroup(GroupFM groups)
+        {
+        //Create a new Subscriber group
+            GroupDAO newGroup = new GroupDAO();
+            newGroup.CreateGroup(groups.GroupName);
+        }
     }
 }

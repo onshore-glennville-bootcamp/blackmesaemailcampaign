@@ -1,0 +1,21 @@
+﻿@model BLL.GroupFM
+@{
+    ViewBag.Title = "Create Groups";
+}
+
+<h2>Create Groups</h2>
+
+
+@using (Html.BeginForm("CreateGroups", "SubscriberGroups", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <p>What is the name of the group you wish to create?</p>
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.GroupName, new { @class = "form-control", placeholder = "Group Name" })
+        </div>
+        <br />
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Create" />
+        </div>
+    </div>
+}

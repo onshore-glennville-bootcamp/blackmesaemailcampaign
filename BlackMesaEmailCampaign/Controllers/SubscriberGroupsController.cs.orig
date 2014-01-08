@@ -15,11 +15,26 @@ namespace BlackMesaEmailCampaign.Controllers
         {
             return View();
         }
+<<<<<<< HEAD
         // Edit subscriber groups
         public ActionResult EditGroups()
         {
             return View();
         }
+        // Create subscriber groups
+        [HttpGet]
+        public ActionResult CreateGroups()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateGroups(GroupFM groups)
+        {
+
+            return View();
+        }
+	}
+=======
         //View Groups
         public ActionResult ViewGroups()
         {
@@ -68,20 +83,6 @@ namespace BlackMesaEmailCampaign.Controllers
             return RedirectToAction("ViewGroups");
         }
 
-
-
-        // Create subscriber groups
-        [HttpGet]
-        public ActionResult CreateGroups()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult CreateGroups(GroupFM groups)
-        {
-            GroupServices create = new GroupServices();
-            create.CreateGroup(groups);
-            return View();
-        }
     }
+>>>>>>> ecc9bf6f27a7a435b2cb8d2c74adffe74ecfd16a
 }

@@ -62,5 +62,10 @@ namespace DAL
             };
             return dao.ReadSubscribers("GetGroupSubscribers", parameters);
         }
+
+        public void CreateGroup(string GroupName)
+        {
+            
+        }
     }
 }
