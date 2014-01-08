@@ -148,5 +148,11 @@ namespace BLL
             }
             return results;
         }
+        //Deactivates a Group using it's ID
+        public void DeactivateGroup(int groupID)
+        {
+            GroupDAO dao = new GroupDAO();
+            dao.DeleteGroup(groupID);
+        }
     }
 }

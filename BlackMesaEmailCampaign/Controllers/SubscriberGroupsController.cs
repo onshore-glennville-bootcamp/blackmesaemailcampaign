@@ -102,8 +102,7 @@ namespace BlackMesaEmailCampaign.Controllers
         }
 
         //Need Code to Delete Group
-        //Deletes Group and Redirects to Edit Groups
-        [HttpPost]
+        //Deletes Group and Redirects to ViewGroups
         public ActionResult Delete(GroupVM group)
         {
             if (Session["ID"] == null)
@@ -111,7 +110,9 @@ namespace BlackMesaEmailCampaign.Controllers
                 return RedirectToAction("Index", "Home");
             }
             //Needs code for deleting groups
-            return RedirectToAction("Edit");
+            GroupServices log = new GroupServices();
+            log.DeactivateGroup(group.ID);
+            return RedirectToAction("ViewGroups");
         }
 
 
