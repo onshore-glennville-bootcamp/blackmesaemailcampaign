@@ -60,11 +60,13 @@ namespace BlackMesaEmailCampaign.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            return View();
+            GroupServices log = new GroupServices();
+            List<GroupVM> list = log.GetAllGroups();
+            return View(list);
         }
         //Controller for adding bulk users from file
         [HttpPost]
-        public ActionResult AddFromFile(HttpPostedFileBase file)
+        public ActionResult AddFromFile(HttpPostedFileBase file, int groupID)
         {
             UserServices log = new UserServices();
             // Verify that the user selected a file
