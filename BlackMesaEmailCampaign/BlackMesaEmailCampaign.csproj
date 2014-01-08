@@ -224,6 +224,7 @@
     <Content Include="Views\SubscriberGroups\Edit.cshtml" />
     <Content Include="Views\SubscriberGroups\_GroupSubscribers.cshtml" />
     <Content Include="Views\SubscriberGroups\CreateGroups.cshtml" />
+    <Content Include="Views\SubscriberGroups\CreateGroups.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
