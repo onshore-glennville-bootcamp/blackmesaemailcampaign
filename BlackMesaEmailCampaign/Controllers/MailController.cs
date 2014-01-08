@@ -15,6 +15,10 @@ namespace BlackMesaEmailCampaign.Controllers
         // GET: /Mail/
         public ActionResult Index(SubscribersVM subVM)
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             MailService mail = new MailService();
             MailFM fm = mail.GetFM(subVM);
             if (fm.To != null) return View(fm);
@@ -27,6 +31,10 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpPost]
         public ActionResult Send(MailFM mailFM)
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (ModelState.IsValid)
             {
                 MailMessage mail = new MailMessage();
