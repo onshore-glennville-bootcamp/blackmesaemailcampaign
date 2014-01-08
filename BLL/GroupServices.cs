@@ -64,14 +64,28 @@ namespace BLL
             return subscribers;
         }
         //Add Subscribers to a Group
-        public void AddGroupSubscribers(GroupFM group)
+        public void UpdateGroupSubscribers(GroupFM group)
         {
             GroupDAO dao = new GroupDAO();
             UserServices log = new UserServices();
-            group.Subscribers = log.Checked(group.Subscribers).Subscribers;
-            for (int i = 0; i < group.Subscribers.Count; i++)
-            { 
-                dao.AddGroupSubscribers(group.ID, group.Subscribers[i].ID);
+            List<SubscriberVM> oldSubscribers = GetSubscribersByGroupID(group.ID);
+            for (int i = 0; i < oldSubscribers.Count; i++)
+            {
+                for (int j = 0; j < group.Subscribers.Count; j++)
+                {
+                    //Compares old group subscribers to new group subscribers and makes changes when they don't match
+                    if (oldSubscribers[i].ID == group.Subscribers[j].ID && oldSubscribers[i].EmailList != group.Subscribers[j].EmailList)
+                    {
+                        if (oldSubscribers[i].EmailList)
+                        {
+                            dao.DeleteGroupSubscribers(group.ID, oldSubscribers[i].ID);
+                        }
+                        else
+                        {
+                            dao.AddGroupSubscribers(group.ID, group.Subscribers[j].ID);
+                        }
+                    }
+                }    
             }
         }
         //Add Subscribers to a Group
@@ -85,11 +99,23 @@ namespace BLL
                 dao.DeleteGroupSubscribers(group.ID, group.Subscribers[i].ID);
             }
         }
-        //Returns list of subscriberVM for a group
+        //Returns list subscriberVM (subscribers in group, if value of emailList = true)
         public List<SubscriberVM> GetSubscribersByGroupID(int groupID)
         {
             GroupDAO dao = new GroupDAO();
-            return ConvertSubscriberList(dao.GetSubscribersByGroupID(groupID));
+            UserServices us = new UserServices();
+            List<SubscriberVM> list = us.GetAllSubscribers();
+            for (int i = 0; i < dao.GetSubscribersByGroupID(groupID).Count; i++)
+            {
+                for (int j = 0; j < list.Count; j++)
+                {
+                    if (dao.GetSubscribersByGroupID(groupID)[i].ID == list[j].ID)
+                    {
+                        list[j].EmailList = true;
+                    }
+                }
+            }
+            return list;
         }
     }
 }

@@ -1,11 +1,14 @@
 ﻿@model BLL.GroupFM
 
+@using BLL;
+
 @{
     ViewBag.Title = "Edit";
 }
 
+<h2>@Model.GroupName</h2>
+
 <div style="height: 225px; width: 35%; float: left; padding: 5px;">
-    <h2>@Model.GroupName</h2>
 
     @if (Model.Subscribers == null)
     {
@@ -13,46 +16,36 @@
     }
     else
     {
-
-        <p>@Model.GroupName has @Model.Subscribers.Count subscribers in it.</p>
-
-        using (Html.BeginForm("Add", "SubscriberGroups", FormMethod.Post))
-        {
-            <table>
-                <thead style="display: block; ">
-                    <tr>
-                        <th>Subscribers</th>
-                    </tr>
-                </thead>
-                @Html.Action("ViewGroupSubscribers", Model)
-                <tfoot style="display: block;">
-                    <tr>
-                        <th></th>
-                        <th>
-                            <input type="submit" value="Delete Subscribers">
-                        </th>
-                    </tr>
-                </tfoot>
-            </table>
-        }
+        @Html.Action("GroupSubscribers", new { Model.Subscribers })
     }
 </div>
 
 <div style="height: 225px; overflow: auto; padding: 5px; margin-left: 10px; display: inline-block;">
-    @using (Html.BeginForm("Add", "SubscriberGroups", FormMethod.Post))
+    @using (Html.BeginForm("UpdateSubscribers", "SubscriberGroups", FormMethod.Post))
     {
+        @Html.HiddenFor(m => m.ID)
         <table>
             <thead style="display: block; ">
                 <tr>
-                    <th>Subscribers</th>
+                    <th>All Subscribers</th>
                 </tr>
             </thead>
-            @Html.Action("AllSubscribers")
+            <tbody class="list">
+                @for (int i = 0; i < Model.Subscribers.Count; i++)
+                {
+                    <tr style="border: 1px solid #ccc; ">
+                        @Html.HiddenFor(m => m.Subscribers[i].ID)
+                        <td>@Html.CheckBoxFor(m => m.Subscribers[i].EmailList)</td>
+                        <td>@Model.Subscribers[i].LastName</td>
+                        <td>@Model.Subscribers[i].FirstName</td>
+                    </tr>
+                }
+            </tbody>
             <tfoot style="display: block;">
                 <tr>
                     <th></th>
                     <th>
-                        <input type="submit" value="Add Subscribers">
+                        <input type="submit" value="Update Group">
                     </th>
                 </tr>
             </tfoot>

@@ -27,34 +27,7 @@ namespace BlackMesaEmailCampaign.Controllers
             groups.Groups = log.GetAllGroups();
             return View(groups);
         }
-        //Partial View All Subscribers
-        public ActionResult AllSubscribers()
-        {
-            //Needs code for Viewing Subscribers in group
-            UserServices log = new UserServices();
-            SubscribersVM vm = new SubscribersVM();
-            vm.Subscribers = log.GetAllSubscribers();
-            return PartialView("_ViewSubscribers", vm);
-        }
-        //Partial View Group's Subscribers
-        public ActionResult ViewGroupSubscribers(GroupVM group)
-        {
-            //Needs code for Viewing Subscribers in group
-            GroupServices log = new GroupServices();
-            SubscribersVM vm = new SubscribersVM();
-            foreach (GroupVM groups in log.GetAllGroups())
-            {
-                if (groups.GroupName == group.GroupName)
-                {
-                    vm.Subscribers = groups.Subscribers;
-                }
-            }
-            return PartialView("_ViewSubscribers", vm);
-        }
-
-        //Need View
         //Edit Group's Subscribers
-        [HttpGet]
         public ActionResult Edit(GroupVM vm)
         {
             GroupServices log = new GroupServices();
@@ -64,14 +37,28 @@ namespace BlackMesaEmailCampaign.Controllers
             fm.Subscribers = log.GetSubscribersByGroupID(vm.ID);
             return View(fm);
         }
+        //Partial View for all subscribers in group
+        public ActionResult GroupSubscribers(List<SubscriberVM> subscribers)
+        {
+            SubscribersVM members = new SubscribersVM();
+            foreach (SubscriberVM vm in subscribers)
+            {
+                if (vm.EmailList)
+                {
+                    members.Subscribers.Add(vm);
+                }
+            }
+            return PartialView("_GroupSubscribers", members);
+        }
+        //Update Subscribers in Group
         [HttpPost]
-        public ActionResult Add(GroupFM group)
+        public ActionResult UpdateSubscribers(GroupFM group)
         {
             GroupServices log = new GroupServices();
-            log.DeleteGroupSubscribers(group);
-            //Need code for editing group
-            return View("Edit");
+            log.UpdateGroupSubscribers(group);
+            return RedirectToAction("Edit", group);
         }
+
         //Need Code to Delete Group
         //Deletes Group and Redirects to Edit Groups
         [HttpPost]
