@@ -65,7 +65,7 @@
         {
             @Html.Hidden("groupID", Model.ID)
             <div>
-                @Html.TextBox("search", "Search")
+                @Html.TextBox("search","" , new { @placeholder = "What are you searching for?" })
                 <input type="submit" value="Search for Subscribers" />
             </div>
         }
