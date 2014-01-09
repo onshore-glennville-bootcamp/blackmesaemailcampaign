@@ -15,6 +15,10 @@ namespace BlackMesaEmailCampaign.Controllers
         // GET: /Mail/
         public ActionResult Index(SubscribersVM subVM)
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             MailService mail = new MailService();
             MailFM fm = mail.GetFM(subVM);
             if (fm.To != null) return View(fm);
@@ -27,26 +31,53 @@ namespace BlackMesaEmailCampaign.Controllers
         [HttpPost]
         public ActionResult Send(MailFM mailFM)
         {
+            if (Session["ID"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if (ModelState.IsValid)
             {
                 MailMessage mail = new MailMessage();
                 if (mailFM.To != null)
                 {
-                    mail.To.Add(mailFM.To);
-                    mail.From = new MailAddress("blackmesaemailcampaign@gmail.com");
-                    mail.Subject = mailFM.Subject;
-                    string Body = mailFM.Body;
-                    mail.Body = Body;
-                    mail.IsBodyHtml = true;
-                    SmtpClient smtp = new SmtpClient();
-                    smtp.Host = "smtp.gmail.com";
-                    smtp.Port = 587;
-                    smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new NetworkCredential
-                    ("blackmesaemailcampaign", "bootcamp123");// Username and password for accont used for sending emails
-                    smtp.EnableSsl = true;
-                    smtp.Send(mail);
-                    return RedirectToAction("ViewSubscribers", "Subscribers");
+                    bool multiplemail = true;
+                    List<string> email = new List<string>();
+                    while (multiplemail)
+                    {
+                        string mailadd = "";
+                        if (mailFM.To.Contains(','))
+                        {
+                            int mailindex = mailFM.To.IndexOf(',');
+                            mailadd = mailFM.To.Substring(0, mailindex);
+                            mailFM.To = mailFM.To.Substring(mailindex + 1);
+                            email.Add(mailadd);
+                        }
+                        else
+                        {
+                            email.Add(mailFM.To);
+                            multiplemail = false;
+                        }
+
+                    }
+                    foreach (string mails in email)
+                    {
+                        mail.To.Add(mails);
+
+                        mail.From = new MailAddress("blackmesaemailcampaign@gmail.com");
+                        mail.Subject = mailFM.Subject;
+                        string Body = mailFM.Body;
+                        mail.Body = Body;
+                        mail.IsBodyHtml = true;
+                        SmtpClient smtp = new SmtpClient();
+                        smtp.Host = "smtp.gmail.com";
+                        smtp.Port = 587;
+                        smtp.UseDefaultCredentials = false;
+                        smtp.Credentials = new NetworkCredential
+                        ("blackmesaemailcampaign", "bootcamp123");// Username and password for accont used for sending emails
+                        smtp.EnableSsl = true;
+                        smtp.Send(mail);
+                        mail.To.Clear();
+                    } return RedirectToAction("ViewSubscribers", "Subscribers");
                 }
                 else
                 {
