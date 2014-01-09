@@ -26,7 +26,7 @@ namespace BLL
             }
             return false;
         }
-        //Add subscriber to database
+        //Add subscriber to database and to group if not already in group
         public void CreateSubscribers(SubscribersFM subscriberFM, int groupID)
         {
             SubscriberDAO dao = new SubscriberDAO();
@@ -41,10 +41,23 @@ namespace BLL
             }
             //0 is the groupID passed down if there is no group seleted.
             //if group was seleted then they are add to a group
-            if (groupID > 0 && dao.GetSubscriberByEmail(subscriberFM.Email) != null)
+            if (groupID > 0 && dao.GetSubscriberByEmail(subscriberFM.Email) != null && !SubscriberInGroup(dao.GetSubscriberByEmail(subscriberFM.Email).ID, groupID))
             {
                 group.AddGroupSubscribers(groupID, dao.GetSubscriberByEmail(subscriberFM.Email).ID);
             }
+        }
+        //Checks to see if Subscriber is already in group
+        public bool SubscriberInGroup(int subscriberID, int groupID)
+        {
+            GroupDAO dao = new GroupDAO();
+            foreach (Subscribers subscriber in dao.GetSubscribersByGroupID(groupID))
+            {
+                if (subscriber.ID == subscriberID)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         //Add list of subscribers to database
         public void CreateSubscribers(List<SubscribersFM> subscribers, int groupID)

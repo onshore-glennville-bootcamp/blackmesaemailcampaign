@@ -30,6 +30,7 @@ namespace BlackMesaEmailCampaign.Controllers
         public ActionResult Add(SubscribersFM subscriber, int groupID)
         {
             UserServices log = new UserServices();
+            GroupServices group = new GroupServices();
             if (subscriber.Email != null && log.ValidEmail(subscriber.Email))
             {
                 if (!log.IsExistingSubscriber(subscriber.Email))
@@ -53,7 +54,6 @@ namespace BlackMesaEmailCampaign.Controllers
             {
                 ViewBag.ErrorMessage = "Subscriber email not valid.";
             }
-            GroupServices group = new GroupServices();
             subscriber.Groups = group.GetAllGroups();
             return View(subscriber);
         }
