@@ -134,7 +134,11 @@ namespace BlackMesaEmailCampaign.Controllers
                 return RedirectToAction("Index", "Home");
             }
             GroupServices create = new GroupServices();
-            create.CreateGroup(groups);
+            bool creation = create.CreateGroup(groups);
+            if (creation) {
+                ViewBag.ErrorMessage = "Group successfully created!";
+                return View (); }
+            ViewBag.ErrorMessage = "That group already exists.";
             return View();
         }
     }

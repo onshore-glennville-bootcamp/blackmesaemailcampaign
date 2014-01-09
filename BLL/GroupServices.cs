@@ -38,7 +38,7 @@ namespace BLL
             GroupDAO dao = new GroupDAO();
             vm.ID = group.ID;
             vm.GroupName = group.GroupName;
-            vm.Subscribers =  ConvertSubscriberList(group.Subscribers);
+            vm.Subscribers = ConvertSubscriberList(group.Subscribers);
             return vm;
         }
         //Converts List of Subscribers to VM for GroupVM
@@ -52,11 +52,28 @@ namespace BLL
             }
             return vm;
         }
-        public void CreateGroup(GroupFM groups)
+        public bool CreateGroup(GroupFM groups)
         {
-        //Create a new Subscriber group
+            //Check for duplicates
             GroupDAO newGroup = new GroupDAO();
-            newGroup.CreateGroup(groups.GroupName);
+            if (!GroupExists(groups.GroupName))
+            { //Create a new Subscriber group
+                newGroup.CreateGroup(groups.GroupName);
+                return true;
+            }
+            return false;
+
+        }
+        public bool GroupExists(string groupName)
+        {
+            foreach (GroupVM existing in GetAllGroups())
+            {
+                if (existing.GroupName == groupName)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         //Converts List of SubscriberVM to Subscribers for Groups
         public List<Subscribers> ConvertSubscriberList(List<SubscriberVM> list)
@@ -95,7 +112,7 @@ namespace BLL
                             dao.AddGroupSubscribers(group.ID, group.Subscribers[j].ID);
                         }
                     }
-                }    
+                }
             }
         }
         //Returns list subscriberVM (subscribers in group, if value of emailList = true)
