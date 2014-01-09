@@ -26,25 +26,45 @@ namespace BLL
             }
             return false;
         }
-        //Add subscriber to database
-        public void CreateSubscribers(SubscribersFM subscriberFM)
+        //Add subscriber to database and to group if not already in group
+        public void CreateSubscribers(SubscribersFM subscriberFM, int groupID)
         {
-            if (!IsExistingSubscriber(subscriberFM.Email))
+            SubscriberDAO dao = new SubscriberDAO();
+            GroupDAO group = new GroupDAO();
+            if (!IsExistingSubscriber(subscriberFM.Email) && !TooLong(subscriberFM.Email) && ValidEmail(subscriberFM.Email))
             {
-                SubscriberDAO dao = new SubscriberDAO();
                 Subscribers subscriber = new Subscribers();
                 subscriber.Email = subscriberFM.Email;
                 subscriber.FirstName = subscriberFM.FirstName;
-                subscriber.LastName = subscriberFM.LastName; 
+                subscriber.LastName = subscriberFM.LastName;
                 dao.CreateSubscriber(subscriber);
             }
+            //0 is the groupID passed down if there is no group seleted.
+            //if group was seleted then they are add to a group
+            if (groupID > 0 && dao.GetSubscriberByEmail(subscriberFM.Email) != null && !SubscriberInGroup(dao.GetSubscriberByEmail(subscriberFM.Email).ID, groupID))
+            {
+                group.AddGroupSubscribers(groupID, dao.GetSubscriberByEmail(subscriberFM.Email).ID);
+            }
+        }
+        //Checks to see if Subscriber is already in group
+        public bool SubscriberInGroup(int subscriberID, int groupID)
+        {
+            GroupDAO dao = new GroupDAO();
+            foreach (Subscribers subscriber in dao.GetSubscribersByGroupID(groupID))
+            {
+                if (subscriber.ID == subscriberID)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         //Add list of subscribers to database
-        public void CreateSubscribers(List<SubscribersFM> subscribers)
+        public void CreateSubscribers(List<SubscribersFM> subscribers, int groupID)
         {
             foreach (SubscribersFM subscriber in subscribers)
             {
-                CreateSubscribers(subscriber);
+                CreateSubscribers(subscriber, groupID);
             }
         }
         //Returns true if the email is in the right format
@@ -199,7 +219,7 @@ namespace BLL
             }
             return subscribers;
         }
-        public string AddFromFile(StreamReader stream, string ext)
+        public string AddFromFile(StreamReader stream, string ext, int groupID)
         {
             string uploaded = "File must be in CSV or XML format.  Fields should be in the order Email, First Name, Last Name";
             switch (ext)
@@ -209,7 +229,7 @@ namespace BLL
                     {
                         if (ValidEmail(fm.Email))
                         {
-                            CreateSubscribers(fm);
+                            CreateSubscribers(fm, groupID);
                             uploaded = "Subscribers from CSV file were uploaded.";
                         }
                     }
@@ -219,11 +239,11 @@ namespace BLL
                     {
                         if (ValidEmail(fm.Email))
                         {
-                            CreateSubscribers(fm);
+                            CreateSubscribers(fm, groupID);
                             uploaded = "Subscribers from XML file were uploaded.";
                         }
                     }
-                    
+
                     return "Subscribers from XML file were uploaded.";
             }
             return uploaded;
