@@ -27,24 +27,30 @@ namespace BLL
             return false;
         }
         //Add subscriber to database
-        public void CreateSubscribers(SubscribersFM subscriberFM)
+        public void CreateSubscribers(SubscribersFM subscriberFM, int groupID)
         {
             if (!IsExistingSubscriber(subscriberFM.Email))
             {
                 SubscriberDAO dao = new SubscriberDAO();
+                GroupDAO group = new GroupDAO();
                 Subscribers subscriber = new Subscribers();
                 subscriber.Email = subscriberFM.Email;
                 subscriber.FirstName = subscriberFM.FirstName;
                 subscriber.LastName = subscriberFM.LastName; 
                 dao.CreateSubscriber(subscriber);
+                //0 is the groupID passed down if there is no group seleted
+                if (groupID > 0)
+                {
+                    group.AddGroupSubscribers(groupID, dao.GetSubscriberByEmail(subscriber.Email).ID);
+                }
             }
         }
         //Add list of subscribers to database
-        public void CreateSubscribers(List<SubscribersFM> subscribers)
+        public void CreateSubscribers(List<SubscribersFM> subscribers, int groupID)
         {
             foreach (SubscribersFM subscriber in subscribers)
             {
-                CreateSubscribers(subscriber);
+                CreateSubscribers(subscriber, groupID);
             }
         }
         //Returns true if the email is in the right format
@@ -199,7 +205,7 @@ namespace BLL
             }
             return subscribers;
         }
-        public string AddFromFile(StreamReader stream, string ext)
+        public string AddFromFile(StreamReader stream, string ext, int groupID)
         {
             string uploaded = "File must be in CSV or XML format.  Fields should be in the order Email, First Name, Last Name";
             switch (ext)
@@ -209,7 +215,7 @@ namespace BLL
                     {
                         if (ValidEmail(fm.Email))
                         {
-                            CreateSubscribers(fm);
+                            CreateSubscribers(fm, groupID);
                             uploaded = "Subscribers from CSV file were uploaded.";
                         }
                     }
@@ -219,7 +225,7 @@ namespace BLL
                     {
                         if (ValidEmail(fm.Email))
                         {
-                            CreateSubscribers(fm);
+                            CreateSubscribers(fm, groupID);
                             uploaded = "Subscribers from XML file were uploaded.";
                         }
                     }

@@ -20,11 +20,14 @@ namespace BlackMesaEmailCampaign.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            return View();
+            GroupServices log = new GroupServices();
+            SubscribersFM fm = new SubscribersFM();
+            fm.Groups = log.GetAllGroups();
+            return View(fm);
         }
         //Validates Form for Adding Subscribers, then adds if validated
         [HttpPost]
-        public ActionResult Add(SubscribersFM subscriber)
+        public ActionResult Add(SubscribersFM subscriber, int groupID)
         {
             UserServices log = new UserServices();
             if (subscriber.Email != null && log.ValidEmail(subscriber.Email))
@@ -33,7 +36,7 @@ namespace BlackMesaEmailCampaign.Controllers
                 {
                     if (!log.TooLong(subscriber.FirstName) && !log.TooLong(subscriber.LastName))
                     {
-                        log.CreateSubscribers(subscriber);
+                        log.CreateSubscribers(subscriber, groupID);
                         return RedirectToAction("ViewSubscribers");
                     }
                     else
@@ -50,7 +53,9 @@ namespace BlackMesaEmailCampaign.Controllers
             {
                 ViewBag.ErrorMessage = "Subscriber email not valid.";
             }
-            return View();
+            GroupServices group = new GroupServices();
+            subscriber.Groups = group.GetAllGroups();
+            return View(subscriber);
         }
         //List Subscribers
         [HttpGet]
@@ -61,8 +66,7 @@ namespace BlackMesaEmailCampaign.Controllers
                 return RedirectToAction("Index", "Home");
             }
             GroupServices log = new GroupServices();
-            List<GroupVM> list = log.GetAllGroups();
-            return View(list);
+            return View(log.GetAllGroups());
         }
         //Controller for adding bulk users from file
         [HttpPost]
@@ -76,11 +80,12 @@ namespace BlackMesaEmailCampaign.Controllers
                 StreamReader reader = new StreamReader(file.InputStream);
                 while (!reader.EndOfStream)
                 {
-                    ViewBag.Subscribers = log.AddFromFile(reader, ext);
+                    ViewBag.Subscribers = log.AddFromFile(reader, ext, groupID);
                 }
                 reader.Close();
             }
-            return View();
+            GroupServices group = new GroupServices();
+            return View(group.GetAllGroups());
         }
         public ActionResult ViewSubscribers()
         {
