@@ -63,9 +63,12 @@ namespace DAL
             return dao.ReadSubscribers("GetGroupSubscribers", parameters);
         }
 
-        public void CreateGroup(string GroupName)
+        public void CreateGroup(string groupName)
         {
-            
+            SqlParameter[] parameters = new SqlParameter[]{
+                new SqlParameter ("@Name", groupName)
+            };
+            Write("CreateSubscriberGroup", parameters);
         }
         public void AddGroupSubscribers(int groupID, int subscriberID)
         {
