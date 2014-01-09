@@ -20,7 +20,7 @@
             <tr style="border: 1px solid #ccc;">
                 <td>@Model.Groups[i].GroupName</td>
                 <td>@Html.ActionLink("Edit", "Edit", Model.Groups[i])</td>
-                <td>@Html.ActionLink("X", "Delete", Model.Groups[i], new { @class = "delete" })</td>
+                <td>@Html.ActionLink("X", "Delete", "SubscriberGroups", Model.Groups[i], new { @class="delete", onclick = "return confirm('Are you sure you wish to delete this group?');" })</td>
             </tr>
 
         }
@@ -29,4 +29,5 @@
     </tbody>
     
 </table>
+
 @Html.ActionLink("Create groups", "CreateGroups", "SubscriberGroups")

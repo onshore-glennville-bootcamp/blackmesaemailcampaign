@@ -20,20 +20,24 @@ namespace BlackMesaEmailCampaign.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            return View();
+            GroupServices log = new GroupServices();
+            SubscribersFM fm = new SubscribersFM();
+            fm.Groups = log.GetAllGroups();
+            return View(fm);
         }
         //Validates Form for Adding Subscribers, then adds if validated
         [HttpPost]
-        public ActionResult Add(SubscribersFM subscriber)
+        public ActionResult Add(SubscribersFM subscriber, int groupID)
         {
             UserServices log = new UserServices();
+            GroupServices group = new GroupServices();
             if (subscriber.Email != null && log.ValidEmail(subscriber.Email))
             {
                 if (!log.IsExistingSubscriber(subscriber.Email))
                 {
                     if (!log.TooLong(subscriber.FirstName) && !log.TooLong(subscriber.LastName))
                     {
-                        log.CreateSubscribers(subscriber);
+                        log.CreateSubscribers(subscriber, groupID);
                         return RedirectToAction("ViewSubscribers");
                     }
                     else
@@ -50,7 +54,8 @@ namespace BlackMesaEmailCampaign.Controllers
             {
                 ViewBag.ErrorMessage = "Subscriber email not valid.";
             }
-            return View();
+            subscriber.Groups = group.GetAllGroups();
+            return View(subscriber);
         }
         //List Subscribers
         [HttpGet]
@@ -60,11 +65,12 @@ namespace BlackMesaEmailCampaign.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            return View();
+            GroupServices log = new GroupServices();
+            return View(log.GetAllGroups());
         }
         //Controller for adding bulk users from file
         [HttpPost]
-        public ActionResult AddFromFile(HttpPostedFileBase file)
+        public ActionResult AddFromFile(HttpPostedFileBase file, int groupID)
         {
             UserServices log = new UserServices();
             // Verify that the user selected a file
@@ -74,11 +80,12 @@ namespace BlackMesaEmailCampaign.Controllers
                 StreamReader reader = new StreamReader(file.InputStream);
                 while (!reader.EndOfStream)
                 {
-                    ViewBag.Subscribers = log.AddFromFile(reader, ext);
+                    ViewBag.Subscribers = log.AddFromFile(reader, ext, groupID);
                 }
                 reader.Close();
             }
-            return View();
+            GroupServices group = new GroupServices();
+            return View(group.GetAllGroups());
         }
         public ActionResult ViewSubscribers()
         {
