@@ -36,7 +36,7 @@
             </div>
         </div>
         <select name="groupID">
-            <option value=0>No Group Seleted</option>
+            <option value=0>No Group</option>
             @for (int i = 0; i < Model.Groups.Count; i++)
             {
                 <option value=@Model.Groups[i].ID>@Model.Groups[i].GroupName</option>

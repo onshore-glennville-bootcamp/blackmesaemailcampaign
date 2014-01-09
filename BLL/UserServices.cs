@@ -29,21 +29,21 @@ namespace BLL
         //Add subscriber to database
         public void CreateSubscribers(SubscribersFM subscriberFM, int groupID)
         {
+            SubscriberDAO dao = new SubscriberDAO();
+            GroupDAO group = new GroupDAO();
             if (!IsExistingSubscriber(subscriberFM.Email) && !TooLong(subscriberFM.Email) && ValidEmail(subscriberFM.Email))
             {
-                SubscriberDAO dao = new SubscriberDAO();
-                GroupDAO group = new GroupDAO();
                 Subscribers subscriber = new Subscribers();
                 subscriber.Email = subscriberFM.Email;
                 subscriber.FirstName = subscriberFM.FirstName;
-                subscriber.LastName = subscriberFM.LastName; 
+                subscriber.LastName = subscriberFM.LastName;
                 dao.CreateSubscriber(subscriber);
-                //0 is the groupID passed down if there is no group seleted.
-                //if subscriber was created and group was seleted then it is add to a group
-                if (groupID > 0 && dao.GetSubscriberByEmail(subscriber.Email) != null)
-                {
-                    group.AddGroupSubscribers(groupID, dao.GetSubscriberByEmail(subscriber.Email).ID);
-                }
+            }
+            //0 is the groupID passed down if there is no group seleted.
+            //if group was seleted then they are add to a group
+            if (groupID > 0 && dao.GetSubscriberByEmail(subscriberFM.Email) != null)
+            {
+                group.AddGroupSubscribers(groupID, dao.GetSubscriberByEmail(subscriberFM.Email).ID);
             }
         }
         //Add list of subscribers to database
@@ -230,7 +230,7 @@ namespace BLL
                             uploaded = "Subscribers from XML file were uploaded.";
                         }
                     }
-                    
+
                     return "Subscribers from XML file were uploaded.";
             }
             return uploaded;
