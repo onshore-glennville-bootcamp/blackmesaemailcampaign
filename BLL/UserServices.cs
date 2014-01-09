@@ -29,7 +29,7 @@ namespace BLL
         //Add subscriber to database
         public void CreateSubscribers(SubscribersFM subscriberFM, int groupID)
         {
-            if (!IsExistingSubscriber(subscriberFM.Email))
+            if (!IsExistingSubscriber(subscriberFM.Email) && !TooLong(subscriberFM.Email) && ValidEmail(subscriberFM.Email))
             {
                 SubscriberDAO dao = new SubscriberDAO();
                 GroupDAO group = new GroupDAO();
@@ -38,8 +38,9 @@ namespace BLL
                 subscriber.FirstName = subscriberFM.FirstName;
                 subscriber.LastName = subscriberFM.LastName; 
                 dao.CreateSubscriber(subscriber);
-                //0 is the groupID passed down if there is no group seleted
-                if (groupID > 0)
+                //0 is the groupID passed down if there is no group seleted.
+                //if subscriber was created and group was seleted then it is add to a group
+                if (groupID > 0 && dao.GetSubscriberByEmail(subscriber.Email) != null)
                 {
                     group.AddGroupSubscribers(groupID, dao.GetSubscriberByEmail(subscriber.Email).ID);
                 }
