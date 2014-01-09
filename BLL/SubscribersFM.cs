@@ -19,5 +19,7 @@ namespace BLL
 
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+
+        public List<GroupVM> Groups { get; set; }
     }
 }

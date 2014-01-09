@@ -100,8 +100,6 @@ namespace BlackMesaEmailCampaign.Controllers
             fm.Search = log.Search(fm.ID, search);
             return View("Edit", fm);
         }
-
-        //Need Code to Delete Group
         //Deletes Group and Redirects to ViewGroups
         public ActionResult Delete(GroupVM group)
         {
@@ -109,7 +107,6 @@ namespace BlackMesaEmailCampaign.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            //Needs code for deleting groups
             GroupServices log = new GroupServices();
             log.DeactivateGroup(group.ID);
             return RedirectToAction("ViewGroups");
