@@ -1,0 +1,33 @@
+﻿@model BLL.GroupsVM
+
+@using BLL
+
+@if (Session["ID"] == null)
+{
+    @Html.Action("Index", "Home");
+}
+
+@{
+    ViewBag.Title = "View Groups";
+}
+
+<h2>Groups</h2>
+
+<table>
+    <tbody class="list" style="height: 225px">
+        @for (int i = 0; i < Model.Groups.Count; i++)
+        {
+            <tr style="border: 1px solid #ccc;">
+                <td>@Model.Groups[i].GroupName</td>
+                <td>@Html.ActionLink("Edit", "Edit", Model.Groups[i])</td>
+                <td>@Html.ActionLink("X", "Delete", "SubscriberGroups", Model.Groups[i], new { @class="delete", onclick = "return confirm('Are you sure you wish to delete this group?');" })</td>
+            </tr>
+
+        }
+        
+
+    </tbody>
+    
+</table>
+
+@Html.ActionLink("Create groups", "CreateGroups", "SubscriberGroups")

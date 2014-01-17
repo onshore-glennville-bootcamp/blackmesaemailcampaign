@@ -87,7 +87,6 @@ namespace DAL
             };
             Write("CreateSubscriber", parameters);
         }
-
         public List<Subscribers> Search(string s)
         {
             //retrieve list of users matching search parameters
@@ -96,7 +95,6 @@ namespace DAL
                 new SqlParameter ("@search", s)
             };
             return ReadSubscribers("SearchSubscribers", parameters);
-            
         }
     }
 }

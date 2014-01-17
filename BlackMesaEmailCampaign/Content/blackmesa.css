@@ -207,4 +207,19 @@ fieldset[disabled] .btn {
 .open .dropdown-toggle.btn-default {
   background-image: none;
 }
+<<<<<<< HEAD
 >>>>>>> e76d9d56212b2352ff0aa0bde996a477d76583cf
+=======
+
+.list{
+    height: 175px; 
+    overflow-y: scroll; 
+    display: block; 
+    border: 1px solid #ccc; 
+}
+
+.delete{
+    color: red;
+    font-weight: bold;
+}
+>>>>>>> c647af71cc68a89b6637dbeb0791bfa3e17b67b2

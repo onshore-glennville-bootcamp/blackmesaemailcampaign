@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GroupDAO.cs" />
+    <Compile Include="Groups.cs" />
+    <Compile Include="SubscriberGroupsDAO.cs" />
     <Compile Include="MarketManDAO.cs" />
     <Compile Include="MarketMan.cs" />
     <Compile Include="SubscriberDAO.cs" />
